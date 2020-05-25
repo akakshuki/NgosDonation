@@ -1,0 +1,665 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProjectSem3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AboutUs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AboutName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="AboutContent" Type="varchar(max)" Nullable="false" />
+          <Property Name="AboutHide" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CateName" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Donate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DonateName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DonateContent" Type="varchar(max)" Nullable="false" />
+          <Property Name="StartDay" Type="datetime" Nullable="false" />
+          <Property Name="EndDay" Type="datetime" Nullable="false" />
+          <Property Name="DonateStatus" Type="int" Nullable="false" />
+          <Property Name="DonateHide" Type="bit" Nullable="false" />
+          <Property Name="DonateDateCreate" Type="datetime" Nullable="false" />
+          <Property Name="CateID" Type="int" Nullable="false" />
+          <Property Name="TotalMoney" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Partner">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartnerName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="PartnerImage" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="PartnerLink" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="PartnerActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ProContent" Type="varchar(max)" Nullable="false" />
+          <Property Name="ProDateCreate" Type="datetime" Nullable="false" />
+          <Property Name="ProHide" Type="bit" Nullable="false" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProgramImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProID" Type="int" Nullable="false" />
+          <Property Name="ImgFileName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ImgMain" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypeProgram">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserGender" Type="bit" Nullable="false" />
+          <Property Name="UserMail" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserDOB" Type="date" Nullable="false" />
+          <Property Name="UserPwd" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserDateCreate" Type="datetime" Nullable="false" />
+          <Property Name="UserActive" Type="bit" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="UserVolunteer" Type="bit" Nullable="false" />
+          <Property Name="MoneyDonate" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserDonate">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="DonateID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="DonateID" Type="int" Nullable="false" />
+          <Property Name="TypeCard" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Money" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DateCreate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserQuestion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="QuesContent" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="QuesDateCreate" Type="datetime" Nullable="false" />
+          <Property Name="QuesHide" Type="bit" Nullable="false" />
+          <Property Name="QuesNew" Type="bit" Nullable="false" />
+          <Property Name="AnswerContent" Type="varchar" MaxLength="500" />
+          <Property Name="AnswerDateCreate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Donate_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Donate" Type="Self.Donate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Donate">
+              <PropertyRef Name="CateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Program_TypeProgram">
+          <End Role="TypeProgram" Type="Self.TypeProgram" Multiplicity="1" />
+          <End Role="Program" Type="Self.Program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeProgram">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Program">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgramImage_Program">
+          <End Role="Program" Type="Self.Program" Multiplicity="1" />
+          <End Role="ProgramImage" Type="Self.ProgramImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProgramImage">
+              <PropertyRef Name="ProID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDonate_Donate">
+          <End Role="Donate" Type="Self.Donate" Multiplicity="1" />
+          <End Role="UserDonate" Type="Self.UserDonate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donate">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserDonate">
+              <PropertyRef Name="DonateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDonate_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserDonate" Type="Self.UserDonate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserDonate">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserQuestion_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserQuestion" Type="Self.UserQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserQuestion">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjectSem3ModelStoreContainer">
+          <EntitySet Name="AboutUs" EntityType="Self.AboutUs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Donate" EntityType="Self.Donate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Partner" EntityType="Self.Partner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Program" EntityType="Self.Program" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProgramImage" EntityType="Self.ProgramImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeProgram" EntityType="Self.TypeProgram" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDonate" EntityType="Self.UserDonate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserQuestion" EntityType="Self.UserQuestion" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Donate_Category" Association="Self.FK_Donate_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Donate" EntitySet="Donate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Program_TypeProgram" Association="Self.FK_Program_TypeProgram">
+            <End Role="TypeProgram" EntitySet="TypeProgram" />
+            <End Role="Program" EntitySet="Program" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgramImage_Program" Association="Self.FK_ProgramImage_Program">
+            <End Role="Program" EntitySet="Program" />
+            <End Role="ProgramImage" EntitySet="ProgramImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDonate_Donate" Association="Self.FK_UserDonate_Donate">
+            <End Role="Donate" EntitySet="Donate" />
+            <End Role="UserDonate" EntitySet="UserDonate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDonate_User" Association="Self.FK_UserDonate_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserDonate" EntitySet="UserDonate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserQuestion_User" Association="Self.FK_UserQuestion_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserQuestion" EntitySet="UserQuestion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjectSem3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProjectSem3Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AboutUs" EntityType="ProjectSem3Model.AboutU" />
+          <EntitySet Name="Categories" EntityType="ProjectSem3Model.Category" />
+          <EntitySet Name="Donates" EntityType="ProjectSem3Model.Donate" />
+          <EntitySet Name="Partners" EntityType="ProjectSem3Model.Partner" />
+          <EntitySet Name="Programs" EntityType="ProjectSem3Model.Program" />
+          <EntitySet Name="ProgramImages" EntityType="ProjectSem3Model.ProgramImage" />
+          <EntitySet Name="Roles" EntityType="ProjectSem3Model.Role" />
+          <EntitySet Name="TypePrograms" EntityType="ProjectSem3Model.TypeProgram" />
+          <EntitySet Name="Users" EntityType="ProjectSem3Model.User" />
+          <EntitySet Name="UserDonates" EntityType="ProjectSem3Model.UserDonate" />
+          <EntitySet Name="UserQuestions" EntityType="ProjectSem3Model.UserQuestion" />
+          <AssociationSet Name="FK_Donate_Category" Association="ProjectSem3Model.FK_Donate_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Donate" EntitySet="Donates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDonate_Donate" Association="ProjectSem3Model.FK_UserDonate_Donate">
+            <End Role="Donate" EntitySet="Donates" />
+            <End Role="UserDonate" EntitySet="UserDonates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Program_TypeProgram" Association="ProjectSem3Model.FK_Program_TypeProgram">
+            <End Role="TypeProgram" EntitySet="TypePrograms" />
+            <End Role="Program" EntitySet="Programs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgramImage_Program" Association="ProjectSem3Model.FK_ProgramImage_Program">
+            <End Role="Program" EntitySet="Programs" />
+            <End Role="ProgramImage" EntitySet="ProgramImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="ProjectSem3Model.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDonate_User" Association="ProjectSem3Model.FK_UserDonate_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserDonate" EntitySet="UserDonates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserQuestion_User" Association="ProjectSem3Model.FK_UserQuestion_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserQuestion" EntitySet="UserQuestions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AboutU">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AboutName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AboutContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AboutHide" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CateName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Donates" Relationship="ProjectSem3Model.FK_Donate_Category" FromRole="Category" ToRole="Donate" />
+        </EntityType>
+        <EntityType Name="Donate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DonateName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DonateContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StartDay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DonateStatus" Type="Int32" Nullable="false" />
+          <Property Name="DonateHide" Type="Boolean" Nullable="false" />
+          <Property Name="DonateDateCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CateID" Type="Int32" Nullable="false" />
+          <Property Name="TotalMoney" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="Category" Relationship="ProjectSem3Model.FK_Donate_Category" FromRole="Donate" ToRole="Category" />
+          <NavigationProperty Name="UserDonates" Relationship="ProjectSem3Model.FK_UserDonate_Donate" FromRole="Donate" ToRole="UserDonate" />
+        </EntityType>
+        <EntityType Name="Partner">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartnerName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PartnerImage" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerLink" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PartnerActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ProContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProDateCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProHide" Type="Boolean" Nullable="false" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TypeProgram" Relationship="ProjectSem3Model.FK_Program_TypeProgram" FromRole="Program" ToRole="TypeProgram" />
+          <NavigationProperty Name="ProgramImages" Relationship="ProjectSem3Model.FK_ProgramImage_Program" FromRole="Program" ToRole="ProgramImage" />
+        </EntityType>
+        <EntityType Name="ProgramImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProID" Type="Int32" Nullable="false" />
+          <Property Name="ImgFileName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ImgMain" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Program" Relationship="ProjectSem3Model.FK_ProgramImage_Program" FromRole="ProgramImage" ToRole="Program" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users" Relationship="ProjectSem3Model.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="TypeProgram">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Programs" Relationship="ProjectSem3Model.FK_Program_TypeProgram" FromRole="TypeProgram" ToRole="Program" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserGender" Type="Boolean" Nullable="false" />
+          <Property Name="UserMail" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserDOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserPwd" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserDateCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserActive" Type="Boolean" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="UserVolunteer" Type="Boolean" Nullable="false" />
+          <Property Name="MoneyDonate" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="Role" Relationship="ProjectSem3Model.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="UserDonates" Relationship="ProjectSem3Model.FK_UserDonate_User" FromRole="User" ToRole="UserDonate" />
+          <NavigationProperty Name="UserQuestions" Relationship="ProjectSem3Model.FK_UserQuestion_User" FromRole="User" ToRole="UserQuestion" />
+        </EntityType>
+        <EntityType Name="UserDonate">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="DonateID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DonateID" Type="Int32" Nullable="false" />
+          <Property Name="TypeCard" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Money" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Donate" Relationship="ProjectSem3Model.FK_UserDonate_Donate" FromRole="UserDonate" ToRole="Donate" />
+          <NavigationProperty Name="User" Relationship="ProjectSem3Model.FK_UserDonate_User" FromRole="UserDonate" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserQuestion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="QuesContent" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="QuesDateCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="QuesHide" Type="Boolean" Nullable="false" />
+          <Property Name="QuesNew" Type="Boolean" Nullable="false" />
+          <Property Name="AnswerContent" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AnswerDateCreate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="ProjectSem3Model.FK_UserQuestion_User" FromRole="UserQuestion" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Donate_Category">
+          <End Type="ProjectSem3Model.Category" Role="Category" Multiplicity="1" />
+          <End Type="ProjectSem3Model.Donate" Role="Donate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Donate">
+              <PropertyRef Name="CateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDonate_Donate">
+          <End Type="ProjectSem3Model.Donate" Role="Donate" Multiplicity="1" />
+          <End Type="ProjectSem3Model.UserDonate" Role="UserDonate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donate">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserDonate">
+              <PropertyRef Name="DonateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Program_TypeProgram">
+          <End Type="ProjectSem3Model.TypeProgram" Role="TypeProgram" Multiplicity="1" />
+          <End Type="ProjectSem3Model.Program" Role="Program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeProgram">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Program">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgramImage_Program">
+          <End Type="ProjectSem3Model.Program" Role="Program" Multiplicity="1" />
+          <End Type="ProjectSem3Model.ProgramImage" Role="ProgramImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProgramImage">
+              <PropertyRef Name="ProID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Type="ProjectSem3Model.Role" Role="Role" Multiplicity="1" />
+          <End Type="ProjectSem3Model.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDonate_User">
+          <End Type="ProjectSem3Model.User" Role="User" Multiplicity="1" />
+          <End Type="ProjectSem3Model.UserDonate" Role="UserDonate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserDonate">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserQuestion_User">
+          <End Type="ProjectSem3Model.User" Role="User" Multiplicity="1" />
+          <End Type="ProjectSem3Model.UserQuestion" Role="UserQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserQuestion">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjectSem3ModelStoreContainer" CdmEntityContainer="ProjectSem3Entities">
+          <EntitySetMapping Name="AboutUs">
+            <EntityTypeMapping TypeName="ProjectSem3Model.AboutU">
+              <MappingFragment StoreEntitySet="AboutUs">
+                <ScalarProperty Name="AboutHide" ColumnName="AboutHide" />
+                <ScalarProperty Name="AboutContent" ColumnName="AboutContent" />
+                <ScalarProperty Name="AboutName" ColumnName="AboutName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ProjectSem3Model.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CateName" ColumnName="CateName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Donates">
+            <EntityTypeMapping TypeName="ProjectSem3Model.Donate">
+              <MappingFragment StoreEntitySet="Donate">
+                <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+                <ScalarProperty Name="CateID" ColumnName="CateID" />
+                <ScalarProperty Name="DonateDateCreate" ColumnName="DonateDateCreate" />
+                <ScalarProperty Name="DonateHide" ColumnName="DonateHide" />
+                <ScalarProperty Name="DonateStatus" ColumnName="DonateStatus" />
+                <ScalarProperty Name="EndDay" ColumnName="EndDay" />
+                <ScalarProperty Name="StartDay" ColumnName="StartDay" />
+                <ScalarProperty Name="DonateContent" ColumnName="DonateContent" />
+                <ScalarProperty Name="DonateName" ColumnName="DonateName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Partners">
+            <EntityTypeMapping TypeName="ProjectSem3Model.Partner">
+              <MappingFragment StoreEntitySet="Partner">
+                <ScalarProperty Name="PartnerActive" ColumnName="PartnerActive" />
+                <ScalarProperty Name="PartnerLink" ColumnName="PartnerLink" />
+                <ScalarProperty Name="PartnerImage" ColumnName="PartnerImage" />
+                <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programs">
+            <EntityTypeMapping TypeName="ProjectSem3Model.Program">
+              <MappingFragment StoreEntitySet="Program">
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="ProHide" ColumnName="ProHide" />
+                <ScalarProperty Name="ProDateCreate" ColumnName="ProDateCreate" />
+                <ScalarProperty Name="ProContent" ColumnName="ProContent" />
+                <ScalarProperty Name="ProName" ColumnName="ProName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProgramImages">
+            <EntityTypeMapping TypeName="ProjectSem3Model.ProgramImage">
+              <MappingFragment StoreEntitySet="ProgramImage">
+                <ScalarProperty Name="ImgMain" ColumnName="ImgMain" />
+                <ScalarProperty Name="ImgFileName" ColumnName="ImgFileName" />
+                <ScalarProperty Name="ProID" ColumnName="ProID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="ProjectSem3Model.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypePrograms">
+            <EntityTypeMapping TypeName="ProjectSem3Model.TypeProgram">
+              <MappingFragment StoreEntitySet="TypeProgram">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ProjectSem3Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="MoneyDonate" ColumnName="MoneyDonate" />
+                <ScalarProperty Name="UserVolunteer" ColumnName="UserVolunteer" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserActive" ColumnName="UserActive" />
+                <ScalarProperty Name="UserDateCreate" ColumnName="UserDateCreate" />
+                <ScalarProperty Name="UserPwd" ColumnName="UserPwd" />
+                <ScalarProperty Name="UserDOB" ColumnName="UserDOB" />
+                <ScalarProperty Name="UserMail" ColumnName="UserMail" />
+                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDonates">
+            <EntityTypeMapping TypeName="ProjectSem3Model.UserDonate">
+              <MappingFragment StoreEntitySet="UserDonate">
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+                <ScalarProperty Name="TypeCard" ColumnName="TypeCard" />
+                <ScalarProperty Name="DonateID" ColumnName="DonateID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserQuestions">
+            <EntityTypeMapping TypeName="ProjectSem3Model.UserQuestion">
+              <MappingFragment StoreEntitySet="UserQuestion">
+                <ScalarProperty Name="AnswerDateCreate" ColumnName="AnswerDateCreate" />
+                <ScalarProperty Name="AnswerContent" ColumnName="AnswerContent" />
+                <ScalarProperty Name="QuesNew" ColumnName="QuesNew" />
+                <ScalarProperty Name="QuesHide" ColumnName="QuesHide" />
+                <ScalarProperty Name="QuesDateCreate" ColumnName="QuesDateCreate" />
+                <ScalarProperty Name="QuesContent" ColumnName="QuesContent" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

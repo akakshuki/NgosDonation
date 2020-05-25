@@ -1,3 +1,6 @@
+using System.Web.Mvc;
+using WebSite.Configurations;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(WebSite.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(WebSite.App_Start.NinjectWebCommon), "Stop")]
 
@@ -61,6 +64,8 @@ namespace WebSite.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            DependencyResolver.SetResolver(new
+                NinjectConfiguration(kernel));
         }
     }
 }
