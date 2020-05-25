@@ -1,6 +1,7 @@
 ﻿using Domain.EF;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Domain.Repository
@@ -16,14 +17,14 @@ namespace Domain.Repository
             this._dbSet = this._dbContext.Set<TEntity>();
         }
 
-        public async Task<IEnumerable<TEntity>> Get()
+        public  IEnumerable<TEntity> Get()
         {
-            return await _dbSet.ToListAsync();
+            return  _dbSet.ToList();
         }
 
-        public async Task<TEntity> GetById(int id)
+        public TEntity GetById(int id)
         {
-            return await _dbSet.FindAsync(id);
+            return _dbSet.Find(id);
         }
 
         public void CreateOnlyData(TEntity entity)

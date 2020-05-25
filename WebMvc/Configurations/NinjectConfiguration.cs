@@ -6,35 +6,34 @@ using System.Web.Mvc;
 using Domain.Repository;
 using Ninject;
 
-namespace WebSite.Configurations
+namespace WebMvc.Configurations
 {
     public class NinjectConfiguration : IDependencyResolver
     {
-        private IKernel kernel;
+        private IKernel _kernel;
 
-        public NinjectConfiguration(IKernel kernelParam)
+        public NinjectConfiguration(IKernel kernel)
         {
-            kernel = kernelParam;
+            _kernel = kernel;
             AddBindings();
-
         }
+
 
         public object GetService(Type serviceType)
         {
-            return kernel.TryGet(serviceType);
+            return _kernel.TryGet(serviceType);
         }
 
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return kernel.GetAll(serviceType);
+            return _kernel.GetAll(serviceType);
         }
-
 
         private void AddBindings()
         {
             // put bindings here
 
-            kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
+            _kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
 
         }
     }

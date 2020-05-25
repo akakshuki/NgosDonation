@@ -5,9 +5,9 @@ namespace Domain.Repository
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        Task<IEnumerable<TEntity>> Get();
+       IEnumerable<TEntity> Get();
 
-        Task<TEntity> GetById(int id);
+        TEntity GetById(int id);
 
         void CreateOnlyData(TEntity entity);
 

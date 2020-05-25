@@ -1,0 +1,13 @@
+﻿@using WebMvc.Models.ModelView
+
+@{
+    ViewBag.Title = "Index";
+
+    List<RoleDTO> data = ViewBag.data;
+}
+
+@foreach (var role in data)
+{
+    <h2>@role.RoleName</h2>
+}
+
