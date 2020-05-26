@@ -18,5 +18,6 @@ namespace Domain.EF
         public string AboutName { get; set; }
         public string AboutContent { get; set; }
         public bool AboutHide { get; set; }
+        public string AboutImage { get; set; }
     }
 }
