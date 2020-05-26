@@ -1,4 +1,5 @@
-﻿using Domain.EF;
+﻿using System;
+using Domain.EF;
 
 namespace Domain.Repository
 {
@@ -15,5 +16,6 @@ namespace Domain.Repository
         IRepository<User> UserRepository { get; }
         IRepository<UserDonate> UserDonateRepository { get; }
         IRepository<UserQuestion> UserQuestionRepository { get; }
+        bool Commit();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Domain.EF;
+﻿using System;
+using Domain.EF;
 
 namespace Domain.Repository
 {
@@ -117,6 +118,19 @@ namespace Domain.Repository
             get
             {
                 return _userQuestionBaseRepository ?? (_userQuestionBaseRepository = new BaseRepository<UserQuestion>(_dbContext));
+            }
+        }
+
+        public bool Commit()
+        {
+            try
+            {
+                return _dbContext.SaveChanges() > 0;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
     }

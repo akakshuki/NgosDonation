@@ -1,8 +1,8 @@
 ﻿using Domain.EF;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Domain.Repository
 {
@@ -13,41 +13,40 @@ namespace Domain.Repository
 
         public BaseRepository(ProjectSem3Entities dbContext)
         {
-            this._dbContext = dbContext;
-            this._dbSet = this._dbContext.Set<TEntity>();
+            _dbContext = dbContext;
+            _dbSet = _dbContext.Set<TEntity>();
         }
 
-        public  IEnumerable<TEntity> Get()
+        public virtual IEnumerable<TEntity> Get()
         {
-            return  _dbSet.ToList();
+            return _dbSet.ToList();
         }
 
-        public TEntity GetById(int id)
+        public virtual TEntity GetById(int id)
         {
             return _dbSet.Find(id);
         }
 
-        public void CreateOnlyData(TEntity entity)
+        public  virtual void CreateOnlyData(TEntity entity)
         {
             _dbSet.Add(entity);
         }
 
-        public TEntity Create(TEntity entity)
+        public virtual TEntity Create(TEntity entity)
         {
             _dbSet.Add(entity);
             return entity;
         }
 
-        public void Delete(int id)
+        public virtual void Delete(int id)
         {
             var data = _dbSet.Find(id);
             if (data != null) _dbSet.Remove(data);
         }
 
-        public void Edit(TEntity entity)
+        public virtual void Edit(TEntity entity)
         {
-            _dbSet.Attach(entity);
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.Set<TEntity>().AddOrUpdate(entity);
         }
     }
 }

@@ -17,6 +17,9 @@ namespace WebMvc.Configurations
             var mapperConfig = new AutoMapper.MapperConfiguration(config =>
             {
                 config.CreateMap<Role, RoleDTO>();
+                //category
+                config.CreateMap<Category, CategoryDTO>();
+                config.CreateMap<CategoryDTO, Category>().ForMember(id=>id.ID, name => name.MapFrom(s=>s.CateName));
             });
 
             return mapperConfig.CreateMapper();

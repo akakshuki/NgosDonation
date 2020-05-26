@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class ErrorController : Controller
     {
-        // GET: Admin/Home
-        public ActionResult Home()
+        // GET: Admin/Error
+        public ActionResult Page404()
         {
             return View();
         }
