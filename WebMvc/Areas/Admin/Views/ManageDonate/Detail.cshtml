@@ -1,0 +1,61 @@
+﻿@model WebMvc.Models.ModelView.DonateDTO
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<!-- Basic Card Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DonateDTO</h6>
+    </div>
+    <div class="card-body">
+        <div class="container">
+
+            <div class="row">
+                <p class="col-3 text font-weight-bold">@Html.DisplayNameFor(model => model.DonateName) :</p>
+                <span class="col-md-9">
+                    @Html.DisplayFor(model => model.DonateName)
+                </span>
+            </div>
+            <div class="row">
+                <p class="col-3 text font-weight-bold">  @Html.DisplayNameFor(model => model.DonateContent) :</p>
+                <span class="col-md-9">
+                    @Html.Raw(Model.DonateContent)
+                </span>
+            </div>
+            <div class="row">
+                <p class="col-3 text font-weight-bold"> @Html.DisplayNameFor(model => model.StartDay) :</p>
+                <span class="col-md-9">
+                    @Html.DisplayFor(model => model.StartDay)
+                </span>
+            </div>
+            <div class="row">
+                <p class="col-3 text font-weight-bold">@Html.DisplayNameFor(model => model.EndDay) :</p>
+                <span class="col-md-9">
+                    @Html.DisplayFor(model => model.EndDay))
+                </span>
+            </div>
+            <div class="row">
+                <p class="col-3 text font-weight-bold">  @Html.DisplayNameFor(model => model.DonateDateCreate) :</p>
+                <span class="col-md-9">
+                    @Html.DisplayFor(model => model.DonateDateCreate)
+                </span>
+            </div>
+            <div class="row">
+                <p class="col-3 text font-weight-bold">   @Html.DisplayNameFor(model => model.CateID) :</p>
+                <span class="col-md-9">
+                    @Html.DisplayFor(model => model.Category.CateName)
+                </span>
+            </div>
+            <div class="row">
+                <p class="col-3 text font-weight-bold">   @Html.DisplayNameFor(model => model.TotalMoney) :</p>
+                <span class="col-md-9">
+                    @Html.DisplayFor(model => model.TotalMoney)
+                </span>
+            </div>
+        </div>
+        <a href="@Url.Action("Index")" class="btn btn-primary">Back to list</a>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID } , new {@class="btn btn-warning"})
+    </div>
+</div>

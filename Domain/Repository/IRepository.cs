@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Domain.Repository
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-       IEnumerable<TEntity> Get();
+        IEnumerable<TEntity> Get();
 
         TEntity GetById(int id);
 

@@ -11,11 +11,12 @@
         <h6 class="m-0 font-weight-bold text-primary">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         </h6>
-        <p class="m-0 text-center text-danger alert-danger">
+        <p class="m-0  text-center ">
             @if (TempData[MessageConst.ERROR] != null)
             {
-                @TempData[MessageConst.ERROR]
-            }
+                <span class="alert text-danger alert-danger ">
+                    @TempData[MessageConst.ERROR]
+                </span>            }
         </p>
     </div>
     <div class="card-body">
@@ -34,11 +35,10 @@
             </div>
             <div class="form-group">
                 <div class="m-2 ">
-                    <input type="submit" value="Save" class="btn btn-primary"/>
+                    <input type="submit" value="Save" class="btn btn-primary" />
                 </div>
             </div>
         }
-    
     </div>
     <div class="m-3">
         <a href="@Url.Action("Index")" class="btn btn-secondary">Return list</a>

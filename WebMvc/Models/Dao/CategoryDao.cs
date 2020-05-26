@@ -23,7 +23,6 @@ namespace WebMvc.Models.Dao
                 .Map<List<Category>, List<CategoryDTO>>(_unitOfWork.CategoryRepository.Get().ToList());
         }
 
-
         public CategoryDTO GetByid(int id)
         {
             return MapperProfile.MapperConfig().Map<Category, CategoryDTO>(_unitOfWork.CategoryRepository.GetById(id));
@@ -56,8 +55,7 @@ namespace WebMvc.Models.Dao
                        .FirstOrDefault(x => x.CateName.Equals(categoryCateName)) != null;
         }
 
-
-        public bool Edit(Category category)
+        public bool Edit(CategoryDTO category)
         {
             try
             {
