@@ -20,6 +20,8 @@ namespace WebMvc.Configurations
                 //category
                 config.CreateMap<Category, CategoryDTO>();
                 config.CreateMap<CategoryDTO, Category>().ForMember(id=>id.ID, name => name.MapFrom(s=>s.CateName));
+                //typeProgram
+                config.CreateMap<TypeProgram, TypeProgramDTO>();
             });
 
             return mapperConfig.CreateMapper();

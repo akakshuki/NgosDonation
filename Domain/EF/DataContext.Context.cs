@@ -32,6 +32,7 @@ namespace Domain.EF
         public virtual DbSet<Program> Programs { get; set; }
         public virtual DbSet<ProgramImage> ProgramImages { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TypeProgram> TypePrograms { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserDonate> UserDonates { get; set; }
