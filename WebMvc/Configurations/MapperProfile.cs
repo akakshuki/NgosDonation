@@ -20,6 +20,7 @@ namespace WebMvc.Configurations
                 config.CreateMap<DonateDTO, Donate>();
                 //typeProgram
                 config.CreateMap<TypeProgram, TypeProgramDTO>();
+                //
             });
 
             return mapperConfig.CreateMapper();

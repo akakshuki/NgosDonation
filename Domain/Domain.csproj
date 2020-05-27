@@ -89,6 +89,9 @@
     <Compile Include="EF\Role.cs">
       <DependentUpon>DataContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\sysdiagram.cs">
+      <DependentUpon>DataContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\TypeProgram.cs">
       <DependentUpon>DataContext.tt</DependentUpon>
     </Compile>
@@ -121,7 +124,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="EF\DataContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
