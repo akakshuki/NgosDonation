@@ -1,5 +1,5 @@
-﻿using System;
-using Domain.EF;
+﻿using Domain.EF;
+using System;
 
 namespace Domain.Repository
 {
@@ -129,7 +129,7 @@ namespace Domain.Repository
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine("Commit error" + e);
                 throw;
             }
         }
