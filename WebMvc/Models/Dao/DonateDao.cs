@@ -17,13 +17,13 @@ namespace WebMvc.Models.Dao
         {
             _unitOfWork = unit;
         }
-
+        //get all list donate  
         public List<DonateDTO> GetAll()
         {
             var data = _unitOfWork.DonateRepository.Get();
             return MapperProfile.MapperConfig().Map<List<Donate>, List<DonateDTO>>(data.ToList());
         }
-
+        //
         public bool Create(DonateDTO donate)
         {
             try
@@ -64,8 +64,10 @@ namespace WebMvc.Models.Dao
         {
             try
             {
+                donate.DonateDateCreate = _unitOfWork.DonateRepository.GetById(donate.ID).DonateDateCreate;
                 donate.DonateStatus = donate.StartDay > DateTime.Now ? DonateStatus.UpComing : DonateStatus.OnGoing;
                 var data = MapperProfile.MapperConfig().Map<DonateDTO, Donate>(donate);
+
                 _unitOfWork.DonateRepository.Edit(data);
                 return _unitOfWork.Commit();
             }
