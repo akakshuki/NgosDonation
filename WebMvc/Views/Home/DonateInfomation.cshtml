@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Donate Infomation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<!-- contact page breadcrumns -->
+<section class="inner-banner"></section>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-padding">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index")">Home</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Donate")">Donate</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Donate Infomation: </li>
+    </ol>
+</nav>
+<!-- contact page breadcrumns -->
+<!-- services page block 1 -->
+<section class="w3l-features">
+    <div class="call-w3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12">
+                    <h4 class="section-title">Donate Name</h4>
+                    <p class="text-center">
+                        Category Name
+                    </p>
+                </div>
+            </div>
+            <div style="margin-top:20px;">
+                <h5>Total Money Donate: <b>466$</b> </h5>
+                <form action="#" method="post">
+                    <div class="forms-29-form">
+                        <div class="form-group">
+                            <label class="input__label">The amount you want to raise funds:</label>
+                            <input type="number" name="name" placeholder="5 - 1000$" max="1000" min="5" required> &nbsp;
+                            <button type="submit" class="btn btn-primary">Donate</button>
+                        </div>
+
+                    </div>
+
+                </form>
+                <p>
+                    Khi sinh ra, bản năng sinh tồn là cái mà mỗi con vật có được. Chúng có thể đứng lên bằng chính đôi chân mình có thể chạy nhảy. Tạo hoá đã ưu ái ban cho chúng những khả năng kì diệu đó. Nhưng con người thì khác khi sinh ra tiếng khóc chào đời là tất cả những gì họ có được. Tiếng oa oa cất lên chỉ đơn giản cho mọi người biết một mầm sống mới đã ra đời. Nhưng mầm sống đó sẽ ra sao? Và tương lai của nó sẽ như thế nào. Cuộc sống phía trước là của chính nó và do nó quyết định. Giống như một nhà triết học đã nói: "Mỗi con vật khi sinh ra đều là tất cả những gì nó có. Chỉ có con người là ngay từ thuở lọt lòng thì chẳng là gì cả. Nó làm thế nào thì nó sẽ trở thành như thế ấy, và nó phải làm bằng tự do của chình nó Tôi chỉ có thể trở thành kẻ do chính tôi làm ra".
+                </p>
+                <h5 class="text-primary" style="margin-top:10px;">Donate List:</h5>
+                <table class="table table-striped" id="mytable">
+                    <thead>
+                        <tr>
+                            <th>User Name</th>
+                            <th>Money</th>
+                            <th>Date Donate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>0</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- services page block 1 -->
+@section scripts{
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(function () {
+            $('#mytable').DataTable();
+        });
+    </script>
+}

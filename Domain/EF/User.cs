@@ -18,10 +18,9 @@ namespace Domain.EF
         public User()
         {
             this.UserDonates = new HashSet<UserDonate>();
-            this.UserQuestions = new HashSet<UserQuestion>();
         }
     
-        public int ID { get; set; }
+        public string ID { get; set; }
         public string UserName { get; set; }
         public bool UserGender { get; set; }
         public string UserMail { get; set; }
@@ -36,7 +35,5 @@ namespace Domain.EF
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserDonate> UserDonates { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserQuestion> UserQuestions { get; set; }
     }
 }

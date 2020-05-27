@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "Sign In";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- contact page breadcrumns -->
+<section class="inner-banner"></section>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-padding">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index")">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Sign In</li>
+    </ol>
+</nav>
+<!-- contact page breadcrumns -->
+<!-- services page block 1 -->
+
+<div id="signInPage" class="col-md-4">
+    <!--Login-->
+    <div id="login" style="display:block;">
+        <h4 class="text-center section-title">Sign In</h4>
+        <div style="margin-top:20px;">
+            <form action="/" method="post">
+                <div>
+                    <input type="email" name="" placeholder="Your Email" class="contact-input"
+                           required maxlength="100" />
+                </div>
+                <div>
+                    <input type="password" name="" id="w3lSender" placeholder="Your password"
+                           class="contact-input" required maxlength="20" />
+                    <input type="checkbox" onclick="myFunction()">&nbsp; Show Password
+                    <a href="#" class="float-right" data-toggle="modal" data-target="#exampleModal">Forgot Password?</a>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-primary btn-full-width">
+                <div class="text-center" style="margin-top:15px;">
+                    <span>Don't have account? <a href="#register" class="text-primary changePage"><b>Signup Now!</b> </a> </span>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!--Login-->
+    <!--Register-->
+    <div id="register" style="display:none">
+        <h4 class="text-center section-title">Sign Up</h4>
+        <div style="margin-top:20px;">
+            <form action="/" method="post">
+                <div>
+                    <label>Your Name:</label>
+                    <input type="text" name="" class="contact-input" required maxlength="200" />
+                </div>
+                <div>
+                    <label>Your Email:</label>
+                    <input type="email" name="" class="contact-input" required maxlength="100" />
+                </div>
+                <div id="gender">
+                    <label>Gender:</label>
+                    <input type="hidden" value="True" id="genderValue" />
+                    <div class="custom-control custom-radio custom-control-inline" style="margin-left:15px;">
+                        <input type="radio" class="custom-control-input" id="customRadio1" name="example1" value="True" checked>
+                        <label class="custom-control-label" for="customRadio1">Male</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio2" name="example2" value="False">
+                        <label class="custom-control-label" for="customRadio2">Female</label>
+                    </div>
+                </div>
+                <div>
+                    <label>Your Birthday:</label>
+                    <input type="date" name="" class="contact-input" required />
+                </div>
+                <div>
+                    <label>Your Password:</label>
+                    <input type="password" name="" id="password" class="contact-input" pattern=".{6,}" title="Six or more characters" maxlength="20" required />
+                    <input type="checkbox" id="showPwd">&nbsp; Show Password
+                </div>
+                <input type="submit" value="Submit" class="btn btn-primary btn-full-width">
+                <div class="text-center" style="margin-top:15px;">
+                    <span>You have an account? <a href="#login" class="text-primary changePage"><b>Signin Now!</b> </a> </span>
+                </div>
+                <b>Note: <i class="text-danger">Please enter your correct email so we can send you the necessary information. Email will not be changed after account registration.</i> </b>
+            </form>
+
+        </div>
+    </div>
+    <!--Register-->
+</div>
+<!-- services page block 1 -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Forgot Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span>We will send email for you to create a new password.</span>
+                <form action="/" method="post">
+                    <div>
+                        <input type="email" name="" placeholder="Your Email" class="contact-input"
+                               required />
+                        <input type="submit" name="name" class="btn btn-primary" value="Submit" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $('.changePage').click(function () {
+                var href = $(this).attr("href");
+                $('#signInPage>div').hide();
+                $(href).show();
+            });
+            $('#gender>div>input').click(function () {
+                var value = $(this).val();
+                $('#gender>div>input').prop("checked", false);
+                $(this).prop("checked", true);
+                $('#genderValue').val(value);
+            });
+            $('#showPwd').click(function () {
+                var x = document.getElementById("password");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            })
+        });
+        function myFunction() {
+            var x = document.getElementById("w3lSender");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+
+}
