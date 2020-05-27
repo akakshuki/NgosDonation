@@ -2238,6 +2238,9 @@
     <Content Include="Areas\Admin\Views\ManageDonate\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\ManageDonate\Edit.cshtml" />
     <Content Include="Scripts\ckeditor\ckeditor.pack" />
+    <Content Include="Areas\Admin\Views\TypeProgram\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\TypeProgram\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TypeProgram\Index.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
