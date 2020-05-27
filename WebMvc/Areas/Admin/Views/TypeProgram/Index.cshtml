@@ -1,0 +1,56 @@
+﻿@model List<WebMvc.Models.ModelView.TypeProgramDTO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section scripts
+{
+
+    <!-- Page level plugins -->
+    <script src="~/Access/Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Access/Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/Access/Admin/js/demo/datatables-demo.js"></script>
+}
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Type Program Management</h1>
+<p class="mb-4"> </p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><a href="@Url.Action("Create")" class="btn btn-success">Create new </a></h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Type Name</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Type Name</th>
+                        <th>#</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var data in Model)
+                    {
+                        <tr data-id="@data.ID">
+                            <td>@data.TypeName</td>
+                            <td>
+                                <a href="@Url.Action("Edit" ,"TypeProgram" , new {id= data.ID})" class="btn btn-warning">Edit</a>
+                                <a href="@Url.Action("Delete", "TypeProgram",new {id = data.ID})" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
