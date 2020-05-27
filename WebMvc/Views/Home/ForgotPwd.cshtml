@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Create New Passoword";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- contact page breadcrumns -->
+<section class="inner-banner"></section>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-padding">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index")">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Create New Password</li>
+    </ol>
+</nav>
+<!-- contact page breadcrumns -->
+<div id="signInPage" class="col-md-4">
+    <h4 class="text-center section-title">Create new password</h4>
+    <div style="margin-top:20px;">
+        <form action="/" method="post">
+            <div>
+                <input type="text" name="" placeholder="Secret Code" class="contact-input"
+                       required maxlength="100" />
+            </div>
+            <div>
+                <input type="password" name="" id="w3lSender" placeholder="New Password" class="contact-input" required maxlength="20" />
+            </div>
+            <input type="submit" value="Submit" class="btn btn-primary btn-full-width">
+        </form>
+
+    </div>
+</div>

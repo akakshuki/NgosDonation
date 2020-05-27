@@ -1,12 +1,216 @@
-﻿@using WebMvc.Models.ModelView
-
-@{
-    ViewBag.Title = "Index";
-
-    List<RoleDTO> data = ViewBag.data;
+﻿@{
+    ViewBag.Title = "Home Page";
 }
 
-@foreach (var role in data)
-{
-    <h2>@role.RoleName</h2>
-}
+<!-- banner section -->
+<section id="home" class="banner">
+    <div id="banner-bg-effect" class="banner-effect"></div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7 col-md-12 col-sm-12 order-lg-first mt-lg-0 mt-4">
+                <h1 class="mb-4 title">
+                    The more <strong>you help orthers</strong>, the more <strong>they</strong> will want to <strong>help you.</strong>
+                </h1>
+            </div>
+            <div class="col-lg-5 col-md-12 col-sm-12 order-first text-lg-left text-center">
+                <div>
+                    <img src="@Url.Content("~/content/")assets/images/bg-2.jpg" alt="" class="rounded-circle img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //banner section -->
+<!-- home page service grids -->
+<section id="services" class="bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12">
+                <h4 class="section-title">About Us</h4>
+            </div>
+        </div>
+        <div class="row mt-lg-5">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="box-wrap">
+                    <div class="icon">
+                        <span class="fa fa-dollar"></span>
+                    </div>
+                    <h4><a href="@Url.Action("Donate")">Donate</a></h4>
+                    <p>We organize several fundraisers for people from different backgrounds.</p>
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="box-wrap">
+                    <div class="icon">
+                        <span class="fa fa-industry"></span>
+                    </div>
+                    <h4><a href="@Url.Action("Donate")">Programs</a></h4>
+                    <p>Events and programs we organize to help the lives of people in need.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="box-wrap">
+                    <div class="icon">
+                        <span class="fa fa-lightbulb-o"></span>
+                    </div>
+                    <h4><a href="@Url.Action("Partner")">Partner</a></h4>
+                    <p> The NGO was established with the help of many companies contributions.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- //home page service grids -->
+<!-- stats section -->
+<section id="stats" class="stats">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 margin-md-60">
+                <h2 class="left-title">Thanks Everyone!</h2>
+                <p class="white">
+                    Thank you for your interest and trust in our organization. The money you have sent us will be given to those in need.
+                </p>
+                <a href="@Url.Action("Donate")" class="btn btn-primary btn-style">Donate Now</a>
+            </div>
+            <div class="col-lg-7 mt-lg-0 mt-5">
+                <div class="d-sm-flex justify-content-lg-around justify-content-between counter-main">
+                    <div class="counter">
+                        <div class="icon">
+                            <span class="fa fa-dollar"></span>
+                        </div>
+                        <p class="value">385</p>
+                        <p class="title white">Fundraising money</p>
+                    </div>
+                    <div class="counter">
+                        <div class="icon">
+                            <span class="fa fa-user-circle"></span>
+                        </div>
+                        <p class="value">260</p>
+                        <p class="title white">Participants</p>
+                    </div>
+                    <div class="counter">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //stats section -->
+<!-- testimonials section -->
+<section id="slider" class="testimonials">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12">
+                <h4 class="section-title">NGO's Members</h4>
+            </div>
+        </div>
+        <div class="large-12 columns mt-5">
+            <div class="owl-carousel owl-theme">
+                <div class="item">
+                    <div class="w3l-customers-7">
+                        <div class="customers_sur">
+                            <div class="customers-left_sur">
+                                <div class="customers_grid">
+                                    <div class="custo-img-res">
+                                        <img src="@Url.Content("~/content/")assets/images/aptech.jpg" alt=" " style="border-radius: 50%;">
+                                    </div>
+                                    <p>The system has helped us a lot since we founded the NGO.</p>
+                                    <div class="customers-bottom_sur">
+                                        <div class="custo_grid">
+                                            <h5>Aptech Education</h5>
+                                            <span>Help System</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="w3l-customers-7">
+                        <div class="customers_sur">
+                            <div class="customers-left_sur">
+                                <div class="customers_grid">
+                                    <div class="custo-img-res">
+                                        <img src="@Url.Content("~/content/")assets/images/testi2.jpg" alt=" " class="img-fluid">
+                                    </div>
+                                    <p>He is the founder of the NGO with the desire can help many difficulties.</p>
+                                    <div class="customers-bottom_sur">
+                                        <div class="custo_grid">
+                                            <h5>Mr. Khiem Bui</h5>
+                                            <span>CEO</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="w3l-customers-7">
+                        <div class="customers_sur">
+                            <div class="customers-left_sur">
+                                <div class="customers_grid">
+                                    <div class="custo-img-res">
+                                        <img src="@Url.Content("~/content/")assets/images//testi3.jpg" alt=" " class="img-fluid">
+                                    </div>
+                                    <p>She is the support for the establishment of NGOs.</p>
+                                    <div class="customers-bottom_sur">
+                                        <div class="custo_grid">
+                                            <h5>Ms. Thanh Dang</h5>
+                                            <span>Manager</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="w3l-customers-7">
+                        <div class="customers_sur">
+                            <div class="customers-left_sur">
+                                <div class="customers_grid">
+                                    <div class="custo-img-res">
+                                        <img src="@Url.Content("~/content/")assets/images//testi4.jpg" alt=" " class="img-fluid">
+                                    </div>
+                                    <p>He works for an NGO when it was founded.</p>
+                                    <div class="customers-bottom_sur">
+                                        <div class="custo_grid">
+                                            <h5>Mr. Hoang Le</h5>
+                                            <span>Leader's Donate</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="w3l-customers-7">
+                        <div class="customers_sur">
+                            <div class="customers-left_sur">
+                                <div class="customers_grid">
+                                    <div class="custo-img-res">
+                                        <img src="@Url.Content("~/content/")assets/images//testi5.jpg" alt=" " class="img-fluid">
+                                    </div>
+                                    <p>He has been working hard since the establishment of the NGO.</p>
+                                    <div class="customers-bottom_sur">
+                                        <div class="custo_grid">
+                                            <h5>Mr. An Le</h5>
+                                            <span>Leader's Program</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--//testimonials section -->

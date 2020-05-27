@@ -1,0 +1,103 @@
+/* CSS Document */
+
+#content {
+    min-height:70vh;
+}
+.dropdown:hover > div {
+    display: block;
+}
+
+#services p {
+    margin-bottom: 15px;
+}
+
+#slider p {
+    margin-top: 15px;
+}
+#blog>div>div:last-child>div{
+    margin-bottom:15px;
+}
+#partImg{
+    margin-top:20px;
+}
+#partImg img {
+    width: 22em;
+    margin-right: 20px;
+}
+/*slide show*/
+#slideImg {
+    border-radius: 5px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 6px 0 rgba(0,0,0,.15);
+    margin: 10px 0 6px;
+    padding: 8px 0;
+    position: relative;
+    overflow: hidden;
+    height: 150px;
+}
+
+#owl-wrapper {
+    left: 0px;
+    margin-left: 14px;
+    opacity: 1;
+    position: relative;
+    width: 1540px;
+}
+
+    #owl-wrapper img {
+        width: 130px;
+        height: 120px;
+        margin-right: 10px;
+        margin-top: 15px;
+        position: absolute;
+        transition: all linear 200ms;
+        cursor:pointer;
+    }
+
+#btnPrev i {
+    left: 0px;
+    content: none;
+}
+
+#btnNext i {
+    right: -1px;
+    content: none;
+}
+
+#btnPrev i, #btnNext i {
+    position: absolute;
+    top: 40%;
+    font-size: 30px;
+    cursor: pointer;
+    color: #989292;
+}
+#imgBig {
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    height: 450px;
+    overflow: hidden;
+    line-height: 450px;
+    margin-bottom: 10px;
+}
+
+    #imgBig img {
+        width: 100%;
+        vertical-align: middle;
+    }
+/*slide show*/
+#signInPage {
+    min-height: 40vh;
+    background-color: antiquewhite;
+    padding: 20px;
+    margin: 30px auto 30px auto;
+    border-radius:10px;
+}
+.btn-full-width{
+    width:100%;
+    margin-top:10px;
+}
+#personal {
+    margin: 30px auto 30px auto;
+}

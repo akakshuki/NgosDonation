@@ -1,0 +1,151 @@
+﻿
+@{
+    ViewBag.Title = "Program Infomation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- contact page breadcrumns -->
+<section class="inner-banner"></section>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-padding">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index")">Home</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Program")">Program</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Program Infomation: </li>
+    </ol>
+</nav>
+<!-- contact page breadcrumns -->
+<!-- services page block 1 -->
+<section class="w3l-features">
+    <div class="call-w3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12">
+                    <h4 class="section-title">Donate Name</h4>
+                    <p class="text-center">
+                        Category Name
+                    </p>
+                </div>
+            </div>
+            <div style="margin-top:20px;margin-bottom:20px;">
+                <!--Content-->
+                <p>
+                    Khi sinh ra, bản năng sinh tồn là cái mà mỗi con vật có được. Chúng có thể đứng lên bằng chính đôi chân mình có thể chạy nhảy. Tạo hoá đã ưu ái ban cho chúng những khả năng kì diệu đó. Nhưng con người thì khác khi sinh ra tiếng khóc chào đời là tất cả những gì họ có được. Tiếng oa oa cất lên chỉ đơn giản cho mọi người biết một mầm sống mới đã ra đời. Nhưng mầm sống đó sẽ ra sao? Và tương lai của nó sẽ như thế nào. Cuộc sống phía trước là của chính nó và do nó quyết định. Giống như một nhà triết học đã nói: "Mỗi con vật khi sinh ra đều là tất cả những gì nó có. Chỉ có con người là ngay từ thuở lọt lòng thì chẳng là gì cả. Nó làm thế nào thì nó sẽ trở thành như thế ấy, và nó phải làm bằng tự do của chình nó Tôi chỉ có thể trở thành kẻ do chính tôi làm ra".
+                </p>
+                <!--Content-->
+                <!--Date Create yyyy/MM/dd-->
+                <span class="fa fa-calendar mr-2"></span>Jan 16, 2020
+                <!--Date Create yyyy/MM/dd-->
+            </div>
+            <h4>Some pictures of the program:</h4>
+            <div>
+                <div id="imgBig">
+                    <!--image Main-->
+                    <img id="imgLarge" src="~/Content/assets/images/about1.png" alt="" style="height:450px;">
+                    <!--image Main-->
+                </div>
+                <div id="slideImg">
+                    <div id="owl-wrapper">
+                        <!--image Main-->
+                        <img class="imgItem" src="~/Content/assets/images/about1.png" alt="">
+                        <!--image Main-->
+                        <!--list Image except image main-->
+                        <img class="imgItem" src="~/Content/assets/images/aptech.jpg" alt="">
+                        <img class="imgItem" src="~/Content/assets/images/about1.png" alt="">
+                        <img class="imgItem" src="~/Content/assets/images/about.png" alt="">
+                        <img class="imgItem" src="~/Content/assets/images/about.png" alt="">
+                        <img class="imgItem" src="~/Content/assets/images/about1.png" alt="">
+                        <img class="imgItem" src="~/Content/assets/images/about.png" alt="">
+                    </div>
+                    <div id="controlImg">
+                        <div id="btnPrev">
+                            <i class="fa fa-angle-left"></i>
+                        </div>
+                        <div id="btnNext">
+                            <i class="fa fa-angle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- services page block 1 -->
+@section scripts{
+    <script>
+        $(function () {
+            $('#owl-wrapper img').click(function () {
+                var srcImgClick = $(this).attr("src");
+                $('#imgLarge').attr("src", srcImgClick);
+            })
+        });
+        window.onload = function () {
+            zoomImg();
+            var itv = window.setInterval(function () { nextImages() }, 6000);
+
+            var next = document.getElementById("btnNext");
+            next.addEventListener("click", function () {
+                nextImages();
+            });
+            var prev = document.getElementById("btnPrev");
+            prev.addEventListener("click", function () {
+                prevImages();
+            });
+        };
+        function zoomImg() {
+            var lsImg = document.getElementsByClassName("imgItem");
+            for (i = 0; i < lsImg.length; i++) {
+                lsImg[i].style.left = (i * lsImg[i].offsetWidth) + 10 + "px";
+                lsImg[i].onclick = function (event) {
+                    var currImg = event.target;
+                    var srcCrrImg = currImg.src;
+                    var largeImg = document.getElementById("imgLarge");
+                    largeImg.src = srcCrrImg;
+                }
+            }
+        }
+        function nextImage(item) {
+            item.style.left = parseInt(item.style.left) + item.offsetWidth + 10 + "px";
+            var largeImg = document.getElementById("imgLarge");
+            largeImg.src = item.src;
+        }
+        function nextImages() {
+            var lsImg = document.getElementsByClassName("imgItem");
+            for (i = 0; i < lsImg.length; i++) {
+                nextImage(lsImg[i]);
+            }
+            createImgFirst();
+        }
+        function prevImage(item) {
+            item.style.left = parseInt(item.style.left) - item.offsetWidth - 10 + "px";
+            var largeImg = document.getElementById("imgLarge");
+            largeImg.src = item.src;
+        }
+        function prevImages() {
+            var lsImg = document.getElementsByClassName("imgItem");
+            for (i = 0; i < lsImg.length; i++) {
+                prevImage(lsImg[i]);
+            }
+            createImgLast();
+        }
+        function createImgFirst() {
+            var containImg = document.getElementById("owl-wrapper");
+            var lastImg = document.getElementById("owl-wrapper").lastElementChild;
+            var newImg = document.createElement("img");
+            newImg.className = "imgItem";
+            newImg.src = lastImg.src;
+            newImg.style.left = parseInt(containImg.firstElementChild.style.left) - containImg.firstElementChild.offsetWidth - 10 + "px";
+            lastImg.remove();
+            containImg.insertBefore(newImg, containImg.firstElementChild);
+        }
+        function createImgLast() {
+            var containImg = document.getElementById("owl-wrapper");
+            var fisrtImg = document.getElementById("owl-wrapper").firstElementChild;
+            var newImg = document.createElement("img");
+            newImg.className = "imgItem";
+            newImg.src = fisrtImg.src;
+            newImg.style.left = parseInt(containImg.lastElementChild.style.left) + containImg.lastElementChild.offsetWidth + 10 + "px";
+            fisrtImg.remove();
+            containImg.appendChild(newImg);
+        }
+    </script>
+}

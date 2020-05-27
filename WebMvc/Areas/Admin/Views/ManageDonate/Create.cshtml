@@ -22,14 +22,8 @@
             uiLibrary: 'bootstrap4'
         });
     </script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script>CKEDITOR.replace("editor")</script>
 }
 <h1 class="h3 text-gray-800">Create new Donate</h1>
 
@@ -43,11 +37,11 @@
             {
                 <span class="alert text-danger alert-danger ">
                     @TempData[MessageConst.ERROR]
-                </span>            }
+                </span>}
         </p>
     </div>
     <div class="card-body">
-        @using (Html.BeginForm("Create","ManageDonate",FormMethod.Post))
+        @using (Html.BeginForm("Create", "ManageDonate", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
 
@@ -64,7 +58,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.DonateContent, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <textarea id="editor" style="min-height: 16rem" class="form-control"  name="DonateContent"></textarea>
+                        <textarea id="editor" style="min-height: 16rem" class="form-control" name="DonateContent"></textarea>
                         @Html.ValidationMessageFor(model => model.DonateContent, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -72,7 +66,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.StartDay, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input name="StartDay" type="text" value="@DateTime.Now.ToString("dd/MM/yyyy")"  class=" datePicker1 form-control fa-calendar" />
+                        <input name="StartDay" type="text" value="@DateTime.Now.ToString("dd/MM/yyyy")" class=" datePicker1 form-control fa-calendar" />
                         @Html.ValidationMessageFor(model => model.StartDay, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -80,7 +74,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.EndDay, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input name="EndDay" type="text" value="@DateTime.Now.ToString("dd/MM/yyyy")"  class=" datePicker2 form-control fa-calendar" />
+                        <input name="EndDay" type="text" value="@DateTime.Now.ToString("dd/MM/yyyy")" class=" datePicker2 form-control fa-calendar" />
                         @Html.ValidationMessageFor(model => model.EndDay, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -88,10 +82,10 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.CateID, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(x=>x.CateID, new SelectList(list,
-                       "ID", "CateName"), "Select a Category" ,new
+                        @Html.DropDownListFor(x => x.CateID, new SelectList(list,
+                       "ID", "CateName"), "Select a Category", new
                        {
-                           @class="form-control"
+                           @class = "form-control"
                        })
                         @Html.ValidationMessageFor(model => model.CateID, "", new { @class = "text-danger" })
                     </div>
