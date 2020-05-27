@@ -2289,14 +2289,7 @@
     <Content Include="Areas\Admin\Views\Program\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Program\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Program\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\ManageDonate\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\ManageDonate\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\ManageDonate\Detail.cshtml" />
-    <Content Include="Areas\Admin\Views\ManageDonate\Edit.cshtml" />
     <Content Include="Scripts\ckeditor\ckeditor.pack" />
-    <Content Include="Areas\Admin\Views\TypeProgram\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\TypeProgram\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\TypeProgram\Index.cshtml" />
     <Content Include="Content\assets\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\assets\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\assets\fonts\fontawesome-webfont.woff" />
