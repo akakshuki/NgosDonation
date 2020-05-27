@@ -18,6 +18,9 @@ namespace WebMvc.Configurations
                 //donate
                 config.CreateMap<Donate, DonateDTO>();
                 config.CreateMap<DonateDTO, Donate>();
+                config.CreateMap<CategoryDTO, Category>().ForMember(id=>id.ID, name => name.MapFrom(s=>s.CateName));
+                //typeProgram
+                config.CreateMap<TypeProgram, TypeProgramDTO>();
             });
 
             return mapperConfig.CreateMapper();
