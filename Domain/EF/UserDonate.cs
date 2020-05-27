@@ -15,7 +15,7 @@ namespace Domain.EF
     public partial class UserDonate
     {
         public int ID { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public int DonateID { get; set; }
         public string TypeCard { get; set; }
         public decimal Money { get; set; }

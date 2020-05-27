@@ -12,8 +12,8 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AboutName" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="AboutContent" Type="varchar(max)" Nullable="false" />
+          <Property Name="AboutImage" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="AboutHide" Type="bit" Nullable="false" />
-          <Property Name="AboutImage" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -74,16 +74,6 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="TypeProgram">
           <Key>
             <PropertyRef Name="ID" />
@@ -95,7 +85,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="UserGender" Type="bit" Nullable="false" />
           <Property Name="UserMail" Type="varchar" MaxLength="100" Nullable="false" />
@@ -114,7 +104,7 @@
             <PropertyRef Name="DonateID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="DonateID" Type="int" Nullable="false" />
           <Property Name="TypeCard" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Money" Type="decimal" Precision="18" Scale="0" Nullable="false" />
@@ -125,10 +115,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="QuesContent" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserMail" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="QuesContent" Type="varchar" MaxLength="5000" Nullable="false" />
           <Property Name="QuesDateCreate" Type="datetime" Nullable="false" />
-          <Property Name="QuesHide" Type="bit" Nullable="false" />
           <Property Name="QuesNew" Type="bit" Nullable="false" />
           <Property Name="AnswerContent" Type="varchar" MaxLength="500" />
           <Property Name="AnswerDateCreate" Type="datetime" />
@@ -205,18 +196,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserQuestion_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserQuestion" Type="Self.UserQuestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserQuestion">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ProjectSem3ModelStoreContainer">
           <EntitySet Name="AboutUs" EntityType="Self.AboutUs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -225,7 +204,6 @@
           <EntitySet Name="Program" EntityType="Self.Program" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProgramImage" EntityType="Self.ProgramImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeProgram" EntityType="Self.TypeProgram" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDonate" EntityType="Self.UserDonate" Schema="dbo" store:Type="Tables" />
@@ -254,10 +232,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserDonate" EntitySet="UserDonate" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserQuestion_User" Association="Self.FK_UserQuestion_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserQuestion" EntitySet="UserQuestion" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -271,8 +245,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AboutName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AboutContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AboutImage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AboutHide" Type="Boolean" Nullable="false" />
-          <Property Name="AboutImage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -340,16 +314,6 @@
           <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="TypeProgram">
           <Key>
             <PropertyRef Name="ID" />
@@ -362,7 +326,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserGender" Type="Boolean" Nullable="false" />
           <Property Name="UserMail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
@@ -375,7 +339,6 @@
           <Property Name="MoneyDonate" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="UserDonates" Relationship="Self.FK_UserDonate_User" FromRole="User" ToRole="UserDonate" />
-          <NavigationProperty Name="UserQuestions" Relationship="Self.FK_UserQuestion_User" FromRole="User" ToRole="UserQuestion" />
         </EntityType>
         <EntityType Name="UserDonate">
           <Key>
@@ -384,7 +347,7 @@
             <PropertyRef Name="DonateID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DonateID" Type="Int32" Nullable="false" />
           <Property Name="TypeCard" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Money" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
@@ -397,14 +360,14 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="QuesContent" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserMail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QuesContent" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="QuesDateCreate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="QuesHide" Type="Boolean" Nullable="false" />
           <Property Name="QuesNew" Type="Boolean" Nullable="false" />
           <Property Name="AnswerContent" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="AnswerDateCreate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserQuestion_User" FromRole="UserQuestion" ToRole="User" />
         </EntityType>
         <Association Name="FK_Donate_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -478,18 +441,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserQuestion_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserQuestion" Type="Self.UserQuestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserQuestion">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ProjectSem3Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AboutUs" EntityType="Self.AboutU" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
@@ -498,7 +449,6 @@
           <EntitySet Name="Programs" EntityType="Self.Program" />
           <EntitySet Name="ProgramImages" EntityType="Self.ProgramImage" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TypePrograms" EntityType="Self.TypeProgram" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="UserDonates" EntityType="Self.UserDonate" />
@@ -527,10 +477,6 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserDonate" EntitySet="UserDonates" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserQuestion_User" Association="Self.FK_UserQuestion_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserQuestion" EntitySet="UserQuestions" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -544,8 +490,8 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="AboutName" ColumnName="AboutName" />
                 <ScalarProperty Name="AboutContent" ColumnName="AboutContent" />
-                <ScalarProperty Name="AboutHide" ColumnName="AboutHide" />
                 <ScalarProperty Name="AboutImage" ColumnName="AboutImage" />
+                <ScalarProperty Name="AboutHide" ColumnName="AboutHide" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -614,17 +560,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ProjectSem3Model.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TypePrograms">
             <EntityTypeMapping TypeName="ProjectSem3Model.TypeProgram">
               <MappingFragment StoreEntitySet="TypeProgram">
@@ -666,10 +601,11 @@
             <EntityTypeMapping TypeName="ProjectSem3Model.UserQuestion">
               <MappingFragment StoreEntitySet="UserQuestion">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserMail" ColumnName="UserMail" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="QuesContent" ColumnName="QuesContent" />
                 <ScalarProperty Name="QuesDateCreate" ColumnName="QuesDateCreate" />
-                <ScalarProperty Name="QuesHide" ColumnName="QuesHide" />
                 <ScalarProperty Name="QuesNew" ColumnName="QuesNew" />
                 <ScalarProperty Name="AnswerContent" ColumnName="AnswerContent" />
                 <ScalarProperty Name="AnswerDateCreate" ColumnName="AnswerDateCreate" />

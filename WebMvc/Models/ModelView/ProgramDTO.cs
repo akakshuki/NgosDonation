@@ -16,6 +16,6 @@ namespace WebMvc.Models.ModelView
 
         public virtual TypeProgramDTO TypeProgramDto { get; set; }
        
-        public virtual ICollection<ProgramImageDTO> ProgramImageDtos { get; set; }
+        public virtual ICollection<ProgramImageDTO> ProgramImages { get; set; }
     }
 }
