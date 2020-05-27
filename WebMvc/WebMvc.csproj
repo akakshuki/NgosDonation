@@ -156,6 +156,7 @@
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageDonateController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TypeProgramController.cs" />
     <Compile Include="Common\MessageConst.cs" />
     <Compile Include="Configurations\MapperProfile.cs" />
     <Compile Include="Configurations\NinjectConfiguration.cs" />
@@ -165,13 +166,18 @@
     </Compile>
     <Compile Include="Models\Dao\CategoryDao.cs" />
     <Compile Include="Models\Dao\DonateDao.cs" />
+    <Compile Include="Models\Dao\ProgramDao.cs" />
     <Compile Include="Models\Dao\RoleDao.cs" />
     <Compile Include="Models\Enum\DonateStatus.cs" />
+    <Compile Include="Models\Dao\TypeProgramDao.cs" />
     <Compile Include="Models\ModelView\CategoryDTO.cs" />
     <Compile Include="Models\ModelView\DonateDTO.cs" />
+    <Compile Include="Models\ModelView\ProgramDTO.cs" />
+    <Compile Include="Models\ModelView\ProgramImageDTO.cs" />
     <Compile Include="Models\ModelView\RoleDTO.cs" />
     <Compile Include="Models\ModelView\UserDoanteDTO.cs" />
     <Compile Include="Models\ModelView\UserDTO.cs" />
+    <Compile Include="Models\ModelView\TypeProgramDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
