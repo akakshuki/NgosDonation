@@ -29,7 +29,6 @@ namespace WebMvc.Models.ModelView
         [Display(Name = "Category"), Required(ErrorMessage = "Must have a category")]
         public int CateID { get; set; }
 
-        [Required(ErrorMessage = "this is required"), Display(Name = "Total Money")]
         public decimal TotalMoney { get; set; }
 
         public CategoryDTO Category { get; set; }

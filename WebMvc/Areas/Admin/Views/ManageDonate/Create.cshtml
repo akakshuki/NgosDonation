@@ -66,7 +66,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.StartDay, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input name="StartDay" type="text" value="@DateTime.Now.ToString("dd/MM/yyyy")" class=" datePicker1 form-control fa-calendar" />
+                        <input name="StartDay" type="text" value="@DateTime.Now" class=" datePicker1 form-control fa-calendar" />
                         @Html.ValidationMessageFor(model => model.StartDay, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.EndDay, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input name="EndDay" type="text" value="@DateTime.Now.ToString("dd/MM/yyyy")" class=" datePicker2 form-control fa-calendar" />
+                        <input name="EndDay" type="text" value="@DateTime.Now.AddDays(1)" class=" datePicker2 form-control fa-calendar" />
                         @Html.ValidationMessageFor(model => model.EndDay, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -90,15 +90,6 @@
                         @Html.ValidationMessageFor(model => model.CateID, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TotalMoney, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.TotalMoney, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.TotalMoney, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Create" class="btn btn-primary" />
