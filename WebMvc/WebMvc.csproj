@@ -153,11 +153,14 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AboutUsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageDonateController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PartnerController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProgramController.cs" />
     <Compile Include="Areas\Admin\Controllers\TypeProgramController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserQuestionController.cs" />
     <Compile Include="Common\MessageConst.cs" />
     <Compile Include="Configurations\MapperProfile.cs" />
     <Compile Include="Configurations\NinjectConfiguration.cs" />
@@ -165,20 +168,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Dao\AboutUsDao.cs" />
     <Compile Include="Models\Dao\CategoryDao.cs" />
     <Compile Include="Models\Dao\DonateDao.cs" />
+    <Compile Include="Models\Dao\PartnerDao.cs" />
     <Compile Include="Models\Dao\ProgramDao.cs" />
+    <Compile Include="Models\Dao\ProgramImageDao.cs" />
     <Compile Include="Models\Dao\RoleDao.cs" />
+    <Compile Include="Models\Dao\UserQuestionDao.cs" />
     <Compile Include="Models\Enum\DonateStatus.cs" />
     <Compile Include="Models\Dao\TypeProgramDao.cs" />
+    <Compile Include="Models\ModelView\AboutUsDTO.cs" />
     <Compile Include="Models\ModelView\CategoryDTO.cs" />
     <Compile Include="Models\ModelView\DonateDTO.cs" />
+    <Compile Include="Models\ModelView\PartnerDTO.cs" />
     <Compile Include="Models\ModelView\ProgramDTO.cs" />
     <Compile Include="Models\ModelView\ProgramImageDTO.cs" />
     <Compile Include="Models\ModelView\RoleDTO.cs" />
     <Compile Include="Models\ModelView\UserDoanteDTO.cs" />
     <Compile Include="Models\ModelView\UserDTO.cs" />
     <Compile Include="Models\ModelView\TypeProgramDTO.cs" />
+    <Compile Include="Models\ModelView\UserQuestionDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2295,6 +2305,17 @@
     <Content Include="Content\assets\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\assets\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\assets\fonts\FontAwesome.otf" />
+    <Content Include="Areas\Admin\Views\Program\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\AboutUs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AboutUs\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\AboutUs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\AboutUs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Partner\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Partner\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Partner\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Program\IndexPi.cshtml" />
+    <Content Include="Areas\Admin\Views\UserQuestion\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UserQuestion\QuesDetail.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -2413,6 +2434,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="FileImage\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

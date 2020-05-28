@@ -61,7 +61,8 @@ namespace WebMvc.Models.Dao
         {
             try
             {
-                var data = MapperProfile.MapperConfig().Map<Program>(program);
+                program.ProDateCreate = _unitOfWork.ProgramRepository.GetById(program.ID).ProDateCreate;
+                var data = MapperProfile.MapperConfig().Map<ProgramDTO, Program>(program);
                 _unitOfWork.ProgramRepository.Edit(data);
                 return _unitOfWork.Commit();
             }
@@ -70,6 +71,15 @@ namespace WebMvc.Models.Dao
                 Console.WriteLine(e);
                 return false;
             }
+        }
+
+        public bool HideDonate(int id)
+        {
+            var data = _unitOfWork.ProgramRepository.GetById(id);
+            if (data == null) return false;
+            data.ProHide = !data.ProHide;
+            _unitOfWork.ProgramRepository.Edit(data);
+            return _unitOfWork.Commit();
         }
     }
 }
