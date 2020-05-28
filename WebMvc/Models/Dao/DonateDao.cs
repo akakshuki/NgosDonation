@@ -104,5 +104,12 @@ namespace WebMvc.Models.Dao
             _unitOfWork.DonateRepository.Edit(data);
             return _unitOfWork.Commit();
         }
+
+        public List<DonateDTO> GetAllDonateNoHide()
+        {
+            var data = _unitOfWork.DonateRepository.Get().Where(x=>!x.DonateHide);
+            CheckStatusForDonate();
+            return MapperProfile.MapperConfig().Map<List<Donate>, List<DonateDTO>>(data.ToList());
+        }
     }
 }

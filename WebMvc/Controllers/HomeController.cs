@@ -1,4 +1,5 @@
-﻿using Domain.Repository;
+﻿using System.Linq;
+using Domain.Repository;
 using System.Web.Mvc;
 using WebMvc.Models.Dao;
 
@@ -20,6 +21,8 @@ namespace WebMvc.Controllers
         //Donate Page
         public ActionResult Donate()
         {
+            ViewBag.ListDonate = new DonateDao(_provider).GetAllDonateNoHide();
+
             return View();
         }
         //Donate Infomation Page
@@ -63,7 +66,7 @@ namespace WebMvc.Controllers
             return View();
         }
         //Personal Infomation
-        public ActionResult PersonalInfo()
+        public ActionResult PersonalInfo(string email)
         {
             return View();
         }

@@ -30,4 +30,13 @@ namespace WebMvc.Models.ModelView
 
         public List<UserDonateDTO> UserDonates { get; set; }
     }
+
+    public class UserLogin
+    {
+      
+        public string UserName { get; set; }
+        public string UserMail { get; set; }
+        public int RoleId { get; set; }
+
+    }
 }

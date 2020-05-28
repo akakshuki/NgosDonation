@@ -1,7 +1,10 @@
-﻿
+﻿@using WebMvc.Models.Enum
+@using WebMvc.Models.ModelView
+
 @{
     ViewBag.Title = "Donate";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<DonateDTO> donateList = ViewBag.ListDonate;
 }
 <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 <!-- contact page breadcrumns -->
@@ -32,18 +35,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>0</td>
-                        <td>
-                            <form>
-                                <input type="number" name="name" value="" min="5" max="1000" />
-                                <input type="submit" value="Donate" class="btn btn-default" />
-                            </form>
-                        </td>
-                        <td><a href="#">Detail</a></td>
-                    </tr>
+                   @foreach (var data in donateList.Where(x=>x.DonateStatus == DonateStatus.UpComing))
+                   {
+                       <tr>
+                           <td>@data.DonateName</td>
+                           <td>@data.Category.CateName</td>
+                           <td>@data.TotalMoney</td>
+                           <td>
+                               <form>
+                                   <input type="number" name="name" value="" min="5" max="1000" />
+                                   <input type="submit" value="Donate" class="btn btn-default" />
+                               </form>
+                           </td>
+                           <td><a href="@Url.Action("DonateInfomation","Home", new {id = data.ID})">Detail</a></td>
+                       </tr>
+                   }
 
                 </tbody>
             </table>
@@ -61,18 +67,22 @@
                     </tr>
                 </thead>
                 <tbody>
+                @foreach (var data in donateList.Where(x=>x.DonateStatus == DonateStatus.OnGoing))
+                {
                     <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>0</td>
+                        <td>@data.DonateName</td>
+                        <td>@data.Category.CateName</td>
+                        <td>@data.TotalMoney</td>
                         <td>
                             <form>
                                 <input type="number" name="name" value="" min="5" max="1000" />
                                 <input type="submit" value="Donate" class="btn btn-default" />
                             </form>
                         </td>
-                        <td><a href="#">Detail</a></td>
+                        <td><a href="@Url.Action("DonateInfomation","Home", new {id = data.ID})">Detail</a></td>
                     </tr>
+                }
+
 
                 </tbody>
             </table>
@@ -89,13 +99,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                @foreach (var data in donateList.Where(x=>x.DonateStatus == DonateStatus.Ended))
+                {
                     <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>0</td>
-                        <td><a href="#">Detail</a></td>
+                        <td>@data.DonateName</td>
+                        <td>@data.Category.CateName</td>
+                        <td>@data.TotalMoney</td>
+                        
+                        <td><a href="@Url.Action("DonateInfomation","Home", new {id = data.ID})">Detail</a></td>
                     </tr>
-
+                }
                 </tbody>
             </table>
         </div>
