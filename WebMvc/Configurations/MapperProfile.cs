@@ -27,6 +27,9 @@ namespace WebMvc.Configurations
                 //user
                 config.CreateMap<UserDTO, User>();
                 config.CreateMap<User, UserDTO>();
+                //program 
+                config.CreateMap<Program, ProgramDTO>();
+                config.CreateMap<ProgramDTO, Program>();
             });
 
             return mapperConfig.CreateMapper();

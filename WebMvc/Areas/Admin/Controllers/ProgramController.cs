@@ -28,12 +28,14 @@ namespace WebMvc.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.TypeProgram = new TypeProgramDao(_unitOfWork).GetAll(); 
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(ProgramDTO program)
         {
+            ViewBag.TypeProgram = new TypeProgramDao(_unitOfWork).GetAll();
             if (!ModelState.IsValid) return View();
 
             if (new ProgramDao(_unitOfWork).CheckHaveExist(program.ProName))
@@ -42,6 +44,8 @@ namespace WebMvc.Areas.Admin.Controllers
                 return View();
             }
 
+            program.ProDateCreate = DateTime.Now;
+            program.ProHide = false;
             if (new ProgramDao(_unitOfWork).Create(program))
                 return RedirectToAction("Index");
 
