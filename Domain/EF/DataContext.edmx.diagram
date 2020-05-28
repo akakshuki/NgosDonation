@@ -12,10 +12,11 @@
         <EntityTypeShape EntityType="ProjectSem3Model.Program" Width="1.5" PointX="8" PointY="5" />
         <EntityTypeShape EntityType="ProjectSem3Model.ProgramImage" Width="1.5" PointX="10.25" PointY="5.25" />
         <EntityTypeShape EntityType="ProjectSem3Model.Role" Width="1.5" PointX="0.75" PointY="6.875" />
+        <EntityTypeShape EntityType="ProjectSem3Model.sysdiagram" Width="1.5" PointX="7.75" PointY="8.75" />
         <EntityTypeShape EntityType="ProjectSem3Model.TypeProgram" Width="1.5" PointX="5.75" PointY="5.375" />
         <EntityTypeShape EntityType="ProjectSem3Model.User" Width="1.5" PointX="3" PointY="5.875" />
         <EntityTypeShape EntityType="ProjectSem3Model.UserDonate" Width="1.5" PointX="5.25" PointY="1.375" />
-        <EntityTypeShape EntityType="ProjectSem3Model.UserQuestion" Width="1.5" PointX="7.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ProjectSem3Model.UserQuestion" Width="1.5" PointX="9.75" PointY="0.75" />
         <AssociationConnector Association="ProjectSem3Model.FK_Donate_Category" />
         <AssociationConnector Association="ProjectSem3Model.FK_UserDonate_Donate" />
         <AssociationConnector Association="ProjectSem3Model.FK_Program_TypeProgram" />

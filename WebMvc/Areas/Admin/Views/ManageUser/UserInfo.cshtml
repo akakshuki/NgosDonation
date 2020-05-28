@@ -1,7 +1,7 @@
-﻿@model WebMvc.Models.ModelView.DonateDTO
+﻿@model WebMvc.Models.ModelView.UserDTO
 
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = Model.UserName;
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 @section scripts
@@ -25,76 +25,105 @@
     <div class="card-body">
         <div class="container">
             <div class="row">
-                <p class="col-3 text font-weight-bold">@Html.DisplayNameFor(model => model.DonateName) :</p>
+                <p class="col-3 text font-weight-bold">@Html.DisplayNameFor(model => model.UserName) :</p>
                 <span class="col-md-9">
-                    @Html.DisplayFor(model => model.DonateName)
+                    @Html.DisplayFor(model => model.UserName)
                 </span>
             </div>
             <div class="row">
-                <p class="col-3 text font-weight-bold">  @Html.DisplayNameFor(model => model.DonateContent) :</p>
+                <p class="col-3 text font-weight-bold">@Html.DisplayNameFor(model => model.UserMail) :</p>
                 <span class="col-md-9">
-                    @Html.Raw(Model.DonateContent)
+                    @Html.DisplayFor(model => model.UserMail)
                 </span>
             </div>
             <div class="row">
-                <p class="col-3 text font-weight-bold"> @Html.DisplayNameFor(model => model.StartDay) :</p>
+                <p class="col-3 text font-weight-bold">  @Html.DisplayNameFor(model => model.UserDOB) :</p>
                 <span class="col-md-9">
-                    @Html.DisplayFor(model => model.StartDay)
+                 @Model.UserDOB.ToString("dd-MM-yyyy")
                 </span>
             </div>
             <div class="row">
-                <p class="col-3 text font-weight-bold">@Html.DisplayNameFor(model => model.EndDay) :</p>
+                <p class="col-3 text font-weight-bold"> @Html.DisplayNameFor(model => model.UserGender) :</p>
+                <p class="col-md-9">
+                    @if (Model.UserGender)
+                    {
+                        <span>Male</span>
+                    }
+                    else
+                    {
+                        <span>Female</span>
+
+                    }
+                </p>
+            </div>
+            <div class="row">
+                <p class="col-3 text font-weight-bold">@Html.DisplayNameFor(model => model.UserDateCreate) :</p>
                 <span class="col-md-9">
-                    @Html.DisplayFor(model => model.EndDay))
+                  @Model.UserDateCreate.ToString("dd-MM-yyyy")
                 </span>
             </div>
             <div class="row">
-                <p class="col-3 text font-weight-bold">  @Html.DisplayNameFor(model => model.DonateDateCreate) :</p>
+                <p class="col-3 text font-weight-bold">  @Html.DisplayNameFor(model => model.UserActive) :</p>
+                <p class="col-md-9">
+                    @if (Model.UserGender)
+                    {
+                        <span>
+                            Active
+                        </span>
+                    }
+                    else
+                    {
+                        <span>Female</span>
+                    }
+                </p>
+            </div>
+            <div class="row">
+                <p class="col-3 text font-weight-bold">   @Html.DisplayNameFor(model => model.UserVolunteer) :</p>
                 <span class="col-md-9">
-                    @Html.DisplayFor(model => model.DonateDateCreate)
+                    @if (Model.UserGender)
+                    {
+                        <span>
+                            Yes
+                        </span>
+                    }
+                    else
+                    {
+                        <span>No</span>
+                    }
                 </span>
             </div>
             <div class="row">
-                <p class="col-3 text font-weight-bold">   @Html.DisplayNameFor(model => model.CateID) :</p>
+                <p class="col-3 text font-weight-bold">   @Html.DisplayNameFor(model => model.MoneyDonate) :</p>
                 <span class="col-md-9">
-                    @Html.DisplayFor(model => model.Category.CateName)
-                </span>
-            </div>
-            <div class="row">
-                <p class="col-3 text font-weight-bold">   @Html.DisplayNameFor(model => model.TotalMoney) :</p>
-                <span class="col-md-9">
-                    @Html.DisplayFor(model => model.TotalMoney)
+                    @Model.MoneyDonate.ToString("C0")
                 </span>
             </div>
             <a href="@Url.Action("Index")" class="btn btn-primary">Back to list</a>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning" })
-        </div>
-
+         </div>
     </div>
     <div class="container my-5">
-        <h2>List Hiden Donate</h2>
+        <h2>List Donate</h2>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
                 <thead>
-                    <tr>
-
-                        <th>Date Create</th>
-                        <th>Money</th>
-                        <th>Type Card</th>
-                        <th>User Name</th>
-                        <th>Email</th>
-                        <th>Gender</th>
-                        <th>#</th>
-                    </tr>
+                <tr>
+                    <th>Date Create</th>
+                    <th>Money</th>
+                    <th>Type Card</th>
+                    <th>Donate Name</th>
+                    <th>Donate Category</th>
+                    <th>Status</th>
+                    <th>#</th>
+                </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>Date Create</th>
                         <th>Money</th>
                         <th>Type Card</th>
-                        <th>User Name</th>
-                        <th>Email</th>
-                        <th>Gender</th>
+                        <th>Donate Name</th>
+                        <th>Donate Category</th>
+                        <th>Status</th>
                         <th>#</th>
                     </tr>
                 </tfoot>
@@ -106,27 +135,19 @@
                                 @data.DateCreate
                             </td>
                             <td>
-                                @data.Money
+                                @data.Money.ToString("C0")
                             </td>
                             <td>
                                 @data.TypeCard
                             </td>
                             <td>
-                                @data.User.UserName
+                                @data.Donate.DonateName
                             </td>
                             <td>
-                                @data.User.UserMail
+                                @data.Donate.Category.CateName
                             </td>
                             <td>
-                                @if (@data.User.UserGender)
-                                {
-                                    <p>Male</p>
-                                }
-                                else
-                                {
-                                    <p>Female</p>
-                                }
-
+                               @data.Donate.DonateStatus
                             </td>
                             <td>
                                 @*<a href="@Url.Action("Detail", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
