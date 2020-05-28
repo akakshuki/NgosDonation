@@ -34,4 +34,14 @@ namespace WebMvc.Models.ModelView
         public CategoryDTO Category { get; set; }
         public List<UserDonateDTO> UserDonates { get; set; }
     }
+
+
+    public class OrderData
+    {
+        public string  UserName { get; set; }
+        public string UserMail { get; set; }
+        public int DonateId { get; set; }
+        public string DonateName{ get; set; }
+        public int Money { get; set; }
+    }
 }

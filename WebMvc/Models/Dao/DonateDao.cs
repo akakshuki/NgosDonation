@@ -64,7 +64,7 @@ namespace WebMvc.Models.Dao
             }
         }
 
-        public object GetById(int id)
+        public DonateDTO GetById(int id)
         {
             var data = MapperProfile.MapperConfig().Map<DonateDTO>(_unitOfWork.DonateRepository.GetById(id));
             data.UserDonates = MapperProfile.MapperConfig()
@@ -110,6 +110,23 @@ namespace WebMvc.Models.Dao
             var data = _unitOfWork.DonateRepository.Get().Where(x=>!x.DonateHide);
             CheckStatusForDonate();
             return MapperProfile.MapperConfig().Map<List<Donate>, List<DonateDTO>>(data.ToList());
+        }
+
+        public void AddUserDonate(OrderData order)
+        {
+            _unitOfWork.UserDonateRepository.Create(new UserDonate()
+            {
+                DonateID = order.DonateId,
+                UserID = _unitOfWork.UserRepository.Get().SingleOrDefault(x=>x.UserMail == order.UserMail).ID,
+                Money = order.Money,
+                TypeCard = "VISA",
+                DateCreate = DateTime.Now
+            });
+
+            var donateInfo= _unitOfWork.DonateRepository.GetById(order.DonateId);
+            donateInfo.TotalMoney += order.Money;
+            _unitOfWork.DonateRepository.Edit(donateInfo);
+            _unitOfWork.Commit();
         }
     }
 }

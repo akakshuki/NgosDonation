@@ -6,5 +6,7 @@
         public const  string SUCCESS = "SUCCESS";
 
         public const string USER_LOGIN = "USER_LOGIN";
+
+        public const string USER_SESSION = "USER_SESSION";
     }
 }

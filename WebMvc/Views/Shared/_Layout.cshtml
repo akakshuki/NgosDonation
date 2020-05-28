@@ -60,27 +60,24 @@
                        }
                        else
                        {
+                           
+
                            if (cookie.Value !=null)
                            {
                                var user =  JsonConvert.DeserializeObject<UserLogin>(cookie.Value) ;
-                           <li class="nav-item">
-                               <a href="@Url.Action("PersonalInfo","Home", new {email = user.UserMail})" class="btn btn-primary btn-style">Welcome @user.UserName</a>
-                           </li>
-                           <li class="nav-item">
-                               <a href="@Url.Action("SingOut","Login")" class="btn btn-primary btn-style">Sign Out</a>
-                           </li>
+                               <li class="nav-item dropdown pr-5">
+                                   <a class="nav-link dropdown-toggle" href="@Url.Action("PersonalInfo","Home", new {email = user.UserMail})" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                       @user.UserName
+                                   </a>
+                                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                       <a class="dropdown-item" href="@Url.Action("PersonalInfo","Home", new {email = user.UserMail})">Personal Infomation</a>
+                                       <a class="dropdown-item" href="@Url.Action("SingOut", "Login")">Logout</a>
+                                   </div>
+                               </li>
                            }
                        }
                    }
-                    @*<li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                User Name
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="@Url.Action("PersonalInfo")">Personal Infomation</a>
-                                <a class="dropdown-item" href="#">Log out</a>
-                            </div>
-                        </li>*@
+                    
                 </ul>
             </div>
         </nav>

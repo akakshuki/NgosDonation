@@ -9,7 +9,7 @@ using WebMvc.Models.Dao;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    public class DashboardController : BaseController
+    public class DashboardController :Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
