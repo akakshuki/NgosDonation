@@ -38,14 +38,18 @@ namespace WebMvc.Areas.Admin.Controllers
         public ActionResult Create(DonateDTO donate)
         {
             ViewBag.Categories = new CategoryDao(_unitOfWork).GetAll();
-            if (donate.EndDay < donate.StartDay || donate.StartDay < DateTime.Now)
+            if (donate.EndDay < donate.StartDay || donate.StartDay >= DateTime.Now)
             {
                 TempData[MessageConst.ERROR] = "Date time is invalid";
                 return View();
             }
             if (!ModelState.IsValid) return View();
 
-            if (new DonateDao(_unitOfWork).Create(donate)) return RedirectToAction("Index");
+            if (new DonateDao(_unitOfWork).Create(donate))
+            {
+                TempData[MessageConst.SUCCESS] = "Success !";
+                return RedirectToAction("Index");
+            }
 
             return View();
         }
@@ -71,7 +75,11 @@ namespace WebMvc.Areas.Admin.Controllers
             }
             if (!ModelState.IsValid) return View(data);
 
-            if (new DonateDao(_unitOfWork).Edit(donate)) return RedirectToAction("Index");
+            if (new DonateDao(_unitOfWork).Edit(donate))
+            {
+                TempData[MessageConst.SUCCESS] = "Success !";
+                return RedirectToAction("Index");
+            }
             TempData[MessageConst.ERROR] = "Edit Failed";
             return View(data);
         }
@@ -79,6 +87,7 @@ namespace WebMvc.Areas.Admin.Controllers
         public ActionResult HideDonate(int id)
         {
             new DonateDao(_unitOfWork).HideDonate(id);
+            TempData[MessageConst.SUCCESS] = "Success !";
             return RedirectToAction("Index");
         }
     }

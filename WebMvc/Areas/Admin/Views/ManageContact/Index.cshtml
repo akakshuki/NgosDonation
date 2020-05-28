@@ -1,0 +1,76 @@
+﻿@model WebMvc.Models.ModelView.ContactDTO
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Category Management</h1>
+<p class="mb-4"> </p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><a href="@Url.Action("Create")" class="btn btn-success">Create new </a></h6>
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-md-6">
+                <section class="panel">
+                    <header class="panel-heading">
+                        Insert Contact
+                    </header>
+                    <form action="@Url.Action("InsertContact")" method="POST" enctype="multipart/form-data">
+                        <div class="panel-body">
+                            <div class="position-center">
+                                <div class="form-group">
+                                    <label for="">Email:</label>
+                                    <input type="email" class="form-control" name="Email" maxlength="200" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Phone number:</label>
+                                    <input type="text" class="form-control" name="PhoneNumber" maxlength="20" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Address:</label><br />
+                                    <textarea name="Address" required style="width:100%;"></textarea>
+                                </div>
+                                <button type="submit" name="submit" class="btn btn-info">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <div class="col-md-6">
+                @if (Model != null)
+                {
+                    <section class="panel">
+                        <header class="panel-heading">
+                            Data Contact
+                        </header>
+                        <div class="panel-body">
+                            <div class="position-center">
+                                <div class="form-group">
+                                    <label for="">Email:</label>
+                                    <span>@Model.Email</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Phone number:</label>
+                                    <span>@Model.PhoneNumber</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Address:</label>
+                                    <span>@Model.Address</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                }
+            </div>
+        </div>
+        </div>
+</div>
+
+

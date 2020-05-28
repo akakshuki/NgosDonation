@@ -1,0 +1,256 @@
+﻿@model List<WebMvc.Models.ModelView.UserDTO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section scripts
+{
+    <!-- Page level plugins -->
+    <script src="~/Access/Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Access/Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/Access/Admin/js/demo/datatables-demo.js"></script>
+}
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">User Management</h1>
+<p class="mb-4"> </p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        @*<h6 class="m-0 font-weight-bold text-primary"><a href="@Url.Action("Create")" class="btn btn-success">Create new </a></h6>*@
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Unactive</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">volunteer</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h2>List Active Accounts</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Birth Date</th>
+                                <th>Date join</th>
+                                <th>Gender</th>
+                                <th>Total Money</th>
+                                <th>#</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Birth Date</th>
+                                    <th>Date join</th>
+                                    <th>Gender</th>
+                                    <th>Total Money</th>
+                                    <th>#</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @foreach (var data in Model.Where(x=>x.UserActive && !x.UserVolunteer))
+                                {
+                                    <tr>
+                                        <td>@data.UserName</td>
+                                        <td>
+                                            @data.UserMail
+                                        </td>
+                                        <td>
+                                            @data.UserDOB
+                                        </td>
+                                        <td>
+                                            @data.UserDateCreate
+                                        </td>
+                                        <td>
+                                          @if (data.UserGender)
+                                          {
+                                              <p>
+                                                  male
+                                              </p>
+                                          }
+                                          else
+                                          {
+                                              <p>female</p>
+                                          }
+                                        </td>
+                                        <td>
+                                            @data.MoneyDonate
+                                        </td>
+                                        
+                                        <td>
+                                            <a href="@Url.Action("UserInfo", "ManageUser", new {id = data.ID})" class="btn btn-primary m-1">Info</a>
+                                            <a href="@Url.Action("UnOrActiveAccount", "ManageUser", new {id = data.ID})" class="btn btn-warning m-1">Lock</a>
+                                            <a href="@Url.Action("SetOrUnsetVolunteerAccount", "ManageUser", new {id = data.ID})" class="btn btn-success m-1">Set volunteer</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <h2>Lis nonactive Accounts</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Birth Date</th>
+                                    <th>Date join</th>
+                                    <th>Gender</th>
+                                    <th>Total Money</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Birth Date</th>
+                                    <th>Date join</th>
+                                    <th>Gender</th>
+                                    <th>Total Money</th>
+                                    <th>#</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @foreach (var data in Model.Where(x => !x.UserActive && !x.UserVolunteer))
+                                {
+                                    <tr>
+                                        <td>@data.UserName</td>
+                                        <td>
+                                            @data.UserMail
+                                        </td>
+                                        <td>
+                                            @data.UserDOB
+                                        </td>
+                                        <td>
+                                            @data.UserDateCreate
+                                        </td>
+                                        <td>
+                                            @if (data.UserGender)
+                                            {
+                                                <p>
+                                                    male
+                                                </p>
+                                            }
+                                            else
+                                            {
+                                                <p>female</p>
+                                            }
+                                        </td>
+                                        <td>
+                                            @data.MoneyDonate
+                                        </td>
+
+                                        <td>
+                                            <a href="@Url.Action("UserInfo", "ManageUser", new {id = data.ID})" class="btn btn-primary m-1">Info</a>
+                                            <a href="@Url.Action("UnOrActiveAccount", "ManageUser", new {id = data.ID})" class="btn btn-warning m-1">Unlock</a>
+                                         </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <h2>List volunteer account</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Birth Date</th>
+                                    <th>Date join</th>
+                                    <th>Gender</th>
+                                    <th>Status</th>
+                                    <th>Total Money</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Birth Date</th>
+                                    <th>Date join</th>
+                                    <th>Gender</th>
+                                    <th>Status</th>
+                                    <th>Total Money</th>
+                                    <th>#</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @foreach (var data in Model.Where(x =>x.UserVolunteer))
+                                {
+                                    <tr>
+                                        <td>@data.UserName</td>
+                                        <td>
+                                            @data.UserMail
+                                        </td>
+                                        <td>
+                                            @data.UserDOB
+                                        </td>
+                                        <td>
+                                            @data.UserDateCreate
+                                        </td>
+                                        <td>
+                                            @if (data.UserGender)
+                                            {
+                                                <p>
+                                                    male
+                                                </p>
+                                            }
+                                            else
+                                            {
+                                                <p>female</p>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (data.UserActive)
+                                            {
+                                            <p>
+                                                Active
+                                            </p>
+                                            }
+                                            else
+                                            {
+                                                <p>Nonactive</p>
+                                            }
+                                        </td>
+                                        <td>
+                                            @data.MoneyDonate
+                                        </td>
+
+                                        <td>
+                                            <a href="@Url.Action("UserInfo", "ManageUser", new {id = data.ID})" class="btn btn-primary m-1">Info</a>
+                                            <a href="@Url.Action("UnOrActiveAccount", "ManageUser", new {id = data.ID})" class="btn btn-warning m-1">Lock</a>
+                                            <a href="@Url.Action("SetOrUnsetVolunteerAccount", "ManageUser", new {id = data.ID})" class="btn btn-success m-1">Unset volunteer</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

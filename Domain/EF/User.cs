@@ -20,7 +20,7 @@ namespace Domain.EF
             this.UserDonates = new HashSet<UserDonate>();
         }
     
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string UserName { get; set; }
         public bool UserGender { get; set; }
         public string UserMail { get; set; }

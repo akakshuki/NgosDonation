@@ -20,6 +20,13 @@ namespace WebMvc.Configurations
                 config.CreateMap<DonateDTO, Donate>();
                 //typeProgram
                 config.CreateMap<TypeProgram, TypeProgramDTO>();
+
+                //userDonate
+                config.CreateMap<UserDonate, UserDonateDTO>();
+                config.CreateMap<UserDonateDTO, UserDonate>();
+                //user
+                config.CreateMap<UserDTO, User>();
+                config.CreateMap<User, UserDTO>();
                 //program 
                 config.CreateMap<Program, ProgramDTO>();
                 config.CreateMap<ProgramDTO, Program>();
