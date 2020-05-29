@@ -118,7 +118,7 @@
           <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="UserMail" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="QuesContent" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="QuesContent" Type="varchar" MaxLength="5000" Nullable="false" />
           <Property Name="QuesDateCreate" Type="datetime" Nullable="false" />
           <Property Name="QuesNew" Type="bit" Nullable="false" />
           <Property Name="AnswerContent" Type="varchar" MaxLength="500" />
@@ -184,7 +184,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserDonate_User1">
+        <Association Name="FK_UserDonate_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="UserDonate" Type="Self.UserDonate" Multiplicity="*" />
           <ReferentialConstraint>
@@ -228,7 +228,7 @@
             <End Role="Donate" EntitySet="Donate" />
             <End Role="UserDonate" EntitySet="UserDonate" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserDonate_User1" Association="Self.FK_UserDonate_User1">
+          <AssociationSet Name="FK_UserDonate_User" Association="Self.FK_UserDonate_User">
             <End Role="User" EntitySet="User" />
             <End Role="UserDonate" EntitySet="UserDonate" />
           </AssociationSet>
@@ -338,7 +338,7 @@
           <Property Name="UserVolunteer" Type="Boolean" Nullable="false" />
           <Property Name="MoneyDonate" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
-          <NavigationProperty Name="UserDonates" Relationship="Self.FK_UserDonate_User1" FromRole="User" ToRole="UserDonate" />
+          <NavigationProperty Name="UserDonates" Relationship="Self.FK_UserDonate_User" FromRole="User" ToRole="UserDonate" />
         </EntityType>
         <EntityType Name="UserDonate">
           <Key>
@@ -353,7 +353,7 @@
           <Property Name="Money" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Donate" Relationship="Self.FK_UserDonate_Donate" FromRole="UserDonate" ToRole="Donate" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserDonate_User1" FromRole="UserDonate" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserDonate_User" FromRole="UserDonate" ToRole="User" />
         </EntityType>
         <EntityType Name="UserQuestion">
           <Key>
@@ -363,7 +363,7 @@
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserMail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="QuesContent" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QuesContent" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="QuesDateCreate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="QuesNew" Type="Boolean" Nullable="false" />
           <Property Name="AnswerContent" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
@@ -429,7 +429,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserDonate_User1">
+        <Association Name="FK_UserDonate_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="UserDonate" Type="Self.UserDonate" Multiplicity="*" />
           <ReferentialConstraint>
@@ -473,7 +473,7 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserDonate_User1" Association="Self.FK_UserDonate_User1">
+          <AssociationSet Name="FK_UserDonate_User" Association="Self.FK_UserDonate_User">
             <End Role="User" EntitySet="Users" />
             <End Role="UserDonate" EntitySet="UserDonates" />
           </AssociationSet>

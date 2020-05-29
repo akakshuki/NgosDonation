@@ -24,7 +24,7 @@ namespace WebMvc.Areas.Admin.Controllers
         // GET: Admin/Program
         public ActionResult Index()
         {
-            var data = new ProgramDao(_unitOfWork).GetAll();
+            var data = new ProgramDao(_unitOfWork).GetAll().OrderBy(s=>s.ProDateCreate).ToList();
             return View(data);
         }
 
@@ -115,10 +115,10 @@ namespace WebMvc.Areas.Admin.Controllers
             {
                 programImage.ImgFileName = "default.png";
             }
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid) return RedirectToAction("IndexPi", "Program", new { id = programImage.ProID });
             if (new ProgramImageDao(_unitOfWork).Create(programImage))
-                return RedirectToAction("Index");
-            return View();
+                return RedirectToAction("IndexPi","Program", new {id = programImage.ProID });
+            return RedirectToAction("IndexPi", "Program", new { id = programImage.ProID });
         }
 
         public ActionResult CheckMain(int id, int idPro)

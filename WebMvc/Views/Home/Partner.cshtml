@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Our Partners";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<WebMvc.Models.ModelView.PartnerDTO> lsPartner = ViewBag.lsPartner;
 }
 
 <!-- contact page breadcrumns -->
@@ -26,9 +27,10 @@
                 </div>
             </div>
             <div class="row" id="partImg">
-                <a href="#"><img src="~/Content/assets/images/about.png" class="img-thumbnail" alt="Cinque Terre"></a>
-                <a href="#"><img src="~/Content/assets/images/about.png" class="img-thumbnail" alt="Cinque Terre"></a>
-                <a href="#"><img src="~/Content/assets/images/about.png" class="img-thumbnail" alt="Cinque Terre"></a>
+                @foreach (var item in lsPartner)
+                {
+                    <a href="@item.PartnerLink"><img src="~/FileImage/@item.PartnerImage" class="img-thumbnail" alt="Cinque Terre"></a>
+                }
             </div>
 
         </div>

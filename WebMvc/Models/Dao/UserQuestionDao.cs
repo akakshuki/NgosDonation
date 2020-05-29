@@ -42,5 +42,20 @@ namespace WebMvc.Models.Dao
             _unitOfWork.UserQuestionRepository.Edit(data);
             return _unitOfWork.Commit();
         }
+
+        public bool Create(UserQuestionDTO userQuestion)
+        {
+            try
+            {
+                var data = MapperProfile.MapperConfig().Map<UserQuestionDTO, UserQuestion>(userQuestion);
+                _unitOfWork.UserQuestionRepository.Create(data);
+                return _unitOfWork.Commit();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3725cb81a597475e9a16f9fac9c97024" Name="Diagram1">
+      <Diagram DiagramId="926d673aa0cb47678630c155111d5c43" Name="Diagram1">
         <EntityTypeShape EntityType="ProjectSem3Model.AboutU" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectSem3Model.Category" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectSem3Model.Donate" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
@@ -21,7 +21,7 @@
         <AssociationConnector Association="ProjectSem3Model.FK_Program_TypeProgram" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectSem3Model.FK_ProgramImage_Program" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectSem3Model.FK_User_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectSem3Model.FK_UserDonate_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectSem3Model.FK_UserDonate_User" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
