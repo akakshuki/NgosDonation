@@ -44,13 +44,16 @@ namespace WebMvc.Controllers
         //Our Programmes Page
         public ActionResult Program()
         {
-            var ls = new ProgramImageDao(_provider).GetAll().Where(w => w.Program.ProHide == false && w.ImgMain==true);
+            var ls = new ProgramImageDao(_provider).GetAll().Where(w => w.Program.ProHide == false && w.ImgMain==true).ToList();
             return View(ls);
         }
         //Program Infomation Page
         public ActionResult ProgramInfomation(int id)
         {
-            return View();
+            var model = new ProgramDao(_provider).GetByid(id);
+            ViewBag.imgMain = new ProgramImageDao(_provider).GetImgMain(id);
+            ViewBag.ls = new ProgramImageDao(_provider).GetAll().Where(w => w.ProID == id).ToList();
+            return View(model);
         }
         //About Us Page
         public ActionResult About()

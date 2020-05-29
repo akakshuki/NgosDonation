@@ -27,7 +27,7 @@
             @foreach (var item in Model)
             {
                 <div class="col-lg-4 col-md-6 col-sm-12 blog-grid" id="zoomIn">
-                    <a href="#blog-single.html">
+                    <a href="@Url.Action("ProgramInfomation",new { id=item.ProID})">
                         <figure><img src="@Url.Content("~/FileImage/")@item.ImgFileName" class="img-fluid" alt=""></figure>
                     </a>
                     <div class="blog-info">
