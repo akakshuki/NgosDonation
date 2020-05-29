@@ -2,12 +2,13 @@
 using System;
 using System.Web.Mvc;
 using WebMvc.Common;
+using WebMvc.Controllers;
 using WebMvc.Models.Dao;
 using WebMvc.Models.ModelView;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    public class ManageDonateController : Controller
+    public class ManageDonateController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -68,7 +69,7 @@ namespace WebMvc.Areas.Admin.Controllers
         {
             var data = new DonateDao(_unitOfWork).GetByid(donate.ID);
             ViewBag.Categories = new CategoryDao(_unitOfWork).GetAll();
-            if (donate.EndDay < donate.StartDay || donate.StartDay < DateTime.Now)
+            if (donate.EndDay < donate.StartDay || donate.StartDay >= DateTime.Now)
             {
                 TempData[MessageConst.ERROR] = "Date time is invalid";
                 return View(data);
@@ -86,9 +87,17 @@ namespace WebMvc.Areas.Admin.Controllers
 
         public ActionResult HideDonate(int id)
         {
+            if (new DonateDao(_unitOfWork).GetById(id).UserDonates.Count > 0)
+            {
+                TempData[MessageConst.ERROR] = "Can't hide, because this had some donate by user";
+                return RedirectToAction("Index");
+            }
             new DonateDao(_unitOfWork).HideDonate(id);
             TempData[MessageConst.SUCCESS] = "Success !";
             return RedirectToAction("Index");
         }
+
+
+    
     }
 }

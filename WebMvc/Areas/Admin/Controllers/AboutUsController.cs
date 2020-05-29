@@ -5,12 +5,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebMvc.Common;
+using WebMvc.Controllers;
 using WebMvc.Models.Dao;
 using WebMvc.Models.ModelView;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    public class AboutUsController : Controller
+    public class AboutUsController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         private string path = "";

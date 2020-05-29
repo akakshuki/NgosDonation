@@ -1,6 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Threading.Tasks;
 using Domain.Repository;
 using System.Linq;
 using System.Web.Mvc;
@@ -37,8 +43,10 @@ namespace WebMvc.Controllers
         }
 
         //Donate Infomation Page
-        public ActionResult DonateInfomation()
+        public ActionResult DonateInfomation(int id)
         {
+            var data = new DonateDao(_provider).GetById(id);
+            ViewBag.DonateInfo = data;
             return View();
         }
         //Our Programmes Page
@@ -64,7 +72,18 @@ namespace WebMvc.Controllers
         //Contact Us Page
         public ActionResult Contact()
         {
-            return View();
+            ContactDTO dataContact = null;
+            string path = Path.Combine(Server.MapPath("~/"), "DataContact.hat");
+            if (System.IO.File.Exists(path))
+            {
+                //Deserialize
+                Stream streamD = new FileStream(path, FileMode.OpenOrCreate);
+                BinaryFormatter formatterD = new BinaryFormatter();
+                //quá trình Deserialize ngược với quá trình Serialize, trả về một object, bạn nhớ ép kiểu để sử dụng.
+                dataContact = formatterD.Deserialize(streamD) as ContactDTO;
+                streamD.Close();
+            }
+            return View(dataContact);
         }
         //Our Partners
         public ActionResult Partner()
@@ -95,7 +114,7 @@ namespace WebMvc.Controllers
             if (user == null) return RedirectToAction("Index", "Login");
             var data = JsonConvert.DeserializeObject<UserLogin>(user.Value);
             var donateInfo = new DonateDao(_provider).GetById(donateId);
-
+          
             var  orderData = new OrderData()
             {
                 DonateName = donateInfo.DonateName,
@@ -162,7 +181,7 @@ namespace WebMvc.Controllers
             }
             //save donate
             new DonateDao(_provider).AddUserDonate(order);
-            TempData[MessageConst.SUCCESS] = "Donate Success";
+            TempData[MessageConst.SUCCESS] = "Donate Success!";
           //  return RedirectToAction("Success", "Payment", new { code = apiContext.AccessToken });
           return RedirectToAction("Donate");
         }
@@ -218,6 +237,61 @@ namespace WebMvc.Controllers
             var paymentExecute = new PaymentExecution() { payer_id = payerID };
             this.payment = new Payment() { id = paymentID };
             return this.payment.Execute(apiContext, paymentExecute);
+        }
+        [HttpPost]
+        public async Task<ActionResult> SendMailInvite( string email)
+        {
+            if (new UserDao(_provider).GetUserByEmail(email) != null)
+            {
+                TempData[MessageConst.ERROR] = "This mail have exist in this website";
+                return Redirect("/");
+            }
+            try
+            {
+                var cookie = Request.Cookies[MessageConst.USER_LOGIN];
+                if (cookie == null)
+                {
+                    TempData[MessageConst.ERROR] = "Please Login !";
+                    return RedirectToAction("Index", "Login");
+                }
+                else
+                {
+                    var userData = JsonConvert.DeserializeObject<UserLogin>(cookie.Value);
+                    var randomCode = new Random().Next(1000, 9999).ToString(); 
+                    var MyMailMessage = new MailMessage
+                    {
+                        From = new MailAddress("giangbaccai1207@gmail.com")
+                    };
+                    MyMailMessage.To.Add(email);// Mail would be sent to this address
+                    MyMailMessage.Subject = $"{userData.UserName} request Invite";
+                    var smtpServer = new SmtpClient("smtp.gmail.com")
+                    {
+                        Port = 587,
+                        Credentials =
+                            new NetworkCredential("giangbaccai1207@gmail.com", "dinhhoang0712"),
+                        EnableSsl = true
+                    };
+
+                    var body = new StringBuilder();
+                    body.AppendFormat("Hi! , {0}\n", email);
+                    body.AppendLine($"You have a invite request from {userData.UserMail} , with name : {userData.UserName} !");
+                    body.AppendLine($"let's connect us in : https://localhost:44315/");
+
+                    MyMailMessage.Body = body.ToString();
+
+                    await smtpServer.SendMailAsync(MyMailMessage);
+
+                    Session[randomCode] = userData.UserMail;
+                    TempData[MessageConst.SUCCESS] = "Sent mail success!";
+                    return Redirect("/");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                TempData[MessageConst.ERROR] = "Something is wrong!";
+                return View("Index");
+            }
         }
        
     }

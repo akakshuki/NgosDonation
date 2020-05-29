@@ -49,9 +49,10 @@ namespace WebMvc.Controllers
                     var userData = JsonConvert.SerializeObject(new UserLogin()
                     {
                         UserName = user.UserName,
-                        UserMail = user.UserMail,
-                        RoleId = user.RoleID
+                        UserMail = user.UserMail
+                       
                     });
+                    Session[user.UserMail] = user.RoleID;
                     cookie.Value = userData;
                     Response.Cookies.Add(cookie);
                     TempData[MessageConst.SUCCESS] = "Welcome " + user.UserName;
@@ -69,6 +70,9 @@ namespace WebMvc.Controllers
         public ActionResult SingOut()
         {
             //remove session
+            var cookie = Request.Cookies[MessageConst.USER_LOGIN];
+            var user = JsonConvert.DeserializeObject<UserLogin>(cookie.Value);
+            Session[user.UserMail] = null;
             Response.Cookies[MessageConst.USER_LOGIN].Expires = DateTime.Now.AddDays(-1);
             return RedirectToAction("Index");
         }

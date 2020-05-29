@@ -5,11 +5,12 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Web;
 using System.Web.Mvc;
+using WebMvc.Controllers;
 using WebMvc.Models.ModelView;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    public class ManageContactController : Controller
+    public class ManageContactController : BaseController
     {
         // GET: Admin/Manage
         public ActionResult Index()

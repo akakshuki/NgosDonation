@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3725cb81a597475e9a16f9fac9c97024" Name="Diagram1">
+      <Diagram DiagramId="239a6ffb8f67481a9105d7a9f9b5349c" Name="Diagram1">
         <EntityTypeShape EntityType="ProjectSem3Model.AboutU" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectSem3Model.Category" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectSem3Model.Donate" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
@@ -12,16 +12,17 @@
         <EntityTypeShape EntityType="ProjectSem3Model.Program" Width="1.5" PointX="8" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectSem3Model.ProgramImage" Width="1.5" PointX="10.25" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectSem3Model.Role" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectSem3Model.sysdiagram" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectSem3Model.TypeProgram" Width="1.5" PointX="5.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectSem3Model.User" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectSem3Model.UserDonate" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectSem3Model.UserQuestion" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectSem3Model.UserQuestion" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="ProjectSem3Model.FK_Donate_Category" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectSem3Model.FK_UserDonate_Donate" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectSem3Model.FK_Program_TypeProgram" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectSem3Model.FK_ProgramImage_Program" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectSem3Model.FK_User_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectSem3Model.FK_UserDonate_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectSem3Model.FK_UserDonate_User" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -6,12 +6,13 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using WebMvc.Controllers;
 using WebMvc.Models.Dao;
 using WebMvc.Models.ModelView;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    public class UserQuestionController : Controller
+    public class UserQuestionController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         public UserQuestionController(IUnitOfWork unitOfWork)
