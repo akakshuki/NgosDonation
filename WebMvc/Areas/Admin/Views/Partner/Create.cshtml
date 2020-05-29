@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<a href="@Url.Action("Index")" class="btn btn-sm btn-info" style="background-color:#4e73df;font-size:20px;float:right;">
+    List Partner <i class="fa fa-arrow-right"></i>
+</a>
+<section class="panel" style="margin-top:55px;">
+    <header class="panel-heading">
+        Create Partner
+    </header>
+    <form action="@Url.Action("Create")" method="POST" enctype="multipart/form-data">
+        <div class="panel-body">
+            <div class="position-center">
+                <div class="form-group">
+                    <label for="">Partner Name:</label>
+                    <input type="text" class="form-control" name="PartnerName" maxlength="200" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Partner Link:</label>
+                    <input type="text" class="form-control" name="PartnerLink" maxlength="200" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Image Partner:</label>
+                    <div id="frameImg">
+                        <img src="#" id="showImg" style="width:300px;height:250px;" />
+                    </div>
+                    <input type="file" name="FileImage" id="selectImg" accept=".png,.jpg" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Active:</label>
+                    <input type="checkbox" id="cbActive" style="width:20px;height:20px;" checked />
+                    <input type="hidden" name="PartnerActive" id="cbActiveValue" value="True" />
+                </div>
+                <button type="submit" name="submit" class="btn btn-info" id="btnSubmit">Submit</button>
+            </div>
+        </div>
+    </form>
+</section>
+@section scripts{
+
+    <script>
+        $(function () {
+            var msg2='@TempData["error"]'
+            if (msg2 != '') {
+                alertify.error(msg2);
+            }
+            $("#cbActive").change(function () {
+                $("#cbActive").is(":checked") ? $("#cbActiveValue").val("True") : $("#cbActiveValue").val("False");
+            })
+            $('#selectImg').change(function (event) {
+                var tmppath = URL.createObjectURL(event.target.files[0]);
+                $('#showImg').fadeIn("fast").attr("src", tmppath);
+            })
+        });
+    </script>
+}
+

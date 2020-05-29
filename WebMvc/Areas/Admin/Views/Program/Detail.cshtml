@@ -1,0 +1,45 @@
+﻿@model WebMvc.Models.ModelView.ProgramDTO
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Detail</h2>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Detail Program</h6>
+    </div>
+    <div class="card-body">
+        <div class="container">
+
+            <div class="row">
+                <p class="col-3 text font-weight-bold">@Html.DisplayNameFor(model => model.ProName) :</p>
+                <span class="col-md-9">
+                    @Html.DisplayFor(model => model.ProName)
+                </span>
+            </div>
+            <div class="row">
+                <p class="col-3 text font-weight-bold">  @Html.DisplayNameFor(model => model.ProContent) :</p>
+                <span class="col-md-9">
+                    @Html.Raw(Model.ProContent)
+                </span>
+            </div>
+            <div class="row">
+                <p class="col-3 text font-weight-bold"> @Html.DisplayNameFor(model => model.ProDateCreate) :</p>
+                <span class="col-md-9">
+                    @Html.DisplayFor(model => model.ProDateCreate)
+                </span>
+            </div>
+            <div class="row">
+                <p class="col-3 text font-weight-bold">@Html.DisplayNameFor(model => model.TypeProgram.TypeName) :</p>
+                <span class="col-md-9">
+                    @Html.DisplayFor(model => model.TypeProgram.TypeName)
+                </span>
+            </div>
+        </div>
+        <a href="@Url.Action("Index")" class="btn btn-primary">Back to list</a>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning" })
+    </div>
+</div>

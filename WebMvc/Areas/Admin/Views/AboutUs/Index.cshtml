@@ -1,0 +1,63 @@
+﻿@using WebMvc.Models.Enum
+@model List<WebMvc.Models.ModelView.AboutUsDTO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section scripts
+{
+
+    <!-- Page level plugins -->
+    <script src="~/Access/Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Access/Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/Access/Admin/js/demo/datatables-demo.js"></script>
+}
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">About Us Management</h1>
+<p class="mb-4"> </p>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><a href="@Url.Action("Create")" class="btn btn-success">Create new </a></h6>
+    </div>
+    <div class="card-body">
+        <h2>List About Us</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>About Name</th>
+                        <th>About Hide</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>About Name</th>
+                        <th>About Hide</th>
+                        <th>#</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var data in Model)
+                    {
+                        <tr>
+                            <td>@data.AboutName</td>
+                            <td>
+                                @Html.DisplayFor(Model =>data.AboutHide)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Detail", "AboutUs", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <hr />
+    </div>
+</div>
