@@ -44,11 +44,11 @@ namespace WebMvc.Controllers
         //Our Programmes Page
         public ActionResult Program()
         {
-            var ls = new ProgramDao(_provider).GetAll().Where(w => w.ProHide == false);
+            var ls = new ProgramImageDao(_provider).GetAll().Where(w => w.Program.ProHide == false && w.ImgMain==true);
             return View(ls);
         }
         //Program Infomation Page
-        public ActionResult ProgramInfomation()
+        public ActionResult ProgramInfomation(int id)
         {
             return View();
         }
