@@ -184,8 +184,8 @@ namespace WebMvc.Controllers
                 return_url = redirectUrl
             };
 
-            var detail = new Details() { tax = "1", shipping = "1", subtotal = order.Money.ToString() }; //subtotal : total order, note: sum(price*quantity)
-            var amount = new Amount() { currency = "USD", details = detail, total = (order.Money + 2).ToString() }; //total= tax + shipping + subtotal
+            var detail = new Details() { tax = "0", shipping = "0", subtotal = order.Money.ToString() }; //subtotal : total order, note: sum(price*quantity)
+            var amount = new Amount() { currency = "USD", details = detail, total = (order.Money).ToString() }; //total= tax + shipping + subtotal
             var transList = new List<Transaction>();
             transList.Add(new Transaction
             {
