@@ -162,6 +162,8 @@
     <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageContactController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageDonateController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageUserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NavigationController.cs" />
     <Compile Include="Areas\Admin\Controllers\PartnerController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProgramController.cs" />
     <Compile Include="Areas\Admin\Controllers\TypeProgramController.cs" />
@@ -185,6 +187,7 @@
     <Compile Include="Models\Dao\ProgramDao.cs" />
     <Compile Include="Models\Dao\ProgramImageDao.cs" />
     <Compile Include="Models\Dao\RoleDao.cs" />
+    <Compile Include="Models\Dao\UserDao.cs" />
     <Compile Include="Models\Dao\UserQuestionDao.cs" />
     <Compile Include="Models\Enum\DonateStatus.cs" />
     <Compile Include="Models\Dao\TypeProgramDao.cs" />
@@ -201,6 +204,18 @@
     <Compile Include="Models\ModelView\TypeProgramDTO.cs" />
     <Compile Include="Models\ModelView\UserQuestionDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="FileImage\637262657770598413Thanh an.png" />
+    <Content Include="FileImage\637262675828171164asdsad.png" />
+    <Content Include="FileImage\637262680637095359pppppp.png" />
+    <Content Include="FileImage\637262714268407415yy.png" />
+    <Content Include="FileImage\637262718659151316ád.png" />
+    <Content Include="FileImage\637262719467133219ádsad.png" />
+    <Content Include="FileImage\637262759247880984cam vắt.png" />
+    <Content Include="FileImage\637262767104036332cam vat.png" />
+    <Content Include="FileImage\637262767823151734cam vat ngoc.png" />
+    <Content Include="FileImage\637262936722800231.png" />
+    <Content Include="FileImage\637262956245932573.png" />
+    <Content Include="FileImage\637263001962607258.png" />
     <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -2350,6 +2365,9 @@
     <Content Include="Areas\Admin\Views\ManageUser\UserInfo.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ManageContact\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Navigation\Index.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -2469,7 +2487,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -61,6 +61,7 @@ namespace WebMvc.Controllers
         //Our Partners
         public ActionResult Partner()
         {
+            ViewBag.lsPartner = new PartnerDao(_provider).GetAll();
             return View();
         }
         //Signin, Signup page
@@ -79,6 +80,19 @@ namespace WebMvc.Controllers
             return View();
         }
 
+        //CREATE QUESTION
+        [HttpPost]
+        public ActionResult CreateQuestion(UserQuestionDTO userQuestion)
+        {
+            if (!ModelState.IsValid) return View();
+            userQuestion.QuesDateCreate = DateTime.Now;
+            userQuestion.QuesNew = true;
+            if (new UserQuestionDao(_provider).Create(userQuestion)) {
+                TempData[MessageConst.SUCCESS] = "Send question succes!";
+                return RedirectToAction("Contact");
+            }
+            return View();
+        }
 
         [HttpPost]
         public ActionResult UserDonate(int donateId, int money)
