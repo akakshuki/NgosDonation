@@ -19,10 +19,8 @@ namespace WebMvc.Areas.Admin.Controllers
             string path = Path.Combine(Server.MapPath("~/"), "DataContact.hat");
             if (System.IO.File.Exists(path))
             {
-                //Deserialize
                 Stream streamD = new FileStream(path, FileMode.OpenOrCreate);
                 BinaryFormatter formatterD = new BinaryFormatter();
-                //quá trình Deserialize ngược với quá trình Serialize, trả về một object, bạn nhớ ép kiểu để sử dụng.
                 dataContact = formatterD.Deserialize(streamD) as ContactDTO;
                 streamD.Close();
             }

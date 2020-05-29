@@ -67,7 +67,7 @@ namespace WebMvc.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult SingOut()
+        public ActionResult SignOut()
         {
             //remove session
             var cookie = Request.Cookies[MessageConst.USER_LOGIN];

@@ -60,7 +60,7 @@ namespace WebMvc.Areas.Admin.Controllers
                     {
                         smtp.Send(mess);
                     }
-                    TempData["success"] = "Send mail to " + u.UserMail + " successfully!";
+                    TempData["success"] = "Send mail to " + u.UserMail + " is successful!";
                     new UserQuestionDao(_unitOfWork).InsertAns(u.ID, u.AnswerContent);
                 }
             }

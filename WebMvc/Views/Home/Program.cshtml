@@ -27,11 +27,11 @@
             @foreach (var item in Model)
             {
                 <div class="col-lg-4 col-md-6 col-sm-12 blog-grid" id="zoomIn">
-                    <a href="@Url.Action("ProgramInfomation",new { id=item.ProID})">
+                    <a href="@Url.Action("ProgramInformation",new { id=item.ProID})">
                         <figure><img src="@Url.Content("~/FileImage/")@item.ImgFileName" class="img-fluid" alt=""></figure>
                     </a>
                     <div class="blog-info">
-                        <h3><a href="@Url.Action("ProgramInfomation",new { id=item.ProID})">@item.Program.ProName</a> </h3>
+                        <h3><a href="@Url.Action("ProgramInformation",new { id=item.ProID})">@item.Program.ProName</a> </h3>
                         <ul>
                             <li><span class="fa fa-user-o mr-2"></span>@item.Program.TypeProgram.TypeName</li>
                             <li><span class="fa fa-calendar mr-2"></span>@item.Program.ProDateCreate.ToString("yyyy/MM/dd")</li>

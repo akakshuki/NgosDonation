@@ -33,13 +33,13 @@ namespace WebMvc.Areas.Admin.Controllers
         public ActionResult UnOrActiveAccount(int id)
         {
             new UserDao(_unitOfWork).UnOrActiveAccount(id);
-            TempData[MessageConst.SUCCESS] = "Success !";
+            TempData[MessageConst.SUCCESS] = "Update Success !";
             return RedirectToAction("Index");
         }
         public ActionResult SetOrUnsetVolunteerAccount(int id)
         {
             new UserDao(_unitOfWork).SetOrUnsetVolunteerAccount(id);
-            TempData[MessageConst.SUCCESS] = "Success !";
+            TempData[MessageConst.SUCCESS] = "Update Success !";
             return RedirectToAction("Index");
         }
     }

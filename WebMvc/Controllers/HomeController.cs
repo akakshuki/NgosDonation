@@ -43,7 +43,7 @@ namespace WebMvc.Controllers
         }
 
         //Donate Infomation Page
-        public ActionResult DonateInfomation(int id)
+        public ActionResult DonateInformation(int id)
         {
             var data = new DonateDao(_provider).GetById(id);
             ViewBag.DonateInfo = data;
@@ -56,7 +56,7 @@ namespace WebMvc.Controllers
             return View(ls);
         }
         //Program Infomation Page
-        public ActionResult ProgramInfomation(int id)
+        public ActionResult ProgramInformation(int id)
         {
             var model = new ProgramDao(_provider).GetByid(id);
             ViewBag.imgMain = new ProgramImageDao(_provider).GetImgMain(id);
@@ -111,14 +111,14 @@ namespace WebMvc.Controllers
         [HttpPost]
         public ActionResult CreateQuestion(UserQuestionDTO userQuestion)
         {
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid) return Redirect("/");
             userQuestion.QuesDateCreate = DateTime.Now;
             userQuestion.QuesNew = true;
             if (new UserQuestionDao(_provider).Create(userQuestion)) {
-                TempData[MessageConst.SUCCESS] = "Send question succes!";
+                TempData[MessageConst.SUCCESS] = "Send question success!";
                 return RedirectToAction("Contact");
             }
-            return View();
+            return Redirect("/");
         }
 
         [HttpPost]
@@ -128,7 +128,6 @@ namespace WebMvc.Controllers
             if (user == null) return RedirectToAction("Index", "Login");
             var data = JsonConvert.DeserializeObject<UserLogin>(user.Value);
             var donateInfo = new DonateDao(_provider).GetById(donateId);
-          
             var  orderData = new OrderData()
             {
                 DonateName = donateInfo.DonateName,
@@ -137,9 +136,7 @@ namespace WebMvc.Controllers
                 DonateId = donateInfo.ID,
                 UserName = data.UserName
             };
-
             Session[MessageConst.USER_SESSION] = orderData;
-
             if (donateInfo != null && data != null) return RedirectToAction("PaymentWithPaypal", "Home");
             
             return RedirectToAction("Donate");

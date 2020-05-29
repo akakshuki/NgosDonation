@@ -34,13 +34,13 @@ namespace WebMvc.Areas.Admin.Controllers
 
             if (new CategoryDao(_unitOfWork).CheckHaveExist(category.CateName))
             {
-                TempData[MessageConst.ERROR] = "This name have exist!";
+                TempData[MessageConst.ERROR] = "This category name already exists!";
                 return View();
             }
 
             if (new CategoryDao(_unitOfWork).Create(category))
             {
-                TempData[MessageConst.SUCCESS] = "Success !";
+                TempData[MessageConst.SUCCESS] = "Create Success !";
                 return RedirectToAction("Index");
             }
 
@@ -50,7 +50,7 @@ namespace WebMvc.Areas.Admin.Controllers
         public ActionResult Delete(int id)
         {
             new CategoryDao(_unitOfWork).Delete(id);
-            TempData[MessageConst.SUCCESS] = "Success !";
+            TempData[MessageConst.SUCCESS] = "Delete Success !";
             return RedirectToAction("Index");
         }
 
@@ -69,13 +69,13 @@ namespace WebMvc.Areas.Admin.Controllers
 
             if (new CategoryDao(_unitOfWork).CheckHaveExist(category.CateName))
             {
-                TempData[MessageConst.ERROR] = "This name have exist!";
+                TempData[MessageConst.ERROR] = "This name already exists!";
                 return View();
             }
 
             if (new CategoryDao(_unitOfWork).Edit(category))
             {
-                TempData[MessageConst.SUCCESS] = "Success !";
+                TempData[MessageConst.SUCCESS] = "Update success!";
                 return RedirectToAction("Index");
             }
 

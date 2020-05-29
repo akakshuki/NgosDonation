@@ -2448,9 +2448,9 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Donate.cshtml" />
-    <Content Include="Views\Home\DonateInfomation.cshtml" />
+    <Content Include="Views\Home\DonateInformation.cshtml" />
     <Content Include="Views\Home\Program.cshtml" />
-    <Content Include="Views\Home\ProgramInfomation.cshtml" />
+    <Content Include="Views\Home\ProgramInformation.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Partner.cshtml" />

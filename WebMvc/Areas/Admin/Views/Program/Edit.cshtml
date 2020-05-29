@@ -30,13 +30,7 @@
         <h6 class="m-0 font-weight-bold text-primary">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         </h6>
-        <p class="m-0  text-center ">
-            @if (TempData[MessageConst.ERROR] != null)
-            {
-                <span class="alert text-danger alert-danger ">
-                    @TempData[MessageConst.ERROR]
-                </span>}
-        </p>
+       
     </div>
     <div class="card-body">
         @using (Html.BeginForm("Edit", "Program", FormMethod.Post))

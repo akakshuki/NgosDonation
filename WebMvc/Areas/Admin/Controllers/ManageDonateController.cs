@@ -48,7 +48,7 @@ namespace WebMvc.Areas.Admin.Controllers
 
             if (new DonateDao(_unitOfWork).Create(donate))
             {
-                TempData[MessageConst.SUCCESS] = "Success !";
+                TempData[MessageConst.SUCCESS] = "Create Success !";
                 return RedirectToAction("Index");
             }
 
@@ -78,10 +78,10 @@ namespace WebMvc.Areas.Admin.Controllers
 
             if (new DonateDao(_unitOfWork).Edit(donate))
             {
-                TempData[MessageConst.SUCCESS] = "Success !";
+                TempData[MessageConst.SUCCESS] = "Update Success !";
                 return RedirectToAction("Index");
             }
-            TempData[MessageConst.ERROR] = "Edit Failed";
+            TempData[MessageConst.ERROR] = "Update Failed";
             return View(data);
         }
 
@@ -93,7 +93,7 @@ namespace WebMvc.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             new DonateDao(_unitOfWork).HideDonate(id);
-            TempData[MessageConst.SUCCESS] = "Success !";
+            TempData[MessageConst.SUCCESS] = "Hide Success !";
             return RedirectToAction("Index");
         }
 
