@@ -23,8 +23,8 @@ namespace WebMvc.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var data = new UserQuestionDao(_unitOfWork).GetAll();
-            ViewBag.newQ = data.Where(s => s.QuesNew == true);
-            ViewBag.reply = data.Where(s => s.QuesNew == false);
+            ViewBag.newQ = data.OrderBy(s=>s.QuesDateCreate).Where(s => s.QuesNew == true);
+            ViewBag.reply = data.OrderBy(s => s.AnswerDateCreate).Where(s => s.QuesNew == false);
             return View();
         }
         public ActionResult QuesDetail(int id)
@@ -71,5 +71,6 @@ namespace WebMvc.Areas.Admin.Controllers
             }
             return RedirectToAction("QuesDetail", new { id = u.ID });
         }
+
     }
 }
