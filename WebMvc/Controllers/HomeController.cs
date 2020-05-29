@@ -1,4 +1,5 @@
 ﻿using Domain.Repository;
+using System.Linq;
 using System.Web.Mvc;
 using WebMvc.Models.Dao;
 
@@ -15,6 +16,8 @@ namespace WebMvc.Controllers
         //Index Page
         public ActionResult Index()
         {
+            ViewBag.money = new DonateDao(_provider).GetAll().Sum(s => s.TotalMoney);
+            ViewBag.user = new UserDao(_provider).GetAllUser().Count(c => c.UserActive == true);
             return View();
         }
         //Donate Page
@@ -30,7 +33,8 @@ namespace WebMvc.Controllers
         //Our Programmes Page
         public ActionResult Program()
         {
-            return View();
+            var ls = new ProgramDao(_provider).GetAll().Where(w => w.ProHide == false);
+            return View(ls);
         }
         //Program Infomation Page
         public ActionResult ProgramInfomation()
