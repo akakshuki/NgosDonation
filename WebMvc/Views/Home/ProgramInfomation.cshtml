@@ -1,17 +1,18 @@
-﻿@model NGO.Models.EntityModels.Donate
-@{
-    ViewBag.Title = Model.DonateName;
+﻿@model WebMvc.Models.ModelView.ProgramDTO
+@{ 
+    ViewBag.Title = Model.ProName;
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<NGO.Models.EntityModels.UserDonate> ls = ViewBag.lsUD;
+    WebMvc.Models.ModelView.ProgramImageDTO imgMain = ViewBag.imgMain;
+    List<WebMvc.Models.ModelView.ProgramImageDTO> lsImg = ViewBag.ls;
 }
-<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
 <!-- contact page breadcrumns -->
 <section class="inner-banner"></section>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb breadcrumb-padding">
         <li class="breadcrumb-item"><a href="@Url.Action("Index")">Home</a></li>
-        <li class="breadcrumb-item"><a href="@Url.Action("Donate")">Donate</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Donate Infomation: @Model.DonateName</li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Program")">Program</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Program Infomation: @Model.ProName</li>
     </ol>
 </nav>
 <!-- contact page breadcrumns -->
@@ -21,74 +22,130 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12">
-                    <h4 class="section-title">@Model.DonateName @(Model.DonateStatus == 1 ? "(Upcoming)" : Model.DonateStatus == 2 ? "(Ongoing)" : "(Ended")</h4>
+                    <h4 class="section-title">@Model.ProName</h4>
                     <p class="text-center">
-                        @Model.Category.CateName <br />
-                        <span><b>From</b> @Model.StartDay.ToString("yyyy/MM/dd hh:mm:ss") <b>to</b> @Model.EndDay.ToString("yyyy/MM/dd hh:mm:ss")</span>
+                        @Model.TypeProgram.TypeName
                     </p>
                 </div>
             </div>
-            <div style="margin-top:20px;">
-                <h5>Total Money Donate: <b>@Model.TotalMoney$</b> </h5>
-                @if (Model.DonateStatus != 3)
-                {
-                    <form action="#" method="post">
-                        <div class="forms-29-form">
-                            <div class="form-group">
-                                <label class="input__label">The amount you want to raise funds:</label>
-                                <input type="hidden" value="@Model.ID" name="ID" />
-                                <input type="hidden" value="@Session["ID"]" name="UserID" id="idUser" />
-                                <input type="number" name="name" placeholder="5 - 1000$" max="1000" min="5" required> &nbsp;
-                                <button type="submit" class="btn btn-primary" id="btnDonate">Donate</button>
-                            </div>
-
-                        </div>
-
-                    </form>
-                }
-
+            <div style="margin-top:20px;margin-bottom:20px;">
+                <!--Content-->
                 <p>
-                    @Html.Raw(Model.DonateContent)
+                    @Html.Raw(Model.ProContent)
                 </p>
-                <h5 class="text-primary" style="margin-top:10px;">Donate List:</h5>
-                <table class="table table-striped" id="mytable">
-                    <thead>
-                        <tr>
-                            <th>User Name</th>
-                            <th>Money</th>
-                            <th>Date Donate</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in ls)
-                        {
-                            <tr>
-                                <td>@item.User.UserName</td>
-                                <td>@item.Money</td>
-                                <td>@(item.DateCreate.ToString("yyyy/MM/dd"))</td>
-                            </tr>
-                        }
-
-
-                    </tbody>
-                </table>
+                <!--Content-->
+                <!--Date Create yyyy/MM/dd-->
+                <span class="fa fa-calendar mr-2"></span>@(Model.ProDateCreate.ToString("yyyy/MM/dd"))
+                <!--Date Create yyyy/MM/dd-->
             </div>
-
+            <h4>Some pictures of the program:</h4>
+            <div>
+                <div id="imgBig">
+                    <!--image Main-->
+                    <img id="imgLarge" src="~/FileImage/@imgMain.ImgFileName" alt="" style="height:450px;">
+                    <!--image Main-->
+                </div>
+                <div id="slideImg">
+                    <div id="owl-wrapper">
+                        <!--image Main-->
+                        <img class="imgItem" src="~/FileImage/@imgMain.ImgFileName" alt="">
+                        <!--image Main-->
+                        <!--list Image except image main-->
+                        @foreach (var item in lsImg.Where(w => w.ID != imgMain.ID))
+                        {
+                            <img class="imgItem" src="~/FileImage/@item.ImgFileName" alt="">
+                        }
+                    </div>
+                    <div id="controlImg">
+                        <div id="btnPrev">
+                            <i class="fa fa-angle-left"></i>
+                        </div>
+                        <div id="btnNext">
+                            <i class="fa fa-angle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 <!-- services page block 1 -->
 @section scripts{
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(function () {
-            $('#mytable').DataTable();
-            $('#btnDonate').click(function () {
-                if ($('#idUser').val() === "") {
-                    alertify.error("Please login to donate!");
-                }
-            });
+            $('#owl-wrapper img').click(function () {
+                var srcImgClick = $(this).attr("src");
+                $('#imgLarge').attr("src", srcImgClick);
+            })
         });
+        window.onload = function () {
+            zoomImg();
+            var itv = window.setInterval(function () { nextImages() }, 6000);
+
+            var next = document.getElementById("btnNext");
+            next.addEventListener("click", function () {
+                nextImages();
+            });
+            var prev = document.getElementById("btnPrev");
+            prev.addEventListener("click", function () {
+                prevImages();
+            });
+        };
+        function zoomImg() {
+            var lsImg = document.getElementsByClassName("imgItem");
+            for (i = 0; i < lsImg.length; i++) {
+                lsImg[i].style.left = (i * lsImg[i].offsetWidth) + 10 + "px";
+                lsImg[i].onclick = function (event) {
+                    var currImg = event.target;
+                    var srcCrrImg = currImg.src;
+                    var largeImg = document.getElementById("imgLarge");
+                    largeImg.src = srcCrrImg;
+                }
+            }
+        }
+        function nextImage(item) {
+            item.style.left = parseInt(item.style.left) + item.offsetWidth + 10 + "px";
+            var largeImg = document.getElementById("imgLarge");
+            largeImg.src = item.src;
+        }
+        function nextImages() {
+            var lsImg = document.getElementsByClassName("imgItem");
+            for (i = 0; i < lsImg.length; i++) {
+                nextImage(lsImg[i]);
+            }
+            createImgFirst();
+        }
+        function prevImage(item) {
+            item.style.left = parseInt(item.style.left) - item.offsetWidth - 10 + "px";
+            var largeImg = document.getElementById("imgLarge");
+            largeImg.src = item.src;
+        }
+        function prevImages() {
+            var lsImg = document.getElementsByClassName("imgItem");
+            for (i = 0; i < lsImg.length; i++) {
+                prevImage(lsImg[i]);
+            }
+            createImgLast();
+        }
+        function createImgFirst() {
+            var containImg = document.getElementById("owl-wrapper");
+            var lastImg = document.getElementById("owl-wrapper").lastElementChild;
+            var newImg = document.createElement("img");
+            newImg.className = "imgItem";
+            newImg.src = lastImg.src;
+            newImg.style.left = parseInt(containImg.firstElementChild.style.left) - containImg.firstElementChild.offsetWidth - 10 + "px";
+            lastImg.remove();
+            containImg.insertBefore(newImg, containImg.firstElementChild);
+        }
+        function createImgLast() {
+            var containImg = document.getElementById("owl-wrapper");
+            var fisrtImg = document.getElementById("owl-wrapper").firstElementChild;
+            var newImg = document.createElement("img");
+            newImg.className = "imgItem";
+            newImg.src = fisrtImg.src;
+            newImg.style.left = parseInt(containImg.lastElementChild.style.left) + containImg.lastElementChild.offsetWidth + 10 + "px";
+            fisrtImg.remove();
+            containImg.appendChild(newImg);
+        }
     </script>
 }

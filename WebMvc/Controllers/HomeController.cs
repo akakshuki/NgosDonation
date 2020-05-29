@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Repository;
+using System.Linq;
 using System.Web.Mvc;
 using Domain.EF;
 using Newtonsoft.Json;
@@ -30,6 +31,8 @@ namespace WebMvc.Controllers
         //Index Page
         public ActionResult Index()
         {
+            ViewBag.money = new DonateDao(_provider).GetAll().Sum(s => s.TotalMoney);
+            ViewBag.user = new UserDao(_provider).GetAllUser().Count(c => c.UserActive == true);
             return View();
         }
         //Donate Page
@@ -49,12 +52,16 @@ namespace WebMvc.Controllers
         //Our Programmes Page
         public ActionResult Program()
         {
-            return View();
+            var ls = new ProgramImageDao(_provider).GetAll().Where(w => w.Program.ProHide == false && w.ImgMain==true).ToList();
+            return View(ls);
         }
         //Program Infomation Page
-        public ActionResult ProgramInfomation()
+        public ActionResult ProgramInfomation(int id)
         {
-            return View();
+            var model = new ProgramDao(_provider).GetByid(id);
+            ViewBag.imgMain = new ProgramImageDao(_provider).GetImgMain(id);
+            ViewBag.ls = new ProgramImageDao(_provider).GetAll().Where(w => w.ProID == id).ToList();
+            return View(model);
         }
         //About Us Page
         public ActionResult About()

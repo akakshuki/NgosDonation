@@ -1,9 +1,8 @@
-﻿
+﻿@model List<WebMvc.Models.ModelView.ProgramImageDTO>
 @{
     ViewBag.Title = "Our Programs";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <!-- contact page breadcrumns -->
 <section class="inner-banner"></section>
 <nav aria-label="breadcrumb">
@@ -25,54 +24,23 @@
             </div>
         </div>
         <div class="blog-grids row mt-5">
-            <div class="col-lg-4 col-md-6 col-sm-12 blog-grid" id="zoomIn">
-                <a href="#blog-single.html">
-                    <figure><img src="@Url.Content("~/content/")assets/images/blog.jpg" class="img-fluid" alt=""></figure>
-                </a>
-                <div class="blog-info">
-                    <h3><a href="#blog-single.html">4 Steps To Consider Before You Start</a> </h3>
-                    <ul>
-                        <li><a href="#author"><span class="fa fa-user-o mr-2"></span>Johnson smith</a></li>
-                        <li><span class="fa fa-calendar mr-2"></span>Jan 16, 2020</li>
-                    </ul>
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-12 blog-grid" id="zoomIn">
+                    <a href="@Url.Action("ProgramInfomation",new { id=item.ProID})">
+                        <figure><img src="@Url.Content("~/FileImage/")@item.ImgFileName" class="img-fluid" alt=""></figure>
+                    </a>
+                    <div class="blog-info">
+                        <h3><a href="@Url.Action("ProgramInfomation",new { id=item.ProID})">@item.Program.ProName</a> </h3>
+                        <ul>
+                            <li><span class="fa fa-user-o mr-2"></span>@item.Program.TypeProgram.TypeName</li>
+                            <li><span class="fa fa-calendar mr-2"></span>@item.Program.ProDateCreate.ToString("yyyy/MM/dd")</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 mt-md-0 mt-4 blog-grid" id="zoomIn">
-                <a href="#blog-single.html">
-                    <figure><img src="@Url.Content("~/content/")assets/images/blog1.jpg" class="img-fluid" alt=""></figure>
-                </a>
-                <div class="blog-info">
-                    <h3><a href="#blog-single.html">Strategic Plan Execution Management</a> </h3>
-                    <ul>
-                        <li><a href="#author"><span class="fa fa-user-o mr-2"></span>Johnson smith</a></li>
-                        <li><span class="fa fa-calendar mr-2"></span>Jan 16, 2020</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 blog-grid" id="zoomIn">
-                <a href="#blog-single.html">
-                    <figure><img src="@Url.Content("~/content/")assets/images/blog.jpg" class="img-fluid" alt=""></figure>
-                </a>
-                <div class="blog-info">
-                    <h3><a href="#blog-single.html">4 Steps To Consider Before You Start</a> </h3>
-                    <ul>
-                        <li><a href="#author"><span class="fa fa-user-o mr-2"></span>Johnson smith</a></li>
-                        <li><span class="fa fa-calendar mr-2"></span>Jan 16, 2020</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 mt-lg-0 mt-4 blog-grid" id="zoomIn">
-                <a href="#blog-single.html">
-                    <figure><img src="@Url.Content("~/content/")assets/images/blog2.jpg" class="img-fluid" alt=""></figure>
-                </a>
-                <div class="blog-info">
-                    <h3><a href="#blog-single.html">Business planning, strategy and execution</a> </h3>
-                    <ul>
-                        <li><a href="#author"><span class="fa fa-user-o mr-2"></span>Johnson smith</a></li>
-                        <li><span class="fa fa-calendar mr-2"></span>Jan 16, 2020</li>
-                    </ul>
-                </div>
-            </div>
+            }
+
+
         </div>
     </div>
 </section>

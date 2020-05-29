@@ -63,5 +63,6 @@ namespace WebMvc.Models.Dao
             _unitOfWork.ProgramImageRepository.Delete(id);
             return _unitOfWork.Commit();
         }
+        
     }
 }
