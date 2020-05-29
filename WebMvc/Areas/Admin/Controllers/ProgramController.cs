@@ -5,12 +5,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebMvc.Common;
+using WebMvc.Controllers;
 using WebMvc.Models.Dao;
 using WebMvc.Models.ModelView;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    public class ProgramController : Controller
+    public class ProgramController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         private string path = "";
@@ -115,7 +116,8 @@ namespace WebMvc.Areas.Admin.Controllers
             {
                 programImage.ImgFileName = "default.png";
             }
-            if (!ModelState.IsValid) return RedirectToAction("IndexPi", "Program", new { id = programImage.ProID });
+            //hoang fix redirect here
+            if (!ModelState.IsValid) return RedirectToAction("IndexPi","Program", new{id = programImage.ProID });
             if (new ProgramImageDao(_unitOfWork).Create(programImage))
                 return RedirectToAction("IndexPi","Program", new {id = programImage.ProID });
             return RedirectToAction("IndexPi", "Program", new { id = programImage.ProID });

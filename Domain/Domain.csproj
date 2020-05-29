@@ -89,6 +89,9 @@
     <Compile Include="EF\Role.cs">
       <DependentUpon>DataContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\sysdiagram.cs">
+      <DependentUpon>DataContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\TypeProgram.cs">
       <DependentUpon>DataContext.tt</DependentUpon>
     </Compile>

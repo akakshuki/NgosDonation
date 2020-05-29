@@ -18,14 +18,11 @@
     <script src="~/Access/Admin/js/demo/datatables-demo.js"></script>
 }
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800 text-center">Dash board</h1>
-<p class="mb-4"> </p>
+
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        @*<h6 class="m-0 font-weight-bold text-primary"><a href="@Url.Action("Create")" class="btn btn-success">Create new </a></h6>*@
-    </div>
+   
     <div class="card-body">
         <div class="table-responsive">
             <h3>List User donate  to day</h3>
@@ -50,8 +47,6 @@
                     <th>Date Create</th>
                     <th>Money</th>
                     <th>Type Card</th>
-
-                    <th>#</th>
                 </tr>
                 </tfoot>
                 <tbody>
@@ -62,7 +57,7 @@
                             <a href="@Url.Action("UserInfo","ManageUser",new {id  = data.UserID})"> @data.User.UserName</a>
                         </td>
                         <td>
-                            <a href="@Url.Action("UserInfo","ManageUser",new {id  = data.DonateID})"> @data.Donate.DonateName</a>
+                            <a href="@Url.Action("Detail","ManageDonate",new {id  = data.DonateID})"> @data.Donate.DonateName</a>
                         </td>
                        
                         <td>
@@ -73,12 +68,6 @@
                         </td>
                         <td>
                             @data.TypeCard
-                        </td>
-
-                        <td>
-                            @*<a href="@Url.Action("Detail", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
-                            <a href="@Url.Action("Edit", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-warning">Edit</a>
-                            <a href="@Url.Action("HideDonate" , "ManageDonate", new {id =@data.ID})" class="btn m-1 btn-danger">Show</a>*@
                         </td>
                     </tr>
                 }

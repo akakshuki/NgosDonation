@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<WebMvc.Models.ModelView.AboutUsDTO>
+@{
     ViewBag.Title = "About Us";
 }
 <!-- contact page breadcrumns -->
@@ -19,32 +20,39 @@
                     <h4 class="section-title">About Us</h4>
                 </div>
             </div>
-            <div class="row main-cont-wthree-2 mt-5">
-                <div class="col-lg-6 feature-grid-left order2 mt-lg-0 mt-sm-5 mt-4">
-                    <h4 class="title-left">A Productivity Platform</h4>
-                    <p class="text-para">
-                        Curabitur id gravida risus. Fusce eget ex fermentum, ultricies nisi ac sed, lacinia est.
-                        Quisque ut lectus consequat, venenatis eros et, commodo risus. Nullam sit amet laoreet elit.
-                        Suspendisse non magna a velit imperdiet efficitur.
-                    </p>
-                </div>
-                <div class="col-lg-6 feature-grid-right order1">
-                    <img src="@Url.Content("~/content/")assets/images/s1.png" class="img-fluid img-shadow" alt="services">
-                </div>
-            </div>
-            <div class="row main-cont-wthree-2 mt-5">
-                <div class="col-lg-6 feature-grid-right">
-                    <img src="@Url.Content("~/content/")assets/images/s2.png" class="img-fluid img-shadow" alt="services">
-                </div>
-                <div class="col-lg-6 feature-grid-left mt-lg-0 mt-sm-5 mt-4">
-                    <h4 class="title-left">Performance Analyze</h4>
-                    <p class="text-para">
-                        Curabitur id gravida risus. Fusce eget ex fermentum, ultricies nisi ac sed, lacinia est.
-                        Quisque ut lectus consequat, venenatis eros et, commodo risus. Nullam sit amet laoreet elit.
-                        Suspendisse non magna a velit imperdiet efficitur.
-                    </p>
-                </div>
-            </div>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    <div class="row main-cont-wthree-2 mt-5">
+                        <div class="col-lg-6 feature-grid-left order2 mt-lg-0 mt-sm-5 mt-4">
+                            <h4 class="title-left">@Model[i].AboutName</h4>
+                            <p class="text-para">
+                                @Html.Raw(Model[i].AboutContent)
+                            </p>
+                        </div>
+                        <div class="col-lg-6 feature-grid-right order1">
+                            <img src="~/FileImage/@Model[i].AboutImage" class="img-fluid img-shadow" alt="services" style="height:250px;">
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row main-cont-wthree-2 mt-5">
+                        <div class="col-lg-6 feature-grid-right">
+                            <img src="~/FileImage/@Model[i].AboutImage" class="img-fluid img-shadow" alt="services" style="height:250px;"> 
+                        </div>
+                        <div class="col-lg-6 feature-grid-left mt-lg-0 mt-sm-5 mt-4">
+                            <h4 class="title-left">@Model[i].AboutName</h4>
+                            <p class="text-para">
+                                @Html.Raw(Model[i].AboutContent)
+                            </p>
+                        </div>
+                    </div>
+                }
+            }
+
+
         </div>
     </div>
 </section>

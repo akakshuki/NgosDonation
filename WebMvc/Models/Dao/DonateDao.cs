@@ -81,8 +81,10 @@ namespace WebMvc.Models.Dao
         {
             try
             {
+                var dataDonate = _unitOfWork.DonateRepository.GetById(donate.ID);
                 donate.DonateStatus = donate.StartDay > DateTime.Now ? DonateStatus.UpComing : DonateStatus.OnGoing;
-                donate.DonateDateCreate = _unitOfWork.DonateRepository.GetById(donate.ID).DonateDateCreate;
+                donate.DonateDateCreate = dataDonate.DonateDateCreate;
+                donate.TotalMoney = dataDonate.TotalMoney;
                 donate.DonateStatus = donate.StartDay > DateTime.Now ? DonateStatus.UpComing : DonateStatus.OnGoing;
                 var data = MapperProfile.MapperConfig().Map<DonateDTO, Donate>(donate);
                 
@@ -126,6 +128,9 @@ namespace WebMvc.Models.Dao
             var donateInfo= _unitOfWork.DonateRepository.GetById(order.DonateId);
             donateInfo.TotalMoney += order.Money;
             _unitOfWork.DonateRepository.Edit(donateInfo);
+            var user = _unitOfWork.UserRepository.Get().SingleOrDefault(x => x.UserMail == order.UserMail);
+            user.MoneyDonate += order.Money;
+            _unitOfWork.UserRepository.Edit(user);
             _unitOfWork.Commit();
         }
     }

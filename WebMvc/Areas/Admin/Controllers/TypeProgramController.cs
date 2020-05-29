@@ -1,12 +1,13 @@
 ﻿using Domain.Repository;
 using System.Web.Mvc;
 using WebMvc.Common;
+using WebMvc.Controllers;
 using WebMvc.Models.Dao;
 using WebMvc.Models.ModelView;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    public class TypeProgramController : Controller
+    public class TypeProgramController : BaseController
     {
         private IUnitOfWork _unitOfWork;
 

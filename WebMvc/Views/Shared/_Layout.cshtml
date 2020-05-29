@@ -118,8 +118,8 @@
                         <p class="mb-4">
                             You can send mail to invite other friends to join the NGOs and raise funds together.
                         </p>
-                        <form class="newsletter-form">
-                            <input class="input-rounded" type="text" required="" placeholder="Enter Your Friend's Email Address">
+                        <form action="@Url.Action("SendMailInvite","Home")" method="post" class="newsletter-form">
+                            <input class="input-rounded" name="email" type="text" required="" placeholder="Enter Your Friend's Email Address">
                             <button type="submit" title="Subscribe" class="btn btn-primary btn-style" name="submit" value="Submit">
                                 Invite
                             </button>

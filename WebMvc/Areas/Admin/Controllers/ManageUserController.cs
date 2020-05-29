@@ -6,11 +6,12 @@ using System.Web.Mvc;
 using Domain.EF;
 using Domain.Repository;
 using WebMvc.Common;
+using WebMvc.Controllers;
 using WebMvc.Models.Dao;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    public class ManageUserController : Controller
+    public class ManageUserController : BaseController
     {
         private IUnitOfWork _unitOfWork;
 
