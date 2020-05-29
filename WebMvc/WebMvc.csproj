@@ -73,6 +73,9 @@
     <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.9.1\lib\net45\PayPal.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -148,7 +151,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Access\DataContact.hat" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
@@ -164,9 +166,13 @@
     <Compile Include="Areas\Admin\Controllers\ProgramController.cs" />
     <Compile Include="Areas\Admin\Controllers\TypeProgramController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserQuestionController.cs" />
+    <Compile Include="Common\Encrypt.cs" />
     <Compile Include="Common\MessageConst.cs" />
     <Compile Include="Configurations\MapperProfile.cs" />
     <Compile Include="Configurations\NinjectConfiguration.cs" />
+    <Compile Include="Configurations\PaypalConfiguration.cs" />
+    <Compile Include="Configurations\PaypalLogger.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -195,6 +201,7 @@
     <Compile Include="Models\ModelView\TypeProgramDTO.cs" />
     <Compile Include="Models\ModelView\UserQuestionDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Access\Admin\css\sb-admin-2.css" />
@@ -2457,12 +2464,12 @@
     <Content Include="Views\Home\SignIn.cshtml" />
     <Content Include="Views\Home\ForgotPwd.cshtml" />
     <Content Include="Views\Home\PersonalInfo.cshtml" />
+    <Content Include="Views\Login\ForgotPwd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Views\Login\" />
-    <Folder Include="FileImage\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

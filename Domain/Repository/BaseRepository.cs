@@ -27,9 +27,9 @@ namespace Domain.Repository
             return _dbSet.Find(id);
         }
 
-        public virtual void CreateOnlyData(TEntity entity)
-        {
-            _dbSet.Add(entity);
+        public virtual object CreateOnlyData(TEntity entity)
+        { _dbSet.Add(entity);
+            return entity;
         }
 
         public virtual TEntity Create(TEntity entity)

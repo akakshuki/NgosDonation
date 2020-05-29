@@ -1,7 +1,10 @@
-﻿
+﻿@using WebMvc.Models.Enum
+@using WebMvc.Models.ModelView
+
 @{
     ViewBag.Title = "Donate";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<DonateDTO> donateList = ViewBag.ListDonate;
 }
 <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 <!-- contact page breadcrumns -->
@@ -15,8 +18,8 @@
 <!-- contact page breadcrumns -->
 <div class="container" style="display:flex; padding:20px;">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="width:15%;">
-        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Upcoming</a>
-        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Ongoing</a>
+        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true">Ongoing</a>
+        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">Upcoming</a>
         <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Ended</a>
     </div>
     <div class="tab-content" id="v-pills-tabContent" style="width:100%;margin-left:15px;">
@@ -32,22 +35,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>0</td>
-                        <td>
-                            <form>
-                                <input type="number" name="name" value="" min="5" max="1000" />
-                                <input type="submit" value="Donate" class="btn btn-default" />
-                            </form>
-                        </td>
-                        <td><a href="#">Detail</a></td>
-                    </tr>
-
+                    @foreach (var data in donateList.Where(x => x.DonateStatus == DonateStatus.UpComing))
+                    {
+                        <tr>
+                            <td>@data.DonateName</td>
+                            <td>@data.Category.CateName</td>
+                            <td>@data.TotalMoney</td>
+                            <td>
+                                <form action="@Url.Action("UserDonate","Home")" method="post" >
+                                    <input type="number" name="money" min="5" max="1000" />
+                                    <input type="hidden" value="@data.ID"  name="donateId"/>
+                                    <input type="submit" value="Donate" class="btn btn-default" />
+                                </form>
+                            </td>
+                            <td><a href="@Url.Action("DonateInfomation","Home", new {id = data.ID})">Detail</a></td>
+                        </tr>
+                    }
                 </tbody>
             </table>
-
         </div>
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
             <table class="table table-striped" id="tableOngoing">
@@ -61,22 +66,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>0</td>
-                        <td>
-                            <form>
-                                <input type="number" name="name" value="" min="5" max="1000" />
-                                <input type="submit" value="Donate" class="btn btn-default" />
-                            </form>
-                        </td>
-                        <td><a href="#">Detail</a></td>
-                    </tr>
-
+                    @foreach (var data in donateList.Where(x => x.DonateStatus == DonateStatus.OnGoing))
+                    {
+                        <tr>
+                            <td>@data.DonateName</td>
+                            <td>@data.Category.CateName</td>
+                            <td>@data.TotalMoney</td>
+                            <td>
+                                <form action="@Url.Action("UserDonate","Home")" method="post">
+                                    <input type="number" name="money" min="5" max="1000" />
+                                    <input type="hidden" value="@data.ID" name="donateId" />
+                                    <input type="submit" value="Donate" class="btn btn-default" />
+                                </form>
+                            </td>
+                            <td><a href="@Url.Action("DonateInfomation","Home", new {id = data.ID})">Detail</a></td>
+                        </tr>
+                    }
                 </tbody>
             </table>
-
         </div>
         <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
             <table class="table table-striped" id="tableEnded">
@@ -89,18 +96,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>0</td>
-                        <td><a href="#">Detail</a></td>
-                    </tr>
+                    @foreach (var data in donateList.Where(x => x.DonateStatus == DonateStatus.Ended))
+                    {
+                        <tr>
+                            <td>@data.DonateName</td>
+                            <td>@data.Category.CateName</td>
+                            <td>@data.TotalMoney</td>
 
+                            <td><a href="@Url.Action("DonateInfomation","Home", new {id = data.ID})">Detail</a></td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
     </div>
-
 </div>
 @section scripts{
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>

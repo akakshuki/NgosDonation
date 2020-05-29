@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.UI.WebControls
+@using Domain.EF
+@using Newtonsoft.Json
+@using WebMvc.Common
+@using WebMvc.Models.ModelView
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,12 +12,14 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="@Url.Content("~/content/")assets/css/style-starter.css">
     <link rel="stylesheet" href="@Url.Content("~/content/")assets/css/mysite.css" media="all" />
+    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
 </head>
 <body>
     <!-- site header -->
     <header id="site-header" class="fixed-top">
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="@Url.Action("Index")">
+            <a class="navbar-brand" href="@Url.Action("Index","Home")">
                 <span class="fa fa-shield"></span> Ngos
             </a>
             <button class="navbar-toggler bg-gradient" type="button" data-toggle="collapse"
@@ -24,37 +31,53 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav m-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="@Url.Action("Index")">Home</a>
+                        <a class="nav-link" href="@Url.Action("Index","Home")">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Donate")">Donate</a>
+                        <a class="nav-link" href="@Url.Action("Donate", "home")">Donate</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("About")">About us</a>
+                        <a class="nav-link" href="@Url.Action("About", "home")">About us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Contact")">Contact Us</a>
+                        <a class="nav-link" href="@Url.Action("Contact", "home")">Contact Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Program")">Our programmes</a>
+                        <a class="nav-link" href="@Url.Action("Program", "home")">Our programmes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Partner")">Our Partners</a>
+                        <a class="nav-link" href="@Url.Action("Partner", "home")">Our Partners</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="@Url.Action("SignIn")" class="btn btn-primary btn-style">Sign In</a>
-                    </li>
-                    @*<li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                User Name
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="@Url.Action("PersonalInfo")">Personal Infomation</a>
-                                <a class="dropdown-item" href="#">Log out</a>
-                            </div>
-                        </li>*@
+                   @{
+                       var cookie = Request.Cookies[MessageConst.USER_LOGIN];
+                       if (cookie == null)
+                       {
+                           <li class="nav-item">
+                               <a href="@Url.Action("Index","Login")" class="btn btn-primary btn-style">Sign In</a>
+                           </li>
+                       }
+                       else
+                       {
+                           
+
+                           if (cookie.Value !=null)
+                           {
+                               var user =  JsonConvert.DeserializeObject<UserLogin>(cookie.Value) ;
+                               <li class="nav-item dropdown pr-5">
+                                   <a class="nav-link dropdown-toggle" href="@Url.Action("PersonalInfo","Home", new {email = user.UserMail})" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                       @user.UserName
+                                   </a>
+                                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                       <a class="dropdown-item" href="@Url.Action("PersonalInfo","Home", new {email = user.UserMail})">Personal Infomation</a>
+                                       <a class="dropdown-item" href="@Url.Action("SingOut", "Login")">Logout</a>
+                                   </div>
+                               </li>
+                           }
+                       }
+                   }
+                    
                 </ul>
             </div>
         </nav>
@@ -71,7 +94,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="footer-logo mb-3">
-                            <a href="@Url.Action("Index")">
+                            <a href="@Url.Action("Index","Home")">
                                 <span class="fa fa-shield"></span> Ngos
                             </a>
                         </div>
@@ -83,10 +106,10 @@
                     <div class="col-lg-3 col-md-4 mt-lg-0 mt-5">
                         <h4 class="footer-title">Quick Links</h4>
                         <ul class="footer-list">
-                            <li><a href="@Url.Action("Donate")"> Donate</a></li>
-                            <li><a href="@Url.Action("About")"> About Us</a></li>
-                            <li><a href="@Url.Action("Program")">Our Programs</a></li>
-                            <li><a href="@Url.Action("Contact")">Help Centre</a></li>
+                            <li><a href="@Url.Action("Donate","Home")"> Donate</a></li>
+                            <li><a href="@Url.Action("About", "Home")"> About Us</a></li>
+                            <li><a href="@Url.Action("Program","home")">Our Programs</a></li>
+                            <li><a href="@Url.Action("Contact","Home")">Help Centre</a></li>
                         </ul>
                     </div>
                     <!-- Newsletter -->
@@ -181,5 +204,19 @@
     @*@Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
+<script src="~/Access/Admin/js/sb-admin-2.min.js"></script>
+<script src="~/Scripts/alertify.min.js"></script>
+<script>
+    $(function () {
+        var msg1 = '@TempData[MessageConst.SUCCESS]';
+        var msg2 = '@TempData[MessageConst.ERROR]';
+        if (msg1 != '') {
+            alertify.success(msg1); //display notify
+        }
+        if (msg2 != '') {
+            alertify.error(msg2);
+        }
+    });
+</script>
 </body>
 </html>
