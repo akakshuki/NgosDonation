@@ -45,7 +45,7 @@
                             <td>@data.CateName</td>
                             <td>
                                 <a href="@Url.Action("Edit" ,"Categories" , new {id= data.ID})" class="btn btn-warning">Edit</a>
-                                <a href="@Url.Action("Delete", "Categories",new {id = data.ID})" class="btn btn-danger">Delete</a>
+                                @*<a href="@Url.Action("Delete", "Categories",new {id = data.ID})" class="btn btn-danger">Delete</a>*@
                             </td>
                         </tr>
                     }

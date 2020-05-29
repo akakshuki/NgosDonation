@@ -1,4 +1,5 @@
-﻿@{
+﻿@model WebMvc.Models.ModelView.ContactDTO
+@{
     ViewBag.Title = "Contact Us";
 }
 <!-- contact page breadcrumns -->
@@ -34,8 +35,7 @@
                                 <span class="fa fa-map-marker"></span>
                             </div>
                             <div>
-                                <strong class="info">Address:</strong> #135 block, Outdoor,
-                                96 Wythe Ave, Brooklyn, NY 11249, United States.
+                                <strong class="info">Address:</strong> @Model.Address
                             </div>
                         </div>
                         <div class="contact-info-align">
@@ -43,11 +43,7 @@
                                 <span class="fa fa-phone"></span>
                             </div>
                             <div>
-                                <strong class="info">Phone:</strong> <a href="tel:+404 11-22-88">
-                                    +123 45
-                                    67 88
-                                </a> ,
-                                <a href="tel:+404 11-22-89"> +123 45 67 89</a>
+                                <a href="tel:+404 11-22-89"> @Model.PhoneNumber</a>
                             </div>
                         </div>
                         <div class="contact-info-align">
@@ -55,8 +51,8 @@
                                 <span class="fa fa-envelope-open-o"> </span>
                             </div>
                             <div>
-                                <strong class="info">Email:</strong> <a href="">
-                                    example@mail.com
+                                <strong class="info">Email:</strong> <a href="#">
+                                    @Model.Email
                                 </a>
                             </div>
                         </div>

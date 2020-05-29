@@ -19,6 +19,12 @@ namespace WebMvc.Models.Dao
         {
             _unitOfWork = unitOfWork;
         }
+
+        public UserDao()
+        {
+           
+        }
+
         //Get All List User
         public List<UserDTO> GetAllUser()
         {
@@ -56,7 +62,7 @@ namespace WebMvc.Models.Dao
 
         public object getUserDonateInCurrentDate()
         {
-            return MapperProfile.MapperConfig().Map<List<UserDonate>, List<UserDonateDTO>>(_unitOfWork.UserDonateRepository.Get().Where(k=> k.DateCreate.ToString("MM/dd/yyyy") == DateTime.Now.ToString("MM/dd/yyyy")).ToList());
+            return MapperProfile.MapperConfig().Map<List<UserDonate>, List<UserDonateDTO>>(_unitOfWork.UserDonateRepository.Get().Where(k=> k.DateCreate.ToString("MM/dd/yyyy") == DateTime.Now.ToString("MM/dd/yyyy")).OrderByDescending(x=>x.DateCreate).ToList());
         }
 
 
