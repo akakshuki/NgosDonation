@@ -8,7 +8,7 @@ namespace Domain.Repository
 
         TEntity GetById(int id);
 
-        void CreateOnlyData(TEntity entity);
+        object CreateOnlyData(TEntity entity);
 
         TEntity Create(TEntity entity);
 

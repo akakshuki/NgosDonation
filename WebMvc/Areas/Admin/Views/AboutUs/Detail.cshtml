@@ -1,0 +1,38 @@
+﻿@model WebMvc.Models.ModelView.AboutUsDTO
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<!-- Basic Card Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">About Us</h6>
+    </div>
+    <div class="card-body">
+        <div class="container">
+
+            <div class="row">
+                <p class="col-3 text font-weight-bold">@Html.DisplayNameFor(model => model.AboutName) :</p>
+                <span class="col-md-9">
+                    @Html.DisplayFor(model => model.AboutName)
+                </span>
+            </div>
+            <div class="row">
+                <p class="col-3 text font-weight-bold">  @Html.DisplayNameFor(model => model.AboutContent) :</p>
+                <span class="col-md-9">
+                    @Html.Raw(Model.AboutContent)
+                </span>
+            </div>
+
+            <div class="row">
+                <p class="col-3 text font-weight-bold">@Html.DisplayNameFor(model => model.AboutImage) :</p>
+                <span class="col-md-9">
+                    <img src="@Model.LinkImage" id="showImg" style="width:300px;height:250px;" />
+                </span>
+            </div>
+        </div>
+        <a href="@Url.Action("Index")" class="btn btn-primary">Back to list</a>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning" })
+    </div>
+</div>

@@ -1,0 +1,123 @@
+﻿@using System.Web.Mvc.Html
+@using WebMvc.Common
+@using WebMvc.Models.ModelView
+@model WebMvc.Models.ModelView.ProgramImageDTO
+@{
+    ViewBag.Title = "IndexPi";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    WebMvc.Models.ModelView.ProgramImageDTO imgMain = ViewBag.ImgMain;
+    List<WebMvc.Models.ModelView.ProgramImageDTO> lsImg = ViewBag.lsImg;
+}
+@section scripts{
+    <script>
+        $(function () {
+            //$('#mytable').DataTable();
+            //$('.nav>li>a').click(function () {
+            //    $('.tab-pane').hide();
+            //    var id = $(this).attr("href");
+            //    $(id).show();
+            //});
+            if ($('#cbHideValue').val() == "True") {
+                $('#cbHide').prop("checked", true);
+            }
+            var msg1 = '@TempData["success"]'
+            if (msg1 != '') {
+                alertify.success(msg1); //display notify
+            }
+            var msg2='@TempData["error"]'
+            if (msg2 != '') {
+                alertify.error(msg2);
+            }
+            $("#cbHide").change(function () {
+                $("#cbHide").is(":checked") ? $("#cbHideValue").val("True") : $("#cbHideValue").val("False");
+            })
+            $("#cbMain").change(function () {
+                $("#cbMain").is(":checked") ? $("#cbMainValue").val("True") : $("#cbMainValue").val("False");
+            })
+            $('#selectImg').change(function (event) {
+                var tmppath = URL.createObjectURL(event.target.files[0]);
+                $('#showImg').fadeIn("fast").attr("src", tmppath);
+            })
+        });
+    </script>
+}
+<div class="container-fluid" style="min-height:500px;background-color:white;margin-top:55px;">
+    <div id="menu1" class="tab-pane">
+        <section class="panel">
+            <header class="panel-heading">
+                <h3>Insert Image</h3>
+            </header>
+            <div>
+                <a style="float:right" href="@Url.Action("Index")" class="btn btn-secondary">Return list</a>
+            </div>
+            <form action="@Url.Action("CreatePi")" method="POST" enctype="multipart/form-data">
+                <div class="panel-body">
+                    <div class="position-center">
+                        <div class="form-group">
+                            <label for="">File Name:</label>
+                            <input type="hidden" value="@Session["ProId"]" name="ProID" />
+                            <div id="frameImg">
+                                <img src="#" id="showImg" style="width:300px;height:250px;" />
+                            </div>
+                            <input type="file" name="FileImage" id="selectImg" accept=".png,.jpg" required>
+                        </div>
+                        @if (imgMain == null)
+                        {
+                            <div class="form-group">
+                                <label for="">Image Main:</label>
+                                <input type="checkbox" id="cbMain" style="width:20px;height:20px;" />
+                                <input type="hidden" name="ImgMain" id="cbMainValue" value="False" />
+                            </div>
+                        }
+                        <button type="submit" name="submit" class="btn btn-info">Submit</button>
+
+                    </div>
+
+                </div>
+            </form>
+        </section>
+        @if (imgMain != null)
+            {
+                <div>
+                    <img src="@Url.Content("~/FileImage/")@imgMain.ImgFileName" style="width:250px;height:200px;" />
+                    <a href="@Url.Action("CheckMain",new { id=imgMain.ID,idPro=imgMain.ProID})" class="btn btn-primary">Uncheck Image Main</a>
+                </div>
+            }
+            <div class="table-agile-info">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        List Images
+
+                    </div>
+
+                    <div class="table-responsive" style="padding:20px;">
+
+                        <table class="table table-striped" id="mytable">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in lsImg)
+                                {
+                                    <tr>
+                                        <td><img src="@Url.Content("~/FileImage/")@item.ImgFileName" style="width:250px;height:200px;" /></td>
+                                        <td>
+                                            @if (imgMain == null)
+                                            {
+                                                <a href="@Url.Action("CheckMain",new { id=item.ID,idPro=item.ProID})" class="btn btn-success">Check Image Main</a>
+                                            }
+                                            <a href="@Url.Action("DelImg",new { id=item.ID})" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

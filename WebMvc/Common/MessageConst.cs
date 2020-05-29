@@ -2,7 +2,11 @@
 {
     public class MessageConst
     {
-        public static string ERROR = "ERROR";
-        public static string SUCCESS = "SUCCESS";
+        public const string ERROR = "ERROR";
+        public const  string SUCCESS = "SUCCESS";
+
+        public const string USER_LOGIN = "USER_LOGIN";
+
+        public const string USER_SESSION = "USER_SESSION";
     }
 }

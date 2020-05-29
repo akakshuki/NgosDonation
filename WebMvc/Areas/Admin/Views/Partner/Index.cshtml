@@ -1,0 +1,61 @@
+﻿@using WebMvc.Models.Enum
+@model List<WebMvc.Models.ModelView.PartnerDTO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="table-agile-info">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Partner List &nbsp; <a class="agile-icon" href="@Url.Action("Create")"><i class="fa fa-plus-circle"></i></a>
+        </div>
+        <div class="table-responsive">
+
+            <table class="table table-striped b-t b-light" id="mytable">
+                <thead>
+                    <tr>
+                        <th>Partner Name</th>
+                        <th>Partner Link</th>
+                        <th>Partner Image</th>
+                        <th>Active</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.PartnerName</td>
+                            <td>@item.PartnerLink</td>
+                            <td>
+                                <img src="~/FileImage/@item.PartnerImage" style="width:250px;height:200px;" />
+                            </td>
+                            <td>@(item.PartnerActive == true ? "Yes" : "No")</td>
+                            <td>
+                                <a href="@Url.Action("Edit",new { id=item.ID})">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script>
+        $(function () {
+            $('#mytable').DataTable();
+            var msg1 = '@TempData["success"]';
+            var msg2 = '@TempData["error"]';
+            if (msg1 != '') {
+                alertify.success(msg1); //display notify
+            }
+            if (msg2 != '') {
+                alertify.error(msg2)
+            }
+        });
+    </script>
+}

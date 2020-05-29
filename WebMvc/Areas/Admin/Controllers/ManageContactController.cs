@@ -15,22 +15,25 @@ namespace WebMvc.Areas.Admin.Controllers
         public ActionResult Index()
         {
             ContactDTO dataContact = null;
-            string path = Path.Combine(Server.MapPath("~/Access/DataContact.dat"));
-            if (!System.IO.File.Exists(path)) return View((ContactDTO) null);
-            //Deserialize
-            Stream streamD = new FileStream(path, FileMode.OpenOrCreate);
-            BinaryFormatter formatterD = new BinaryFormatter();
-            //quá trình Deserialize ngược với quá trình Serialize, trả về một object, bạn nhớ ép kiểu để sử dụng.
-            dataContact = formatterD.Deserialize(streamD) as ContactDTO;
-            streamD.Close();
+            string path = Path.Combine(Server.MapPath("~/"), "DataContact.hat");
+            if (System.IO.File.Exists(path))
+            {
+                //Deserialize
+                Stream streamD = new FileStream(path, FileMode.OpenOrCreate);
+                BinaryFormatter formatterD = new BinaryFormatter();
+                //quá trình Deserialize ngược với quá trình Serialize, trả về một object, bạn nhớ ép kiểu để sử dụng.
+                dataContact = formatterD.Deserialize(streamD) as ContactDTO;
+                streamD.Close();
+            }
+            
             return View(dataContact);
-        }
+            }
 
         public ActionResult InsertContact(ContactDTO cv)
         {
             try
             {
-                string path = Path.Combine(Server.MapPath("~/Access/"), "DataContact.dat");
+                string path = Path.Combine(Server.MapPath("~/"), "DataContact.hat");
                 //Serialize
                 using (Stream stream = new FileStream(path, FileMode.OpenOrCreate))
                 {

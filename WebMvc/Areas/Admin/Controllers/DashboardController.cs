@@ -4,11 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Domain.Repository;
+using WebMvc.Controllers;
 using WebMvc.Models.Dao;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    public class DashboardController : Controller
+    public class DashboardController :Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 

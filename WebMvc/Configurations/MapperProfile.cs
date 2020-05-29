@@ -30,6 +30,18 @@ namespace WebMvc.Configurations
                 //program 
                 config.CreateMap<Program, ProgramDTO>();
                 config.CreateMap<ProgramDTO, Program>();
+                //
+                config.CreateMap<ProgramImage, ProgramImageDTO>();
+                config.CreateMap<ProgramImageDTO, ProgramImage>();
+                //aboutUs
+                config.CreateMap<AboutU, AboutUsDTO>();
+                config.CreateMap<AboutUsDTO, AboutU>();
+                //partner
+                config.CreateMap<Partner, PartnerDTO>();
+                config.CreateMap<PartnerDTO, Partner>();
+                //userQuestion
+                config.CreateMap<UserQuestion, UserQuestionDTO>();
+                config.CreateMap<UserQuestionDTO, UserQuestion>();
             });
 
             return mapperConfig.CreateMapper();

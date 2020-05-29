@@ -1,0 +1,74 @@
+﻿@model WebMvc.Models.ModelView.UserQuestionDTO
+@{
+    ViewBag.Title = "QuesDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="panel" style="margin-top:55px;">
+    <header class="panel-heading">
+        <h2>Question Detail</h2>
+    </header>
+    <hr />
+    <div class="panel-body">
+        <div class="position-center">
+            <div class="form-group">
+                <label for="">User Name:</label>
+                <span>@Model.UserName</span>
+            </div>
+            <div class="form-group">
+                <label for="">User Mail:</label>
+                <span>@Model.UserMail</span>
+            </div>
+            <div class="form-group">
+                <label for="">Title:</label>
+                <span>@Model.Title</span>
+            </div>
+            <div class="form-group">
+                (@Model.QuesDateCreate)<br />
+                <label for="">Content Question:</label><br />
+                <span>@Model.QuesContent</span>
+            </div>
+            @if (Model.AnswerContent != null)
+            {
+                <div class="form-group">
+                    <label for="">Answer Content:</label><br />
+                    <span>@Model.AnswerContent</span> (@Model.AnswerDateCreate)
+                </div>
+            }
+            else
+            {
+                <form action="@Url.Action("AnswerQuestion")" method="POST" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="">Content Answer:</label>
+                        <input type="hidden" value="@Model.ID" name="ID" />
+                        <input type="hidden" name="UserMail" value="@Model.UserMail" />
+                        <input type="hidden" value="@Model.UserName" name="UserName" />
+                        <textarea name="AnswerContent" required style="width:100%;height:200px;">Dear @Model.UserName, we have received the email you sent us. </textarea>
+                    </div>
+                    <button type="submit" name="submit" class="btn btn-info">Submit</button>
+                </form>
+            }
+        </div>
+    </div>
+
+</section>
+<a href="@Url.Action("Index")" class="btn btn-sm btn-info" style="background-color:#4e73df;font-size:20px;float:left;margin-top: 10px;
+">
+    <i class="fa fa-arrow-left"></i> Back To List
+</a>
+@section scripts{
+
+    <script>
+    $(function () {
+        var msg1 = '@TempData["success"]';
+        var msg2 = '@TempData["error"]';
+        if (msg1 != '') {
+            alertify.success(msg1); //display notify
+        }
+        if (msg2 != '') {
+            alertify.error(msg2)
+        }
+    });
+    </script>
+}

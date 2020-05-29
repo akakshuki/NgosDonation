@@ -5,6 +5,7 @@ using System.Web;
 
 namespace WebMvc.Models.ModelView
 {
+    [Serializable]
     public class ContactDTO
     {
         public string PhoneNumber { get; set; }

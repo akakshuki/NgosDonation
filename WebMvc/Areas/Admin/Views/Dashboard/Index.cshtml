@@ -33,8 +33,8 @@
                 <thead>
                 <tr>
                     <th>User Name</th>
-                    <th>Email</th>
-                    <th>Gender</th>
+                    <th>Donate Name</th>
+                   
                     <th>Date Create</th>
                     <th>Money</th>
                     <th>Type Card</th>
@@ -45,8 +45,8 @@
                 <tfoot>
                 <tr>
                     <th>User Name</th>
-                    <th>Email</th>
-                    <th>Gender</th>
+                    <th>Donate Name</th>
+                   
                     <th>Date Create</th>
                     <th>Money</th>
                     <th>Type Card</th>
@@ -59,22 +59,12 @@
                 {
                     <tr>
                         <td>
-                            @data.User.UserName
+                            <a href="@Url.Action("UserInfo","ManageUser",new {id  = data.UserID})"> @data.User.UserName</a>
                         </td>
                         <td>
-                            @data.User.UserMail
+                            <a href="@Url.Action("UserInfo","ManageUser",new {id  = data.DonateID})"> @data.Donate.DonateName</a>
                         </td>
-                        <td>
-                            @if (@data.User.UserGender)
-                            {
-                                <p>Male</p>
-                            }
-                            else
-                            {
-                                <p>Female</p>
-                            }
-
-                        </td>
+                       
                         <td>
                             @data.DateCreate
                         </td>

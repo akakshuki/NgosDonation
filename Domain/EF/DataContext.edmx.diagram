@@ -4,6 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+      <Diagram DiagramId="79a3da8443e349c28923d59357a31f22" Name="Diagram1">
+        <EntityTypeShape EntityType="ProjectSem3Model.AboutU" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ProjectSem3Model.Category" Width="1.5" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="ProjectSem3Model.Donate" Width="1.5" PointX="3" PointY="6.125" />
+        <EntityTypeShape EntityType="ProjectSem3Model.Partner" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ProjectSem3Model.Program" Width="1.5" PointX="8" PointY="6" />
+        <EntityTypeShape EntityType="ProjectSem3Model.ProgramImage" Width="1.5" PointX="10.25" PointY="6.25" />
+        <EntityTypeShape EntityType="ProjectSem3Model.Role" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="ProjectSem3Model.sysdiagram" Width="1.5" PointX="5.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ProjectSem3Model.TypeProgram" Width="1.5" PointX="5.75" PointY="6.375" />
+        <EntityTypeShape EntityType="ProjectSem3Model.User" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="ProjectSem3Model.UserDonate" Width="1.5" PointX="5.25" PointY="1.5" />
+        <EntityTypeShape EntityType="ProjectSem3Model.UserQuestion" Width="1.5" PointX="7.75" PointY="9.75" />
+        <AssociationConnector Association="ProjectSem3Model.FK_Donate_Category" />
+        <AssociationConnector Association="ProjectSem3Model.FK_UserDonate_Donate" />
+        <AssociationConnector Association="ProjectSem3Model.FK_Program_TypeProgram" />
+        <AssociationConnector Association="ProjectSem3Model.FK_ProgramImage_Program" />
+        <AssociationConnector Association="ProjectSem3Model.FK_User_Role" />
+        <AssociationConnector Association="ProjectSem3Model.FK_UserDonate_User" />
       <Diagram DiagramId="2d9159e6237148828acef5c288c96864" Name="Diagram1">
         <EntityTypeShape EntityType="ProjectSem3Model.AboutU" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectSem3Model.Category" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
