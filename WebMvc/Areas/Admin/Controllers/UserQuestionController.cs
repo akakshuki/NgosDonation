@@ -37,9 +37,9 @@ namespace WebMvc.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var senderEmail = new MailAddress("dtmt1610@gmail.com", "NGO");
+                    var senderEmail = new MailAddress("giangbaccai1207@gmail.com", "NGO");
                     var receiverEmail = new MailAddress(u.UserMail, u.UserName);
-                    var password = "dtmt16101302";
+                    var password = "dinhhoang0712";
                     var sub = "NGO support";
                     var body = u.AnswerContent;
                     var smtp = new SmtpClient
