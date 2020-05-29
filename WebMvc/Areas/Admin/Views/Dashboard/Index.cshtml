@@ -50,8 +50,6 @@
                     <th>Date Create</th>
                     <th>Money</th>
                     <th>Type Card</th>
-
-                    <th>#</th>
                 </tr>
                 </tfoot>
                 <tbody>
@@ -73,12 +71,6 @@
                         </td>
                         <td>
                             @data.TypeCard
-                        </td>
-
-                        <td>
-                            @*<a href="@Url.Action("Detail", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
-                            <a href="@Url.Action("Edit", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-warning">Edit</a>
-                            <a href="@Url.Action("HideDonate" , "ManageDonate", new {id =@data.ID})" class="btn m-1 btn-danger">Show</a>*@
                         </td>
                     </tr>
                 }

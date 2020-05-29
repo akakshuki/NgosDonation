@@ -58,7 +58,8 @@ namespace WebMvc.Controllers
         //About Us Page
         public ActionResult About()
         {
-            return View();
+            var ls = new AboutUsDao(_provider).GetAll().Where(w => w.AboutHide == false).ToList();
+            return View(ls);
         }
         //Contact Us Page
         public ActionResult Contact()
