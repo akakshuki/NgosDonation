@@ -240,6 +240,11 @@ namespace WebMvc.Controllers
         [HttpPost]
         public async Task<ActionResult> SendMailInvite( string email)
         {
+            if (new UserDao(_provider).GetUserByEmail(email) != null)
+            {
+                TempData[MessageConst.ERROR] = "This mail have exist in this website";
+                return Redirect("/");
+            }
             try
             {
                 var cookie = Request.Cookies[MessageConst.USER_LOGIN];

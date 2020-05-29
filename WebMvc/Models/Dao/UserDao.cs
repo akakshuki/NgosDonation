@@ -20,10 +20,7 @@ namespace WebMvc.Models.Dao
             _unitOfWork = unitOfWork;
         }
 
-        public UserDao()
-        {
-           
-        }
+        
 
         //Get All List User
         public List<UserDTO> GetAllUser()

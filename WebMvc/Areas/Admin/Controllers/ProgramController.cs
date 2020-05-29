@@ -116,10 +116,11 @@ namespace WebMvc.Areas.Admin.Controllers
             {
                 programImage.ImgFileName = "default.png";
             }
-            if (!ModelState.IsValid) return View();
+            //hoang fix redirect here
+            if (!ModelState.IsValid) return RedirectToAction("IndexPi","Program", new{id = programImage.ProID });
             if (new ProgramImageDao(_unitOfWork).Create(programImage))
                 return RedirectToAction("Index");
-            return View();
+            return RedirectToAction("IndexPi", "Program", new { id = programImage.ProID });
         }
 
         public ActionResult CheckMain(int id, int idPro)
