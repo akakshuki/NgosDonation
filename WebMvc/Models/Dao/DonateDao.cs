@@ -15,7 +15,7 @@ namespace WebMvc.Models.Dao
 
         private int STATUS_ENDED = 3;
         private int ON_GOING = 2;
-        
+        private int UP_COMMING = 1;
 
         private readonly IUnitOfWork _unitOfWork;
 
@@ -29,7 +29,8 @@ namespace WebMvc.Models.Dao
             var data = _unitOfWork.DonateRepository.Get().Where(x => x.DonateStatus != STATUS_ENDED).ToList();
             foreach (var donate in data)
             {
-                if (donate.StartDay >= DateTime.Now) donate.DonateStatus = ON_GOING;
+                if (donate.StartDay > DateTime.Now) donate.DonateStatus = UP_COMMING;
+                if(donate.StartDay<= DateTime.Now && donate.EndDay >= DateTime.Now) donate.DonateStatus = ON_GOING;
                 if (donate.EndDay < DateTime.Now) donate.DonateStatus = STATUS_ENDED;
                 _unitOfWork.DonateRepository.Edit(donate);
                 _unitOfWork.Commit();
@@ -85,8 +86,7 @@ namespace WebMvc.Models.Dao
                 donate.DonateStatus = donate.StartDay > DateTime.Now ? DonateStatus.UpComing : DonateStatus.OnGoing;
                 donate.DonateDateCreate = dataDonate.DonateDateCreate;
                 donate.TotalMoney = dataDonate.TotalMoney;
-                donate.DonateStatus = donate.StartDay > DateTime.Now ? DonateStatus.UpComing : DonateStatus.OnGoing;
-                var data = MapperProfile.MapperConfig().Map<DonateDTO, Donate>(donate);
+               var data = MapperProfile.MapperConfig().Map<DonateDTO, Donate>(donate);
                 
                 _unitOfWork.DonateRepository.Edit(data);
                 return _unitOfWork.Commit();

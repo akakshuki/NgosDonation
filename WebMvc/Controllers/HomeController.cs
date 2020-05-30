@@ -102,9 +102,22 @@ namespace WebMvc.Controllers
             return View();
         }
         //Personal Infomation
-        public ActionResult PersonalInfo(string email)
+        public ActionResult PersonalInfo()
         {
-            return View();
+            var cookie = Request.Cookies[MessageConst.USER_LOGIN];
+            if (cookie == null)
+            {
+                TempData[MessageConst.ERROR] = "Please Login";
+                return RedirectToAction("Index", "Login");
+            }
+            var userData= new UserDao(_provider).GetUserByEmail(JsonConvert.DeserializeObject<UserLogin>(cookie.Value).UserMail);
+            if (userData == null)
+            {
+                TempData[MessageConst.ERROR] = "Email incorrect!";
+                return RedirectToAction("SignOut","Login");
+            }
+
+            return View(userData);
         }
 
         //CREATE QUESTION

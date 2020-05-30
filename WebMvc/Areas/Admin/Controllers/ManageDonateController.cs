@@ -39,7 +39,7 @@ namespace WebMvc.Areas.Admin.Controllers
         public ActionResult Create(DonateDTO donate)
         {
             ViewBag.Categories = new CategoryDao(_unitOfWork).GetAll();
-            if (donate.EndDay < donate.StartDay || donate.StartDay >= DateTime.Now)
+            if (donate.EndDay < donate.StartDay || donate.StartDay < DateTime.Now)
             {
                 TempData[MessageConst.ERROR] = "Date time is invalid";
                 return View();
@@ -69,11 +69,18 @@ namespace WebMvc.Areas.Admin.Controllers
         {
             var data = new DonateDao(_unitOfWork).GetByid(donate.ID);
             ViewBag.Categories = new CategoryDao(_unitOfWork).GetAll();
-            if (donate.EndDay < donate.StartDay || donate.StartDay >= DateTime.Now)
+            if (donate.EndDay < donate.StartDay || donate.StartDay < DateTime.Now)
             {
                 TempData[MessageConst.ERROR] = "Date time is invalid";
                 return View(data);
             }
+
+            if (donate.EndDay < DateTime.Now)
+            {
+                TempData[MessageConst.ERROR] = "End date invalid !";
+                return View(data);
+            }
+
             if (!ModelState.IsValid) return View(data);
 
             if (new DonateDao(_unitOfWork).Edit(donate))

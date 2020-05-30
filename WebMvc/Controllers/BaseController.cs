@@ -13,7 +13,7 @@ namespace WebMvc.Controllers
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             var cookie = Request.Cookies[MessageConst.USER_LOGIN];
-            if (cookie.Value == null)
+            if (cookie == null)
             {
                 filterContext.Result = new RedirectToRouteResult(new
                     RouteValueDictionary(new { controller = "Login", action = "Index", area = "" }));

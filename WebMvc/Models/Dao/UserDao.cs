@@ -91,5 +91,24 @@ namespace WebMvc.Models.Dao
             _unitOfWork.UserRepository.Edit(data);
             return _unitOfWork.Commit();
         }
+
+        public bool ChangePassword(string newpass, string email)
+        {
+            var user = _unitOfWork.UserRepository.Get().SingleOrDefault(x => x.UserMail == email );
+            if (user == null) return false;
+            user.UserPwd = Encrypt.EncryptPasswordMD5(newpass);
+            _unitOfWork.UserRepository.Edit(user);
+            return _unitOfWork.Commit();
+        }
+
+        public bool UpdateInfo(UserDTO user)
+        {
+            var data = _unitOfWork.UserRepository.Get().SingleOrDefault(x => x.UserMail== user.UserMail);
+            data.UserName = user.UserName;
+            data.UserDOB = user.UserDOB;
+            data.UserGender = user.UserGender;
+            _unitOfWork.UserRepository.Edit(data);
+            return _unitOfWork.Commit();
+        }
     }
 }

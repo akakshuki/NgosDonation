@@ -1,4 +1,4 @@
-﻿
+﻿@model WebMvc.Models.ModelView.UserDTO
 @{
     ViewBag.Title = "Personal Infomation";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -24,18 +24,19 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="col-md-8" style="margin:20px auto 20px auto;">
-                <form action="/" method="post">
+                <form action="@Url.Action("EditUser","Login")" method="post">
                     <div>
                         <label>Your Name:</label>
-                        <input type="text" name="" class="contact-input" required maxlength="200" />
+                        <input type="text" name="UserName" value="@Model.UserName" class="contact-input" required maxlength="200" />
                     </div>
                     <div>
                         <label>Your Email:</label>
-                        <input type="email" name="" class="contact-input" readonly maxlength="100" />
+                        <input type="hidden"  name="UserMail" value="@Model.UserMail" />
+                        <input type="email" value="@Model.UserMail" disabled="disabled" class="contact-input" readonly maxlength="100" />
                     </div>
                     <div id="gender">
                         <label>Gender:</label>
-                        <input type="hidden" value="True" id="genderValue" />
+                        <input type="hidden" name="UserGender" value="@Model.UserGender" id="genderValue" />
                         <div class="custom-control custom-radio custom-control-inline" style="margin-left:15px;">
                             <input type="radio" class="custom-control-input" id="customRadio1" name="example1" value="True" checked>
                             <label class="custom-control-label" for="customRadio1">Male</label>
@@ -46,8 +47,8 @@
                         </div>
                     </div>
                     <div>
-                        <label>Your Birthday:</label>
-                        <input type="date" name="" class="contact-input" required />
+                        <label>Your Birthday: </label>
+                        <input type="date" name="UserDOB" id="birthInput" value="@Model.UserDOB.ToString("yyyy-MM-dd")" class="contact-input" required />
                     </div>
                     <input type="submit" value="Update" class="btn btn-primary btn-full-width">
                 </form>
@@ -55,12 +56,12 @@
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
             <div class="col-md-8" style="margin:20px auto 20px auto;">
-                <form action="/" method="post">
+                <form action="@Url.Action("ChangePassword","Login")" method="post">
                     <div>
-                        <input type="password" name="" placeholder="Your Old Password" class="contact-input" required maxlength="20" />
+                        <input type="password" name="oldpass" placeholder="Your Old Password" class="contact-input" required maxlength="20" />
                     </div>
                     <div>
-                        <input type="password" name="" id="w3lSender" placeholder="Your New Password" class="contact-input" required maxlength="20" />
+                        <input type="password" name="newpass" id="w3lSender" placeholder="Your New Password" class="contact-input" required maxlength="20" />
                     </div>
                     <input type="submit" value="Change" class="btn btn-primary btn-full-width">
                 </form>
@@ -79,13 +80,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>0</td>
-                            <td>dsdjfh</td>
-                            <td><a href="#">Donate Infomation</a></td>
-                        </tr>
+                        @foreach (var donate in Model.UserDonates.OrderByDescending(x=>x.DateCreate))
+                        {
+                            <tr>
+                                <td>@donate.Donate.DonateName</td>
+                                <td>@donate.Donate.Category.CateName</td>
+                                <td>@donate.Money</td>
+                                <td>@donate.DateCreate</td>
+                                <td><a href="@Url.Action("DonateInformation","Home", new {id = donate.DonateID})">Donate Infomation</a></td>
+                            </tr>
+                        }
 
                     </tbody>
                 </table>
@@ -102,5 +106,6 @@
             $('#mytable').DataTable();
         });
     </script>
+
 
 }
