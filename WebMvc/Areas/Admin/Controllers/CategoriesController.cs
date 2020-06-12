@@ -10,23 +10,23 @@ namespace WebMvc.Areas.Admin.Controllers
     public class CategoriesController : BaseController
     {
         private IUnitOfWork _unitOfWork;
-
+        //call IUnitOfWork to use functions of CategoryDao
         public CategoriesController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
+        //Display List category
         public ActionResult Index()
         {
             var data = new CategoryDao(_unitOfWork).GetAll();
             return View(data);
         }
-
+        //form create category
         public ActionResult Create()
         {
             return View();
         }
-
+        //method create category
         [HttpPost]
         public ActionResult Create(CategoryDTO category)
         {
@@ -40,20 +40,13 @@ namespace WebMvc.Areas.Admin.Controllers
 
             if (new CategoryDao(_unitOfWork).Create(category))
             {
-                TempData[MessageConst.SUCCESS] = "Create Success !";
+                TempData[MessageConst.SUCCESS] = "Create Successfully !";
                 return RedirectToAction("Index");
             }
 
             return View();
         }
-
-        public ActionResult Delete(int id)
-        {
-            new CategoryDao(_unitOfWork).Delete(id);
-            TempData[MessageConst.SUCCESS] = "Delete Success !";
-            return RedirectToAction("Index");
-        }
-
+        //get content of category by id and form edit
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -61,7 +54,7 @@ namespace WebMvc.Areas.Admin.Controllers
             if (data == null) return RedirectToAction("Page404", "Error");
             return View(data);
         }
-
+        //method edit category
         [HttpPost]
         public ActionResult Edit(CategoryDTO category)
         {
@@ -75,7 +68,7 @@ namespace WebMvc.Areas.Admin.Controllers
 
             if (new CategoryDao(_unitOfWork).Edit(category))
             {
-                TempData[MessageConst.SUCCESS] = "Update success!";
+                TempData[MessageConst.SUCCESS] = "Update successfully!";
                 return RedirectToAction("Index");
             }
 

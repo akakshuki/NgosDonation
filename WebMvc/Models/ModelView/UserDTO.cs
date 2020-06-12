@@ -36,6 +36,7 @@ namespace WebMvc.Models.ModelView
       
         public string UserName { get; set; }
         public string UserMail { get; set; }
+        public bool UserVolunteer { get; set; }
         public int RoleId { get; set; }
 
     }

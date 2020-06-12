@@ -7,99 +7,16 @@
     var lsNew = ViewBag.newQ;
     var lsReply = ViewBag.reply;
 }
+@section scripts
+{
+    <!-- Page level plugins -->
+    <script src="~/Access/Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Access/Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-<div class="container-fluid" style="min-height:500px;">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#home">New Question</a></li>| 
-        <li><a data-toggle="tab" href="#menu1">Question Replied</a></li>
-    </ul>
-    <div class="tab-content">
-        <div id="home" class="tab-pane in active">
-            <div class="table-agile-info">
-                <div class="panel panel-default">
-
-                    <div class="table-responsive" style="padding:20px;">
-
-                        <table class="table table-striped" id="mytable">
-                            <thead>
-                                <tr>
-                                    <th>User Name</th>
-                                    <th>User Mail</th>
-                                    <th>Title</th>
-                                    <th>Date Create</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in lsNew)
-                                {
-                                    <tr>
-                                        <td>@item.UserName</td>
-                                        <td>@item.UserMail</td>
-                                        <td>@item.Title</td>
-                                        <td>@item.QuesDateCreate</td>
-                                        <td>
-                                            <a href="@Url.Action("QuesDetail",new { id=item.ID})" class="btn btn-info">Detail</a>
-                                        </td>
-                                    </tr>
-                                }
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="menu1" class="tab-pane">
-            <div class="table-agile-info">
-                <div class="panel panel-default">
-                    <div class="table-responsive" style="padding:20px;">
-
-                        <table class="table table-striped" id="tableReply">
-                            <thead>
-                                <tr>
-                                    <th>User Name</th>
-                                    <th>User Mail</th>
-                                    <th>Title</th>
-                                    <th>Question Date Create</th>
-                                    <th>Reply Date Create</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in lsReply)
-                                {
-                                    <tr>
-                                        <td>@item.UserName</td>
-                                        <td>@item.UserMail</td>
-                                        <td>@item.Title</td>
-                                        <td>@item.QuesDateCreate</td>
-                                        <td>@item.AnswerDateCreate</td>
-                                        <td>
-                                            <a href="@Url.Action("QuesDetail",new { id=item.ID})" class="btn btn-info">Detail</a>
-                                        </td>
-                                    </tr>
-                                }
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@section scripts{
-
+    <!-- Page level custom scripts -->
+    <script src="~/Access/Admin/js/demo/datatables-demo.js"></script>
     <script>
         $(function () {
-            $('#mytable').DataTable();
-            $('#tableReply').DataTable();
-            $('.nav>li>a').click(function () {
-                $('.tab-pane').hide();
-                var id = $(this).attr("href");
-                $(id).show();
-            });
             var msg1 = '@TempData["success"]';
             var msg2 = '@TempData["error"]';
             if (msg1 != '') {
@@ -111,3 +28,79 @@
         });
     </script>
 }
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">List New Questions</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">List Question Answered</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="table-responsive" style="padding:20px;">
+
+                    <table class="table table-striped" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>User Name</th>
+                                <th>User Mail</th>
+                                <th>Title</th>
+                                <th>Date Create</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in lsNew)
+                            {
+                                <tr>
+                                    <td>@item.UserName</td>
+                                    <td>@item.UserMail</td>
+                                    <td>@item.Title</td>
+                                    <td>@item.QuesDateCreate</td>
+                                    <td>
+                                        <a href="@Url.Action("QuesDetail",new { id=item.ID})" class="btn btn-info">Detail</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="table-responsive" style="padding:20px;">
+                    <table class="table table-striped" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>User Name</th>
+                                <th>User Mail</th>
+                                <th>Title</th>
+                                <th>Question Date Create</th>
+                                <th>Reply Date Create</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in lsReply)
+                            {
+                                <tr>
+                                    <td>@item.UserName</td>
+                                    <td>@item.UserMail</td>
+                                    <td>@item.Title</td>
+                                    <td>@item.QuesDateCreate</td>
+                                    <td>@item.AnswerDateCreate</td>
+                                    <td>
+                                        <a href="@Url.Action("QuesDetail",new { id=item.ID})" class="btn btn-info">Detail</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

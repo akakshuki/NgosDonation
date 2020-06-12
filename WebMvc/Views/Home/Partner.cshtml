@@ -3,8 +3,9 @@
     ViewBag.Title = "Our Partners";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<WebMvc.Models.ModelView.PartnerDTO> lsPartner = ViewBag.lsPartner;
+    List<WebMvc.Models.ModelView.UserDTO> lsVolunteer = ViewBag.volunteer;
 }
-
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 <!-- contact page breadcrumns -->
 <section class="inner-banner"></section>
 <nav aria-label="breadcrumb">
@@ -29,11 +30,52 @@
             <div class="row" id="partImg">
                 @foreach (var item in lsPartner)
                 {
-                    <a href="@item.PartnerLink"><img src="~/FileImage/@item.PartnerImage" class="img-thumbnail" alt="Cinque Terre"></a>
+                    <a href="@item.PartnerLink" target="_blank"><img src="~/FileImage/@item.PartnerImage" class="img-thumbnail"></a>
                 }
             </div>
-
+        </div>
+    </div>
+    <div class="call-w3" style="margin-top:20px;">
+        <div class="container">
+            <div class="row align-items-center" style="margin-bottom:20px;">
+                <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12">
+                    <h4 class="section-title">Volunteers <i class="fa fa-leaf"></i></h4>
+                    <p class="text-center">
+                        We are very grateful to those who have donated a lot or have participated in the activities we have organized.
+                    </p>
+                </div>
+            </div>
+            <table class="table table-striped" id="mytable">
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>User Mail</th>
+                        <th>Money Donate</th>
+                        <th>Date join</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in lsVolunteer)
+                    {
+                        <tr>
+                            <td>@item.UserName</td>
+                            <td>@WebMvc.Common.EmailMarker.MaskEmail(item.UserMail)</td>
+                            <td>@item.MoneyDonate</td>
+                            <td>@(item.UserDateCreate.ToString("yyyy/MM/dd"))</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
 <!-- services page block 1 -->
+@section scripts{
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(function () {
+            $('#mytable').DataTable();
+        });
+    </script>
+}

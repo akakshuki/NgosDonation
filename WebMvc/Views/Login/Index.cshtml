@@ -26,7 +26,7 @@
     <div id="login" style="display:block;">
         <h4 class="text-center section-title">Sign In</h4>
         <div style="margin-top:20px;">
-            <form action="@Url.Action("SingIn")" method="post">
+            <form action="@Url.Action("SignIn")" method="post">
                 <div>
                     <input type="email" name="email" placeholder="Your Email" class="contact-input"
                            required maxlength="100" />
@@ -73,14 +73,14 @@
                 </div>
                 <div>
                     <label>Your Birthday:</label>
-                    <input type="date" name="UserDOB" class="contact-input" required />
+                    <input type="date" name="UserDOB" class="contact-input" required id="dob" />
                 </div>
                 <div>
                     <label>Your Password:</label>
                     <input type="password" name="UserPwd" id="password" class="contact-input" pattern=".{6,}" title="Six or more characters" maxlength="20" required />
                     <input type="checkbox" id="showPwd">&nbsp; Show Password
                 </div>
-                <input type="submit" value="Submit" class="btn btn-primary btn-full-width">
+                <input type="submit" value="Submit" class="btn btn-primary btn-full-width" id="btnRegis">
                 <div class="text-center" style="margin-top:15px;">
                     <span>You have an account? <a href="#login" class="text-primary changePage"><b>Signin Now!</b> </a> </span>
                 </div>
@@ -129,6 +129,14 @@
                 $('#gender>div>input').prop("checked", false);
                 $(this).prop("checked", true);
                 $('#genderValue').val(value);
+            });
+            $('#btnRegis').click(function (e) {
+                var dobYear = new Date($('#dob').val()).getFullYear;
+                var curYear = new Date().getFullYear;
+                if (curYear - dobYear < 18) {
+                    alertify.error("Date of birth invalid! It must be greater than 18 years old.");
+                    e.preventDefault();
+                }
             });
             $('#showPwd').click(function() {
                 var x = document.getElementById("password");

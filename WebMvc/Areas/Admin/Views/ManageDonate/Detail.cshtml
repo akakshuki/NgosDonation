@@ -15,12 +15,10 @@
     <script src="~/Access/Admin/js/demo/datatables-demo.js"></script>
 
 }
-<h1 class="h3 mb-2 text-gray-800">Donate Management</h1>
-<p class="mb-4"> </p>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary"></h6>
+        <h6 class="m-0 font-weight-bold text-primary">Detail Donate: @Model.DonateName</h6>
     </div>
     <div class="card-body">
         <div class="container">
@@ -78,62 +76,35 @@
                 <thead>
                     <tr>
 
-                        <th>Date Create</th>
+                        <th>User Name</th>
                         <th>Money</th>
                         <th>Type Card</th>
-                        <th>User Name</th>
-                        <th>Email</th>
-                        <th>Gender</th>
-                        <th>#</th>
+                        <th>Date Create</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>Date Create</th>
+                        <th>User Name</th>
                         <th>Money</th>
                         <th>Type Card</th>
-                        <th>User Name</th>
-                        <th>Email</th>
-                        <th>Gender</th>
-                        <th>#</th>
+                        <th>Date Create</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     @foreach (var data in Model.UserDonates)
                     {
-                        <tr>
-                            <td>
-                                @data.DateCreate
-                            </td>
-                            <td>
-                                @data.Money
-                            </td>
-                            <td>
-                                @data.TypeCard
-                            </td>
-                            <td>
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("UserInfo","ManageUser",new {id  = data.UserID})">
                                 @data.User.UserName
-                            </td>
-                            <td>
-                                @data.User.UserMail
-                            </td>
-                            <td>
-                                @if (@data.User.UserGender)
-                                {
-                                    <p>Male</p>
-                                }
-                                else
-                                {
-                                    <p>Female</p>
-                                }
-
-                            </td>
-                            <td>
-                                @*<a href="@Url.Action("Detail", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
-                                    <a href="@Url.Action("Edit", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-warning">Edit</a>
-                                    <a href="@Url.Action("HideDonate" , "ManageDonate", new {id =@data.ID})" class="btn m-1 btn-danger">Show</a>*@
-                            </td>
-                        </tr>
+                                @if (data.User.UserVolunteer == true)
+                                {<i class="fas fa-leaf"></i>}
+                            </a>                            
+                        </td>
+                        <td> @data.Money</td>
+                        <td>@data.TypeCard</td>
+                        <td> @data.DateCreate </td>
+                    </tr>
                     }
                 </tbody>
             </table>

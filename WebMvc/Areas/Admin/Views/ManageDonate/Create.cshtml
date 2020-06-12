@@ -59,7 +59,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.StartDay, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input name="StartDay" type="text" value="@DateTime.Now" class=" datePicker1 form-control fa-calendar" />
+                        <input name="StartDay" type="date" value="@(DateTime.Now.AddDays(1).ToString("yyyy/MM/dd"))" class="form-control" />
                         @Html.ValidationMessageFor(model => model.StartDay, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.EndDay, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input name="EndDay" type="text" value="@DateTime.Now.AddDays(1)" class=" datePicker2 form-control fa-calendar" />
+                        <input name="EndDay" type="date" value="@(DateTime.Now.AddDays(2).ToString("yyyy/MM/dd"))" class="form-control" />
                         @Html.ValidationMessageFor(model => model.EndDay, "", new { @class = "text-danger" })
                     </div>
                 </div>

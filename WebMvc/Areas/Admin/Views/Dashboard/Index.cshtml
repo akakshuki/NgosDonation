@@ -25,50 +25,43 @@
    
     <div class="card-body">
         <div class="table-responsive">
-            <h3>List User donate  to day</h3>
+            <h3>List User donate  today</h3>
             <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
                 <thead>
-                <tr>
-                    <th>User Name</th>
-                    <th>Donate Name</th>
-                   
-                    <th>Date Create</th>
-                    <th>Money</th>
-                    <th>Type Card</th>
-
-                    <th>#</th>
-                </tr>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Donate Name</th>
+                        <th>Money</th>
+                        <th>Type Card</th>
+                        <th>Date Create</th>
+                    </tr>
                 </thead>
                 <tfoot>
-                <tr>
-                    <th>User Name</th>
-                    <th>Donate Name</th>
-                   
-                    <th>Date Create</th>
-                    <th>Money</th>
-                    <th>Type Card</th>
-                </tr>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Donate Name</th>
+                        <th>Money</th>
+                        <th>Type Card</th>
+                        <th>Date Create</th>
+                    </tr>
                 </tfoot>
                 <tbody>
                 @foreach (var data in ListUserCurrentDate)
                 {
                     <tr>
                         <td>
-                            <a href="@Url.Action("UserInfo","ManageUser",new {id  = data.UserID})"> @data.User.UserName</a>
+                            <a href="@Url.Action("UserInfo","ManageUser",new {id  = data.UserID})">
+                                @data.User.UserName
+                                @if (data.User.UserVolunteer == true)
+                                {<i class="fas fa-leaf"></i>}
+                            </a>
                         </td>
                         <td>
                             <a href="@Url.Action("Detail","ManageDonate",new {id  = data.DonateID})"> @data.Donate.DonateName</a>
                         </td>
-                       
-                        <td>
-                            @data.DateCreate
-                        </td>
-                        <td>
-                            @data.Money
-                        </td>
-                        <td>
-                            @data.TypeCard
-                        </td>
+                        <td> @data.Money</td>
+                        <td>@data.TypeCard</td>
+                        <td> @data.DateCreate </td>
                     </tr>
                 }
                 </tbody>

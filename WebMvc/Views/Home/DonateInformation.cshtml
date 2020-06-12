@@ -27,7 +27,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12">
-                    <h4 class="section-title">@donate.DonateName @(donate.DonateStatus == DonateStatus.UpComing ? "(Upcoming)" : donate.DonateStatus == DonateStatus.OnGoing ? "(Ongoing)" : "(Ended"))</h4>
+                    <h4 class="section-title">@donate.DonateName @(donate.DonateStatus == DonateStatus.Upcoming ? "(Upcoming)" : donate.DonateStatus == DonateStatus.Ongoing ? "(Ongoing)" : "(Ended)")</h4>
                     <p class="text-center">
                         @donate.Category.CateName <br />
                         <span><b>From</b> @donate.StartDay.ToString("yyyy/MM/dd hh:mm:ss") <b>to</b> @donate.EndDay.ToString("yyyy/MM/dd hh:mm:ss")</span>
@@ -38,16 +38,17 @@
                 <h5>Total Money Donate: <b>@donate.TotalMoney$</b> </h5>
                 @if (donate.DonateStatus != DonateStatus.Ended)
                 {
-                    <form action="@Url.Action("UserDonate","Home")" method="post" >
+                    <form action="@Url.Action("UserDonate","Home")" method="post">
                         <div class="forms-29-form">
-                            <div class="form-group"><input type="number" name="money" placeholder="5 - 1000$" max="1000" min="5" required/> &nbsp;
-                        <input type="hidden" value="@donate.ID"  name="donateId"/>
-                        <input type="submit" value="Donate" class="btn btn-default" />
-                        </div>
+                            <div class="form-group">
+                                <input type="number" name="money" placeholder="5 - 1000$" max="1000" min="5" required /> &nbsp;
+                                <input type="hidden" value="@donate.ID" name="donateId" />
+                                <input type="submit" value="Donate" class="btn btn-default" />
+                            </div>
                         </div>
                     </form>
 
-                    }
+                }
 
                 <p>
                     @Html.Raw(donate.DonateContent)
@@ -65,9 +66,12 @@
                         @foreach (var item in donate.UserDonates)
                         {
                             <tr>
-                                <td>@item.User.UserName</td>
+                                <td>
+                                    @item.User.UserName @if (item.User.UserVolunteer == true)
+                                    {<i class="fa fa-leaf"></i>}
+                                </td>
                                 <td>@item.Money</td>
-                                <td>@(item.DateCreate.ToString("yyyy/MM/dd"))</td>
+                                <td>@(item.DateCreate.ToString("yyyy/MM/dd hh:mm:ss"))</td>
                             </tr>
                         }
                     </tbody>

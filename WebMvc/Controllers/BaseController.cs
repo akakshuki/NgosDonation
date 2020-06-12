@@ -21,15 +21,10 @@ namespace WebMvc.Controllers
             else
             {
                 var user = JsonConvert.DeserializeObject<UserLogin>(cookie.Value);
-
-                if (user == null)
+                if (user.RoleId != 1 || user==null)
                 {
-                    var role = (int)Session[user.UserMail];
-                    if (role == 2)
-                    {
-                        filterContext.Result = new RedirectToRouteResult(new
-                            RouteValueDictionary(new { controller = "home", action = "Index", area = "" }));
-                    }
+                    filterContext.Result = new RedirectToRouteResult(new
+                        RouteValueDictionary(new { controller = "home", action = "Index", area = "" }));
                 }
             }
         }

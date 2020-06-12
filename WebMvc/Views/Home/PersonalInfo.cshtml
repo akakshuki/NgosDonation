@@ -1,6 +1,6 @@
 ﻿@model WebMvc.Models.ModelView.UserDTO
 @{
-    ViewBag.Title = "Personal Infomation";
+    ViewBag.Title = Model.UserName;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
@@ -9,7 +9,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb breadcrumb-padding">
         <li class="breadcrumb-item"><a href="@Url.Action("Index")">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Your name</li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.UserName</li>
     </ol>
 </nav>
 <!-- contact page breadcrumns -->
@@ -36,9 +36,9 @@
                     </div>
                     <div id="gender">
                         <label>Gender:</label>
-                        <input type="hidden" name="UserGender" value="@Model.UserGender" id="genderValue" />
+                        <input type="hidden" name="UserGender" value="@(Model.UserGender==true?"True":"False")" id="genderValue" />
                         <div class="custom-control custom-radio custom-control-inline" style="margin-left:15px;">
-                            <input type="radio" class="custom-control-input" id="customRadio1" name="example1" value="True" checked>
+                            <input type="radio" class="custom-control-input" id="customRadio1" name="example1" value="True">
                             <label class="custom-control-label" for="customRadio1">Male</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
@@ -104,6 +104,17 @@
     <script>
         $(function () {
             $('#mytable').DataTable();
+            if ($('#genderValue').val() === "True") {
+                $('#customRadio1').prop("checked", true);
+            } else {
+                $('#customRadio2').prop("checked", true);
+            }
+            $('#gender>div>input').click(function () {
+                var value = $(this).val();
+                $('#gender>div>input').prop("checked", false);
+                $(this).prop("checked", true);
+                $('#genderValue').val(value);
+            });
         });
     </script>
 

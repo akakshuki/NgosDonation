@@ -16,6 +16,7 @@ namespace WebMvc.Areas.Admin.Controllers
             _unitOfWork = unitOfWork;
         }
         // GET: Admin/Navigation
+        //Display the number of questions the user needs admin to answer
         public PartialViewResult Index()
         {
             TempData["CountQuestion"] = new UserQuestionDao(_unitOfWork).GetAll().Count(s => s.QuesNew).ToString();

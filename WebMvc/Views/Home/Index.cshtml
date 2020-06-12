@@ -11,6 +11,14 @@
                 <h1 class="mb-4 title">
                     The more <strong>you help orthers</strong>, the more <strong>they</strong> will want to <strong>help you.</strong>
                 </h1>
+                <p>
+                    We organize many programs about Education, Health Care, etc ... to help people in difficult circumstances everywhere.
+                    People who have kindness but don't have time to do charity, please donate to us, the money you donate will go to those in need.
+                </p>
+                <div class="mt-5">
+                    <a class="btn btn-primary btn-style mr-2" href="@Url.Action("Donate")">Donate Now! </a>
+                    <a class="btn btn-outline btn-outline-style" href="@Url.Action("Program")">Read more programmes </a>
+                </div>
             </div>
             <div class="col-lg-5 col-md-12 col-sm-12 order-first text-lg-left text-center">
                 <div>
@@ -45,7 +53,7 @@
                     <div class="icon">
                         <span class="fa fa-industry"></span>
                     </div>
-                    <h4><a href="@Url.Action("Donate")">Programs</a></h4>
+                    <h4><a href="@Url.Action("Program")">Programs</a></h4>
                     <p>Events and programs we organize to help the lives of people in need.</p>
                 </div>
             </div>
@@ -91,7 +99,11 @@
                         <p class="title white">Participants</p>
                     </div>
                     <div class="counter">
-
+                        <div class="icon">
+                            <span class="fa fa-leaf"></span>
+                        </div>
+                        <p class="value">@(ViewBag.volunteer ?? 0)</p>
+                        <p class="title white">Volunteers</p>
                     </div>
                 </div>
             </div>

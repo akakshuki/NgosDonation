@@ -17,96 +17,103 @@
 }
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Program Management</h1>
-<p class="mb-4"> </p>
-
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary"><a href="@Url.Action("Create")" class="btn btn-success">Create new </a></h6>
     </div>
     <div class="card-body">
-        <h2>List Program</h2>
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Name Program</th>
-                        <th>Day Create</th>
-                        <th>Type Program</th>
-                        <th>#</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>Name Program</th>
-                        <th>Day Create</th>
-                        <th>Type Program</th>
-                        <th>#</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    @foreach (var data in Model.Where(x => x.ProHide != true ))
-                    {
-                        <tr>
-                            <td>@data.ProName</td>
-                            <td>
-                                @data.ProDateCreate
-                            </td>
-                            <td>
-                                @data.TypeProgram.TypeName
-                            </td>
-                            <td>
-                                <a href="@Url.Action("Detail", "Program", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
-                                <a href="@Url.Action("IndexPi", "Program", new {id = data.ID})" class="btn m-1 btn-warning">Image</a>
-                                <a href="@Url.Action("HideDonate" , "Program", new {id =data.ID})" class="btn m-1 btn-danger">Hide</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">List Program Display</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">List Program Hide</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" style="padding:20px;">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Name Program</th>
+                                <th>Day Create</th>
+                                <th>Type Program</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Name Program</th>
+                                <th>Day Create</th>
+                                <th>Type Program</th>
+                                <th>#</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var data in Model.Where(x => x.ProHide != true))
+                            {
+                                <tr>
+                                    <td>@data.ProName</td>
+                                    <td>
+                                        @data.ProDateCreate
+                                    </td>
+                                    <td>
+                                        @data.TypeProgram.TypeName
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Detail", "Program", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
+                                        <a href="@Url.Action("IndexPi", "Program", new {id = data.ID})" class="btn m-1 btn-warning">Image</a>
+                                        <a href="@Url.Action("HideProgram" , "Program", new {id =data.ID})" class="btn m-1 btn-danger">Hide</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" style="padding:20px;">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Name Program</th>
+                                <th>Day Create</th>
+                                <th>Type Program</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Name Program</th>
+                                <th>Day Create</th>
+                                <th>Type Program</th>
+                                <th>#</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var data in Model.Where(x => x.ProHide))
+                            {
+                                <tr>
+                                    <td>@data.ProName</td>
+
+                                    <td>
+                                        @data.ProDateCreate
+                                    </td>
+                                    <td>
+                                        @data.TypeProgram.TypeName
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Detail", "Program", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
+                                        <a href="@Url.Action("IndexPi", "Program", new {id = data.ID})" class="btn m-1 btn-warning">Image</a>
+                                        <a href="@Url.Action("HideProgram" , "Program", new {id =data.ID})" class="btn m-1 btn-danger">Show</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
-        <hr />
-        <h2>List Hide Program</h2>
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Name Program</th>
-                        <th>Day Create</th>
-                        <th>Type Program</th>
-                        <th>#</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>Name Program</th>
-                        <th>Day Create</th>
-                        <th>Type Program</th>
-                        <th>#</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    @foreach (var data in Model.Where(x => x.ProHide))
-                    {
-                    <tr>
-                        <td>@data.ProName</td>
-    
-                        <td>
-                            @data.ProDateCreate
-                        </td>
-                        <td>
-                            @data.TypeProgram.TypeName
-                        </td>
-                        <td>
-                            <a href="@Url.Action("Detail", "Program", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
-                            <a href="@Url.Action("IndexPi", "Program", new {id = data.ID})" class="btn m-1 btn-warning">Image</a>
-                            <a href="@Url.Action("HideDonate" , "Program", new {id =data.ID})" class="btn m-1 btn-danger">Show</a>
-                        </td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <hr />
     </div>
 </div>

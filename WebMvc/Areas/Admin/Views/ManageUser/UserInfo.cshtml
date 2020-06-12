@@ -15,12 +15,13 @@
     <script src="~/Access/Admin/js/demo/datatables-demo.js"></script>
 
 }
-<h1 class="h3 mb-2 text-gray-800">Donate Management</h1>
-<p class="mb-4"> </p>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary"></h6>
+        <h6 class="m-0 font-weight-bold text-primary">
+            @Model.UserName @if (Model.UserVolunteer == true)
+                {<i class="fas fa-leaf"></i>}
+        </h6>
     </div>
     <div class="card-body">
         <div class="container">
@@ -45,15 +46,7 @@
             <div class="row">
                 <p class="col-3 text font-weight-bold"> @Html.DisplayNameFor(model => model.UserGender) :</p>
                 <p class="col-md-9">
-                    @if (Model.UserGender)
-                    {
-                        <span>Male</span>
-                    }
-                    else
-                    {
-                        <span>Female</span>
-
-                    }
+                   @(Model.UserGender==true?"Male":"Femail")
                 </p>
             </div>
             <div class="row">
@@ -63,33 +56,9 @@
                 </span>
             </div>
             <div class="row">
-                <p class="col-3 text font-weight-bold">  @Html.DisplayNameFor(model => model.UserActive) :</p>
-                <p class="col-md-9">
-                    @if (Model.UserGender)
-                    {
-                        <span>
-                            Active
-                        </span>
-                    }
-                    else
-                    {
-                        <span>Female</span>
-                    }
-                </p>
-            </div>
-            <div class="row">
                 <p class="col-3 text font-weight-bold">   @Html.DisplayNameFor(model => model.UserVolunteer) :</p>
                 <span class="col-md-9">
-                    @if (Model.UserGender)
-                    {
-                        <span>
-                            Yes
-                        </span>
-                    }
-                    else
-                    {
-                        <span>No</span>
-                    }
+                    @(Model.UserVolunteer == true ? "Yes" : "No")
                 </span>
             </div>
             <div class="row">
@@ -106,55 +75,45 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
                 <thead>
-                <tr>
-                    <th>Date Create</th>
-                    <th>Money</th>
-                    <th>Type Card</th>
-                    <th>Donate Name</th>
-                    <th>Donate Category</th>
-                    <th>Status</th>
-                    <th>#</th>
-                </tr>
+                    <tr>
+                        <th>Donate Name</th>
+                        <th>Donate Category</th>
+                        <th>Money</th>
+                        <th>Type Card</th>
+                        <th>Date Create</th>
+                    </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>Date Create</th>
-                        <th>Money</th>
-                        <th>Type Card</th>
                         <th>Donate Name</th>
                         <th>Donate Category</th>
-                        <th>Status</th>
-                        <th>#</th>
+                        <th>Money</th>
+                        <th>Type Card</th>
+                        <th>Date Create</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     @foreach (var data in Model.UserDonates)
                     {
-                        <tr>
-                            <td>
-                                @data.DateCreate
-                            </td>
-                            <td>
-                                @data.Money.ToString("C0")
-                            </td>
-                            <td>
-                                @data.TypeCard
-                            </td>
-                            <td>
-                                @data.Donate.DonateName
-                            </td>
-                            <td>
-                                @data.Donate.Category.CateName
-                            </td>
-                            <td>
-                               @data.Donate.DonateStatus
-                            </td>
-                            <td>
-                                @*<a href="@Url.Action("Detail", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
-                                    <a href="@Url.Action("Edit", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-warning">Edit</a>
-                                    <a href="@Url.Action("HideDonate" , "ManageDonate", new {id =@data.ID})" class="btn m-1 btn-danger">Show</a>*@
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("Detail","ManageDonate",new {id  = data.DonateID})"> @data.Donate.DonateName</a>
+                        </td>
+                        <td>
+                            @data.Donate.Category.CateName
+                        </td>
+                        <td>
+                            @data.Money.ToString("C0")
+                        </td>
+                        <td>
+                            @data.TypeCard
+                        </td>
+                        <td>
+                            @data.DateCreate
+                        </td>
+
+
+                    </tr>
                     }
                 </tbody>
             </table>

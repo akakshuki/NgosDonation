@@ -10,7 +10,7 @@ namespace WebMvc.Areas.Admin.Controllers
     public class TypeProgramController : BaseController
     {
         private IUnitOfWork _unitOfWork;
-
+        //call IUnitOfWork to use functions of TypeProgramDao
         public TypeProgramController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -32,7 +32,7 @@ namespace WebMvc.Areas.Admin.Controllers
 
             if (new TypeProgramDao(_unitOfWork).CheckHaveExist(typeProgram.TypeName))
             {
-                TempData[MessageConst.ERROR] = "This name have exist!";
+                TempData[MessageConst.ERROR] = "This name already exists!";
                 return View();
             }
 

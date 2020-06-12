@@ -49,14 +49,6 @@ namespace WebMvc.Models.Dao
             _unitOfWork.ProgramRepository.Delete(id);
             return _unitOfWork.Commit();
         }
-
-        public bool CheckHaveExist(string proName)
-        {
-            return _unitOfWork.ProgramRepository.Get()
-                       .FirstOrDefault(x => x.ProName.Equals(proName)) != null;
-        }
-
-
         public bool Edit(ProgramDTO program)
         {
             try
@@ -73,7 +65,7 @@ namespace WebMvc.Models.Dao
             }
         }
 
-        public bool HideDonate(int id)
+        public bool HideProgram(int id)
         {
             var data = _unitOfWork.ProgramRepository.GetById(id);
             if (data == null) return false;

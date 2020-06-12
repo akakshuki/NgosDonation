@@ -18,6 +18,8 @@ namespace WebMvc.Areas.Admin.Controllers
             _unitOfWork = unitOfWork;
         }
         // GET: Admin/Dashboard
+
+       //display list of user donate current date
         public ActionResult Index()
         {
             ViewBag.ListUserDonate = new UserDao(_unitOfWork).getUserDonateInCurrentDate();

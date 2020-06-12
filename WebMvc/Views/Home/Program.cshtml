@@ -28,7 +28,7 @@
             {
                 <div class="col-lg-4 col-md-6 col-sm-12 blog-grid" id="zoomIn">
                     <a href="@Url.Action("ProgramInformation",new { id=item.ProID})">
-                        <figure><img src="@Url.Content("~/FileImage/")@item.ImgFileName" class="img-fluid" alt=""></figure>
+                        <figure><img src="@Url.Content("~/FileImage/")@item.ImgFileName" class="img-fluid" style="height:250px;"></figure>
                     </a>
                     <div class="blog-info">
                         <h3><a href="@Url.Action("ProgramInformation",new { id=item.ProID})">@item.Program.ProName</a> </h3>

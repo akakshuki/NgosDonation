@@ -18,7 +18,6 @@
 
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Donate Management</h1>
-<p class="mb-4"> </p>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -41,56 +40,56 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Date Create</th>
                                 <th>Date Start</th>
                                 <th>Date End</th>
                                 <th>Category</th>
                                 <th>Status</th>
                                 <th>Total Money</th>
+                                <th>Date Create</th>
                                 <th>#</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>Name</th>
-                                <th>Date Create</th>
                                 <th>Date Start</th>
                                 <th>Date End</th>
                                 <th>Category</th>
                                 <th>Status</th>
                                 <th>Total Money</th>
+                                <th>Date Create</th>
                                 <th>#</th>
                             </tr>
                         </tfoot>
                         <tbody>
                             @foreach (var data in Model.Where(x => !x.DonateHide && x.DonateStatus != DonateStatus.Ended))
                             {
-                                <tr>
-                                    <td>@data.DonateName</td>
-                                    <td>
-                                        @data.DonateDateCreate
-                                    </td>
-                                    <td>
-                                        @data.StartDay
-                                    </td>
-                                    <td>
-                                        @data.EndDay
-                                    </td>
-                                    <td>
-                                        @data.Category.CateName
-                                    </td>
-                                    <td>
-                                        @data.DonateStatus
-                                    </td>
-                                    <td>
-                                        @data.TotalMoney.ToString("C0")
-                                    </td>
-                                    <td>
-                                        <a href="@Url.Action("Detail", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
-                                        <a href="@Url.Action("Edit", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-warning">Edit</a>
-                                       <a href="@Url.Action("HideDonate" , "ManageDonate", new {id =@data.ID})" class="btn m-1 btn-danger">Hide</a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>@data.DonateName</td>
+
+                                <td>
+                                    @data.StartDay
+                                </td>
+                                <td>
+                                    @data.EndDay
+                                </td>
+                                <td>
+                                    @data.Category.CateName
+                                </td>
+                                <td>
+                                    @data.DonateStatus
+                                </td>
+                                <td>
+                                    @data.TotalMoney.ToString("C0")
+                                </td>
+                                <td>
+                                    @data.DonateDateCreate
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Detail", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
+                                    <a href="@Url.Action("HideDonate" , "ManageDonate", new {id =@data.ID})" class="btn m-1 btn-danger">Hide</a>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -103,56 +102,56 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Date Create</th>
                                 <th>Date Start</th>
                                 <th>Date End</th>
                                 <th>Category</th>
                                 <th>Status</th>
                                 <th>Total Money</th>
+                                <th>Date Create</th>
                                 <th>#</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>Name</th>
-                                <th>Date Create</th>
                                 <th>Date Start</th>
                                 <th>Date End</th>
                                 <th>Category</th>
                                 <th>Status</th>
                                 <th>Total Money</th>
+                                <th>Date Create</th>
                                 <th>#</th>
                             </tr>
                         </tfoot>
                         <tbody>
                             @foreach (var data in Model.Where(x => x.DonateStatus == DonateStatus.Ended))
                             {
-                                <tr>
-                                    <td>@data.DonateName</td>
-                                    <td>
-                                        @data.DonateDateCreate
-                                    </td>
-                                    <td>
-                                        @data.StartDay
-                                    </td>
-                                    <td>
-                                        @data.EndDay
-                                    </td>
-                                    <td>
-                                        @data.Category.CateName
-                                    </td>
-                                    <td>
-                                        @data.DonateStatus
-                                    </td>
-                                    <td>
-                                        @data.TotalMoney.ToString("C0")
-                                    </td>
-                                    <td>
-                                        <a href="@Url.Action("Detail", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
-                                        <a href="@Url.Action("Edit", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-warning">Edit</a>
-                                        <a href="@Url.Action("HideDonate" , "ManageDonate", new {id =@data.ID})" class="btn m-1 btn-danger">Show</a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>@data.DonateName</td>
+
+                                <td>
+                                    @data.StartDay
+                                </td>
+                                <td>
+                                    @data.EndDay
+                                </td>
+                                <td>
+                                    @data.Category.CateName
+                                </td>
+                                <td>
+                                    @data.DonateStatus
+                                </td>
+                                <td>
+                                    @data.TotalMoney.ToString("C0")
+                                </td>
+                                <td>
+                                    @data.DonateDateCreate
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Detail", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
+                                    <a href="@Url.Action("HideDonate" , "ManageDonate", new {id =@data.ID})" class="btn m-1 btn-danger">Show</a>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -165,69 +164,61 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Date Create</th>
                                 <th>Date Start</th>
                                 <th>Date End</th>
                                 <th>Category</th>
                                 <th>Status</th>
                                 <th>Total Money</th>
+                                <th>Date Create</th>
                                 <th>#</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>Name</th>
-                                <th>Date Create</th>
                                 <th>Date Start</th>
                                 <th>Date End</th>
                                 <th>Category</th>
                                 <th>Status</th>
                                 <th>Total Money</th>
+                                <th>Date Create</th>
                                 <th>#</th>
                             </tr>
                         </tfoot>
                         <tbody>
                             @foreach (var data in Model.Where(x => x.DonateHide))
                             {
-                                <tr>
-                                    <td>@data.DonateName</td>
-                                    <td>
-                                        @data.DonateDateCreate
-                                    </td>
-                                    <td>
-                                        @data.StartDay
-                                    </td>
-                                    <td>
-                                        @data.EndDay
-                                    </td>
-                                    <td>
-                                        @data.Category.CateName
-                                    </td>
-                                    <td>
-                                        @data.DonateStatus
-                                    </td>
-                                    <td>
-                                        @data.TotalMoney.ToString("C0")
-                                    </td>
-                                    <td>
-                                        <a href="@Url.Action("Detail", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
-                                        <a href="@Url.Action("Edit", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-warning">Edit</a>
-                                        <a href="@Url.Action("HideDonate" , "ManageDonate", new {id =@data.ID})" class="btn m-1 btn-danger">Show</a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>@data.DonateName</td>
+
+                                <td>
+                                    @data.StartDay
+                                </td>
+                                <td>
+                                    @data.EndDay
+                                </td>
+                                <td>
+                                    @data.Category.CateName
+                                </td>
+                                <td>
+                                    @data.DonateStatus
+                                </td>
+                                <td>
+                                    @data.TotalMoney.ToString("C0")
+                                </td>
+                                <td>
+                                    @data.DonateDateCreate
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Detail", "ManageDonate", new {id = data.ID})" class="btn m-1 btn-primary">Detail</a>
+                                    <a href="@Url.Action("HideDonate" , "ManageDonate", new {id =@data.ID})" class="btn m-1 btn-danger">Show</a>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>  
-        
-        
-        
-       
-        <hr />
-       
-        <hr />
-        
-    </div>
+     </div>
 </div>

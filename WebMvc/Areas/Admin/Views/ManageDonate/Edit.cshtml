@@ -25,15 +25,9 @@
     <script src="~/Scripts/ckeditor/ckeditor.js"></script>
     <script>CKEDITOR.replace("editor")</script>
 }
-<h1 class="h3 text-gray-800">Create new Donate</h1>
+<h1 class="h3 text-gray-800">Edit Donate</h1>
 
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        </h6>
-        
-    </div>
     <div class="card-body">
         @using (Html.BeginForm("Edit", "ManageDonate", FormMethod.Post))
         {
@@ -62,7 +56,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.StartDay, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input name="StartDay" type="text" value="@Model.StartDay.ToString("MM/dd/yyyy")" class=" datePicker1 form-control fa-calendar" />
+                        <input name="StartDay" type="date" value="@(Model.StartDay.ToString("yyyy/MM/dd"))" class=" form-control" />
                         @Html.ValidationMessageFor(model => model.StartDay, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -70,7 +64,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.EndDay, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input name="EndDay" type="text" value="@Model.EndDay.ToString("MM/dd/yyyy")" class=" datePicker2 form-control fa-calendar" />
+                        <input name="EndDay" type="date" value="@(Model.EndDay.ToString("yyyy/MM/dd"))" class="form-control" />
                         @Html.ValidationMessageFor(model => model.EndDay, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -84,7 +78,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <input type="submit" value="Update" class="btn btn-primary" />
                     </div>
                 </div>
             </div>

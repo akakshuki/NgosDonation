@@ -1,8 +1,7 @@
 ﻿using Domain.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.IO;
 using System.Web.Mvc;
 using WebMvc.Common;
 using WebMvc.Controllers;
@@ -13,98 +12,95 @@ namespace WebMvc.Areas.Admin.Controllers
 {
     public class PartnerController : BaseController
     {
-        private IUnitOfWork _unitOfWork;
-        private string path = "";
-
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly string path = "";
+        //call IUnitOfWork to use functions of PartnerDao
         public PartnerController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             path = "~/FileImage/";
         }
         // GET: Admin/Partner
+        //Display list of Partner
         public ActionResult Index()
         {
-            var data = new PartnerDao(_unitOfWork).GetAll();
+            List<PartnerDTO> data = new PartnerDao(_unitOfWork).GetAll();
             return View(data);
         }
-
+        //form create partner
         public ActionResult Create()
         {
             return View();
         }
-
+        //method create partner
         [HttpPost]
         public ActionResult Create(PartnerDTO partner)
         {
             if (partner.FileImage != null)
             {
-                partner.PartnerImage = DateTime.Now.Ticks + partner.PartnerName + ".png";
+                partner.PartnerImage = DateTime.Now.Ticks + Path.GetFileName(partner.FileImage.FileName);
                 partner.FileImage.SaveAs(Server.MapPath(path + partner.PartnerImage));
                 partner.FileImage = null;
             }
-            else
+            if (!ModelState.IsValid)
             {
-                partner.PartnerImage = "default.png";
+                return View();
             }
-            if (!ModelState.IsValid) return View();
-            if (new PartnerDao(_unitOfWork).Create(partner))
-                return RedirectToAction("Index");
 
+            if (new PartnerDao(_unitOfWork).Create(partner))
+            {
+                return RedirectToAction("Index");
+            }
+
+            TempData[MessageConst.ERROR] = "Create failed!";
             return View();
         }
-
-
+        //get content of partner by id and form edit
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var data = new PartnerDao(_unitOfWork).GetByid(id);
-            if (data == null) return RedirectToAction("Page404", "Error");
+            PartnerDTO data = new PartnerDao(_unitOfWork).GetByid(id);
+            if (data == null)
+            {
+                return RedirectToAction("Page404", "Error");
+            }
+
             return View(data);
         }
-
+        //edit partner
         [HttpPost]
         public ActionResult Edit(PartnerDTO partner)
         {
             //get Image have exist
-            var currentFileName = new PartnerDao(_unitOfWork).GetByid(partner.ID).PartnerImage;
+            string currentFileName = new PartnerDao(_unitOfWork).GetByid(partner.ID).PartnerImage;
             //check name have deafault if exist ==> dont delete
-            if (currentFileName == "default.png")
+            if (partner.FileImage == null)
             {
-                //save file
-                if (partner.FileImage != null)
-                {
-                    partner.PartnerImage = DateTime.Now.Ticks.ToString() + partner.PartnerName + ".png";
-                    partner.FileImage.SaveAs(Server.MapPath(path + partner.PartnerImage));
-                    partner.FileImage = null;
-                }
-                else
-                {
-                    partner.PartnerImage = "default.png";
-                }
+                partner.PartnerImage = currentFileName;
             }
             else
             {
-                if (partner.FileImage != null)
+                //delete file
+                string filePath = Server.MapPath(path + currentFileName);
+                if (System.IO.File.Exists(filePath))
                 {
-                    //delete file
-                    var filePath = Server.MapPath(path + currentFileName);
-                    if (System.IO.File.Exists(filePath))
-                    {
-                        System.IO.File.Delete(filePath);
-                    }
-                    partner.PartnerImage = DateTime.Now.Ticks + partner.PartnerName + ".png";
-                    partner.FileImage.SaveAs(Server.MapPath(path + partner.PartnerImage));
-                    partner.FileImage = null;
+                    System.IO.File.Delete(filePath);
                 }
-                else
-                {
-                    partner.PartnerImage = currentFileName;
-                }
-
+                partner.PartnerImage = DateTime.Now.Ticks + Path.GetFileName(partner.FileImage.FileName);
+                partner.FileImage.SaveAs(Server.MapPath(path + partner.PartnerImage));
+                partner.FileImage = null;
             }
-            var data = new PartnerDao(_unitOfWork).GetByid(partner.ID);
-            if (!ModelState.IsValid) return View(data);
-            if (new PartnerDao(_unitOfWork).Edit(partner)) return RedirectToAction("Index");
+            PartnerDTO data = new PartnerDao(_unitOfWork).GetByid(partner.ID);
+            if (!ModelState.IsValid)
+            {
+                return View(data);
+            }
+
+            if (new PartnerDao(_unitOfWork).Edit(partner))
+            {
+                return RedirectToAction("Index");
+            }
+
             TempData[MessageConst.ERROR] = "Edit Failed";
             return View(data);
         }

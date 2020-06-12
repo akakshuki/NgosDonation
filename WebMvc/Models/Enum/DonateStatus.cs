@@ -2,8 +2,8 @@
 {
     public enum DonateStatus
     {
-        UpComing = 1,
-        OnGoing = 2,
+        Upcoming = 1,
+        Ongoing = 2,
         Ended = 3
     }
 }

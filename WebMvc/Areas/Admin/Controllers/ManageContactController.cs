@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Web;
 using System.Web.Mvc;
 using WebMvc.Controllers;
 using WebMvc.Models.ModelView;
@@ -13,6 +10,7 @@ namespace WebMvc.Areas.Admin.Controllers
     public class ManageContactController : BaseController
     {
         // GET: Admin/Manage
+        //form create and display content of date contact if have
         public ActionResult Index()
         {
             ContactDTO dataContact = null;
@@ -24,10 +22,10 @@ namespace WebMvc.Areas.Admin.Controllers
                 dataContact = formatterD.Deserialize(streamD) as ContactDTO;
                 streamD.Close();
             }
-            
-            return View(dataContact);
-            }
 
+            return View(dataContact);
+        }
+        //method insert data contact
         public ActionResult InsertContact(ContactDTO cv)
         {
             try
@@ -36,8 +34,8 @@ namespace WebMvc.Areas.Admin.Controllers
                 //Serialize
                 using (Stream stream = new FileStream(path, FileMode.OpenOrCreate))
                 {
-                  var formatter = new BinaryFormatter();
-                  formatter.Serialize(stream, cv);
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    formatter.Serialize(stream, cv);
                     stream.Close();
                 }
             }

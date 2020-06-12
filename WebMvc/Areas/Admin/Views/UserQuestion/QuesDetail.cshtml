@@ -4,7 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<section class="panel" style="margin-top:55px;">
+<section class="panel">
     <header class="panel-heading">
         <h2>Question Detail</h2>
     </header>
@@ -24,15 +24,14 @@
                 <span>@Model.Title</span>
             </div>
             <div class="form-group">
-                (@Model.QuesDateCreate)<br />
-                <label for="">Content Question:</label><br />
+                <label for="">Content Question (@Model.QuesDateCreate):</label><br />
                 <span>@Model.QuesContent</span>
             </div>
             @if (Model.AnswerContent != null)
             {
                 <div class="form-group">
-                    <label for="">Answer Content:</label><br />
-                    <span>@Model.AnswerContent</span> (@Model.AnswerDateCreate)
+                    <label for="">Answer Content (@Model.AnswerDateCreate):</label><br />
+                    <span>@Model.AnswerContent</span> 
                 </div>
             }
             else
@@ -57,18 +56,3 @@
 ">
     <i class="fa fa-arrow-left"></i> Back To List
 </a>
-@section scripts{
-
-    <script>
-    $(function () {
-        var msg1 = '@TempData["success"]';
-        var msg2 = '@TempData["error"]';
-        if (msg1 != '') {
-            alertify.success(msg1); //display notify
-        }
-        if (msg2 != '') {
-            alertify.error(msg2)
-        }
-    });
-    </script>
-}

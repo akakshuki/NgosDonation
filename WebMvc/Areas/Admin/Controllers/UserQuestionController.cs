@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using WebMvc.Common;
 using WebMvc.Controllers;
 using WebMvc.Models.Dao;
 using WebMvc.Models.ModelView;
@@ -15,23 +16,27 @@ namespace WebMvc.Areas.Admin.Controllers
     public class UserQuestionController : BaseController
     {
         private IUnitOfWork _unitOfWork;
+        //call IUnitOfWork to use functions of UserQuestionDao
         public UserQuestionController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
         // GET: Admin/UserQuestion
+        //get list of new questions and answered questions
         public ActionResult Index()
         {
             var data = new UserQuestionDao(_unitOfWork).GetAll();
-            ViewBag.newQ = data.OrderBy(s=>s.QuesDateCreate).Where(s => s.QuesNew == true);
-            ViewBag.reply = data.OrderBy(s => s.AnswerDateCreate).Where(s => s.QuesNew == false);
+            ViewBag.newQ = data.OrderByDescending(s=>s.QuesDateCreate).Where(s => s.QuesNew == true);
+            ViewBag.reply = data.OrderByDescending(s => s.AnswerDateCreate).Where(s => s.QuesNew == false);
             return View();
         }
+        //get content of question by id
         public ActionResult QuesDetail(int id)
         {
             var data = new UserQuestionDao(_unitOfWork).GetByid(id);
             return View(data);
         }
+        //method answer question
         public ActionResult AnswerQuestion(UserQuestionDTO u)
         {
             try
@@ -60,7 +65,7 @@ namespace WebMvc.Areas.Admin.Controllers
                     {
                         smtp.Send(mess);
                     }
-                    TempData["success"] = "Send mail to " + u.UserMail + " is successful!";
+                    TempData[MessageConst.SUCCESS] = "Send mail to " + u.UserMail + " is successful!";
                     new UserQuestionDao(_unitOfWork).InsertAns(u.ID, u.AnswerContent);
                 }
             }

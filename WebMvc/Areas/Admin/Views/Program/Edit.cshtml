@@ -24,14 +24,8 @@
     <script src="~/Scripts/ckeditor/ckeditor.js"></script>
     <script>CKEDITOR.replace("editor")</script>
 }
-<h1 class="h3 text-gray-800">Create new Program</h1>
+<h1 class="h3 text-gray-800">Edit Program</h1>
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        </h6>
-       
-    </div>
     <div class="card-body">
         @using (Html.BeginForm("Edit", "Program", FormMethod.Post))
         {
@@ -62,8 +56,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.ProContent, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <textarea id="editor" style="min-height: 16rem" class="form-control" name="ProContent">@Model.ProContent
-</textarea>
+                        <textarea id="editor" style="min-height: 16rem" class="form-control" name="ProContent">@Model.ProContent</textarea>
                         @Html.ValidationMessageFor(model => model.ProContent, "", new { @class = "text-danger" })
                     </div>
                 </div>

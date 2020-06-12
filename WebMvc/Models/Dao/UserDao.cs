@@ -30,7 +30,7 @@ namespace WebMvc.Models.Dao
 
         public UserDTO GetUserByEmail( string email)
         {
-            return MapperProfile.MapperConfig().Map<User, UserDTO>(_unitOfWork.UserRepository.Get().SingleOrDefault(x=>x.UserMail== email));
+            return MapperProfile.MapperConfig().Map<User, UserDTO>(_unitOfWork.UserRepository.Get().SingleOrDefault(x=>x.UserMail== email && x.UserActive));
         }
 
 
@@ -69,6 +69,7 @@ namespace WebMvc.Models.Dao
             var userData = MapperProfile.MapperConfig().Map<UserDTO, User>(user);
             userData.UserPwd = Encrypt.EncryptPasswordMD5(userData.UserPwd);
             userData.UserDateCreate = DateTime.Now;
+            userData.UserActive = true;
             //add only user role;
             userData.RoleID = 2; 
             var userd = _unitOfWork.UserRepository.CreateOnlyData(userData);
@@ -79,13 +80,13 @@ namespace WebMvc.Models.Dao
 
         public UserDTO UserLogin(string email, string password)
         {
-            return MapperProfile.MapperConfig().Map<User,UserDTO>(_unitOfWork.UserRepository.Get().SingleOrDefault(x => x.UserMail == email));
+            return MapperProfile.MapperConfig().Map<User,UserDTO>(_unitOfWork.UserRepository.Get().SingleOrDefault(x => x.UserMail == email && x.UserActive));
 
         }
 
         public bool ResetPassword(string email, string newPassword)
         {
-            var data = _unitOfWork.UserRepository.Get().SingleOrDefault(x => x.UserMail== email);
+            var data = _unitOfWork.UserRepository.Get().SingleOrDefault(x => x.UserMail== email && x.UserActive);
             if (data == null) return false;
             data.UserPwd = Encrypt.EncryptPasswordMD5(newPassword);
             _unitOfWork.UserRepository.Edit(data);

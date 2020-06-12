@@ -169,6 +169,7 @@
     <Compile Include="Areas\Admin\Controllers\TypeProgramController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserQuestionController.cs" />
     <Compile Include="Common\Encrypt.cs" />
+    <Compile Include="Common\EmailMarker.cs" />
     <Compile Include="Common\MessageConst.cs" />
     <Compile Include="Configurations\MapperProfile.cs" />
     <Compile Include="Configurations\NinjectConfiguration.cs" />
@@ -204,18 +205,6 @@
     <Compile Include="Models\ModelView\TypeProgramDTO.cs" />
     <Compile Include="Models\ModelView\UserQuestionDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="FileImage\637262657770598413Thanh an.png" />
-    <Content Include="FileImage\637262675828171164asdsad.png" />
-    <Content Include="FileImage\637262680637095359pppppp.png" />
-    <Content Include="FileImage\637262714268407415yy.png" />
-    <Content Include="FileImage\637262718659151316ád.png" />
-    <Content Include="FileImage\637262719467133219ádsad.png" />
-    <Content Include="FileImage\637262759247880984cam vắt.png" />
-    <Content Include="FileImage\637262767104036332cam vat.png" />
-    <Content Include="FileImage\637262767823151734cam vat ngoc.png" />
-    <Content Include="FileImage\637262936722800231.png" />
-    <Content Include="FileImage\637262956245932573.png" />
-    <Content Include="FileImage\637263001962607258.png" />
     <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -2454,14 +2443,13 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Partner.cshtml" />
-    <Content Include="Views\Home\SignIn.cshtml" />
-    <Content Include="Views\Home\ForgotPwd.cshtml" />
     <Content Include="Views\Home\PersonalInfo.cshtml" />
     <Content Include="Views\Login\ForgotPwd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="FileImage\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

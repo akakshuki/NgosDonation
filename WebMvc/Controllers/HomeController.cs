@@ -31,17 +31,21 @@ namespace WebMvc.Controllers
         //Index Page
         public ActionResult Index()
         {
+            Session["menu"] = 1;
             ViewBag.money = new DonateDao(_provider).GetAll().Sum(s => s.TotalMoney);
-            ViewBag.user = new UserDao(_provider).GetAllUser().Count(c => c.UserActive == true);
-            return View();
-        }
-        //Donate Page
-        public ActionResult Donate()
-        {
-            ViewBag.ListDonate = new DonateDao(_provider).GetAllDonateNoHide();
+            ViewBag.user = new UserDao(_provider).GetAllUser().Count(c => c.UserActive == true && c.RoleID==2);
+            ViewBag.volunteer = new UserDao(_provider).GetAllUser().Count(c => c.UserActive && c.UserVolunteer && c.RoleID == 2);
             return View();
         }
 
+        #region Donate
+        //Donate Page
+        public ActionResult Donate()
+        {
+            Session["menu"] = 2;
+            ViewBag.ListDonate = new DonateDao(_provider).GetAllDonateNoHide();
+            return View();
+        }
         //Donate Infomation Page
         public ActionResult DonateInformation(int id)
         {
@@ -49,10 +53,38 @@ namespace WebMvc.Controllers
             ViewBag.DonateInfo = data;
             return View();
         }
+        //User Donate with PayPal Payment
+        [HttpPost]
+        public ActionResult UserDonate(int donateId, int money)
+        {
+            var user = Request.Cookies[MessageConst.USER_LOGIN];
+            if (user == null) {
+                TempData[MessageConst.ERROR] = "Please login to donate!";
+                return RedirectToAction("Index", "Login");
+            }
+            var data = JsonConvert.DeserializeObject<UserLogin>(user.Value);
+            var donateInfo = new DonateDao(_provider).GetById(donateId);
+            var orderData = new OrderData()
+            {
+                DonateName = donateInfo.DonateName,
+                Money = money,
+                UserMail = data.UserMail,
+                DonateId = donateInfo.ID,
+                UserName = data.UserName
+            };
+            Session[MessageConst.USER_SESSION] = orderData;
+            if (donateInfo != null && data != null) return RedirectToAction("PaymentWithPaypal", "Home");
+
+            return RedirectToAction("Donate");
+        }
+        #endregion
+
+        #region Program
         //Our Programmes Page
         public ActionResult Program()
         {
-            var ls = new ProgramImageDao(_provider).GetAll().Where(w => w.Program.ProHide == false && w.ImgMain==true).ToList();
+            Session["menu"] = 5;
+            var ls = new ProgramImageDao(_provider).GetAll().Where(w => w.Program.ProHide == false && w.ImgMain == true).ToList();
             return View(ls);
         }
         //Program Infomation Page
@@ -63,15 +95,20 @@ namespace WebMvc.Controllers
             ViewBag.ls = new ProgramImageDao(_provider).GetAll().Where(w => w.ProID == id).ToList();
             return View(model);
         }
+        #endregion
+
         //About Us Page
         public ActionResult About()
         {
+            Session["menu"] = 3;
             var ls = new AboutUsDao(_provider).GetAll().Where(w => w.AboutHide == false).ToList();
             return View(ls);
         }
+        #region Contact
         //Contact Us Page
         public ActionResult Contact()
         {
+            Session["menu"] = 4;
             ContactDTO dataContact = null;
             string path = Path.Combine(Server.MapPath("~/"), "DataContact.hat");
             if (System.IO.File.Exists(path))
@@ -79,29 +116,36 @@ namespace WebMvc.Controllers
                 //Deserialize
                 Stream streamD = new FileStream(path, FileMode.OpenOrCreate);
                 BinaryFormatter formatterD = new BinaryFormatter();
-                //quá trình Deserialize ngược với quá trình Serialize, trả về một object, bạn nhớ ép kiểu để sử dụng.
                 dataContact = formatterD.Deserialize(streamD) as ContactDTO;
                 streamD.Close();
             }
             return View(dataContact);
         }
+        //CREATE QUESTION
+        [HttpPost]
+        public ActionResult CreateQuestion(UserQuestionDTO userQuestion)
+        {
+            if (!ModelState.IsValid) return Redirect("/");
+            userQuestion.QuesDateCreate = DateTime.Now;
+            userQuestion.QuesNew = true;
+            if (new UserQuestionDao(_provider).Create(userQuestion))
+            {
+                TempData[MessageConst.SUCCESS] = "Send question successfully!";
+                return RedirectToAction("Contact");
+            }
+            return Redirect("/");
+        }
+        #endregion
+
         //Our Partners
         public ActionResult Partner()
         {
+            Session["menu"] = 6;
             ViewBag.lsPartner = new PartnerDao(_provider).GetAll();
+            ViewBag.volunteer = new UserDao(_provider).GetAllUser().Where(w => w.UserVolunteer && w.UserActive && w.RoleID == 2).OrderByDescending(o=>o.MoneyDonate).ToList();
             return View();
         }
-        //Signin, Signup page
-        public ActionResult SignIn()
-        {
-            return View();
-        }
-        //Create new password page
-        public ActionResult ForgotPwd()
-        {
-            return View();
-        }
-        //Personal Infomation
+        //Personal Infomation Page
         public ActionResult PersonalInfo()
         {
             var cookie = Request.Cookies[MessageConst.USER_LOGIN];
@@ -120,42 +164,7 @@ namespace WebMvc.Controllers
             return View(userData);
         }
 
-        //CREATE QUESTION
-        [HttpPost]
-        public ActionResult CreateQuestion(UserQuestionDTO userQuestion)
-        {
-            if (!ModelState.IsValid) return Redirect("/");
-            userQuestion.QuesDateCreate = DateTime.Now;
-            userQuestion.QuesNew = true;
-            if (new UserQuestionDao(_provider).Create(userQuestion)) {
-                TempData[MessageConst.SUCCESS] = "Send question success!";
-                return RedirectToAction("Contact");
-            }
-            return Redirect("/");
-        }
-
-        [HttpPost]
-        public ActionResult UserDonate(int donateId, int money)
-        {
-            var user = Request.Cookies[MessageConst.USER_LOGIN];
-            if (user == null) return RedirectToAction("Index", "Login");
-            var data = JsonConvert.DeserializeObject<UserLogin>(user.Value);
-            var donateInfo = new DonateDao(_provider).GetById(donateId);
-            var  orderData = new OrderData()
-            {
-                DonateName = donateInfo.DonateName,
-                Money = money,
-                UserMail = data.UserMail,
-                DonateId = donateInfo.ID,
-                UserName = data.UserName
-            };
-            Session[MessageConst.USER_SESSION] = orderData;
-            if (donateInfo != null && data != null) return RedirectToAction("PaymentWithPaypal", "Home");
-            
-            return RedirectToAction("Donate");
-        }
-
-
+        #region PayPal Payment
         //create method
         public ActionResult PaymentWithPaypal()
         {
@@ -190,7 +199,7 @@ namespace WebMvc.Controllers
                     var executePayment = ExecutePayment(apiContext, payerID, Session[guid] as string);
                     if (executePayment.state.ToLower() != "approved")
                     {
-                        TempData[MessageConst.ERROR] = "Donate Fail !";
+                        TempData[MessageConst.ERROR] = "Donate Failed !";
                         return RedirectToAction("Donate");
 
                     }
@@ -199,14 +208,13 @@ namespace WebMvc.Controllers
             catch (PayPal.PaymentsException ex)
             {
                 PaypalLogger.Log("Error: " + ex.Message);
-                TempData[MessageConst.ERROR] = "Donate Fail !";
+                TempData[MessageConst.ERROR] = "Donate Failed !";
                 return RedirectToAction("Donate");
 
             }
             //save donate
             new DonateDao(_provider).AddUserDonate(order);
-            TempData[MessageConst.SUCCESS] = "Donate Success!";
-          //  return RedirectToAction("Success", "Payment", new { code = apiContext.AccessToken });
+            TempData[MessageConst.SUCCESS] = "Donate Successfully!";
           return RedirectToAction("Donate");
         }
 
@@ -225,9 +233,8 @@ namespace WebMvc.Controllers
                 payment_method = "paypal",
                 payer_info = new PayerInfo
                 {
-                    email = "giangbaccai1207@gmail.com"
+                    email = ""
                 }
-
             };
             var redictUrl = new RedirectUrls()
             {
@@ -262,12 +269,16 @@ namespace WebMvc.Controllers
             this.payment = new Payment() { id = paymentID };
             return this.payment.Execute(apiContext, paymentExecute);
         }
+        #endregion
+
+        //Invite someone
         [HttpPost]
         public async Task<ActionResult> SendMailInvite( string email)
         {
-            if (new UserDao(_provider).GetUserByEmail(email) != null)
+            var user = new UserDao(_provider).GetUserByEmail(email);
+            if (user != null && user.UserActive)
             {
-                TempData[MessageConst.ERROR] = "This mail have exist in this website";
+                TempData[MessageConst.ERROR] = "This mail already exists in this website";
                 return Redirect("/");
             }
             try
@@ -275,16 +286,16 @@ namespace WebMvc.Controllers
                 var cookie = Request.Cookies[MessageConst.USER_LOGIN];
                 if (cookie == null)
                 {
-                    TempData[MessageConst.ERROR] = "Please Login !";
+                    TempData[MessageConst.ERROR] = "Please Login to invite your friend!";
                     return RedirectToAction("Index", "Login");
                 }
                 else
                 {
                     var userData = JsonConvert.DeserializeObject<UserLogin>(cookie.Value);
-                    var randomCode = new Random().Next(1000, 9999).ToString(); 
+                    var randomCode = new Random().Next(1000, 9999).ToString();
                     var MyMailMessage = new MailMessage
                     {
-                        From = new MailAddress("giangbaccai1207@gmail.com")
+                        From = new MailAddress("giangbaccai1207@gmail.com", "NGO")
                     };
                     MyMailMessage.To.Add(email);// Mail would be sent to this address
                     MyMailMessage.Subject = $"{userData.UserName} request Invite";
@@ -297,16 +308,16 @@ namespace WebMvc.Controllers
                     };
 
                     var body = new StringBuilder();
-                    body.AppendFormat("Hi! , {0}\n", email);
-                    body.AppendLine($"You have a invite request from {userData.UserMail} , with name : {userData.UserName} !");
-                    body.AppendLine($"let's connect us in : https://localhost:44315/");
+                    body.AppendFormat("Hi, {0}!\n", email);
+                    body.AppendLine($"You have an invite request from {userData.UserMail}, with name {userData.UserName}.");
+                    body.AppendLine($"Link to our website: https://localhost:44315/");
 
                     MyMailMessage.Body = body.ToString();
 
                     await smtpServer.SendMailAsync(MyMailMessage);
 
                     Session[randomCode] = userData.UserMail;
-                    TempData[MessageConst.SUCCESS] = "Sent mail success!";
+                    TempData[MessageConst.SUCCESS] = "Send mail successfully!";
                     return Redirect("/");
                 }
             }
