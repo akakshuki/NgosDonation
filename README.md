@@ -1,4 +1,12 @@
 # ProjectSem3 NGO
+## Build to start
+
+	ctrl+ shift+ B to build project
+	
+## DB
+ 	
+	Delete entity framework and add new orther
+
 ## ConnectionString
 	-- Hoang ConnectionString :  
 	<connectionStrings>
