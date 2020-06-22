@@ -159,7 +159,6 @@
     <Compile Include="Areas\Admin\Controllers\AboutUsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageContactController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageDonateController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageUserController.cs" />
@@ -176,6 +175,7 @@
     <Compile Include="Configurations\PaypalConfiguration.cs" />
     <Compile Include="Configurations\PaypalLogger.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -205,6 +205,8 @@
     <Compile Include="Models\ModelView\TypeProgramDTO.cs" />
     <Compile Include="Models\ModelView\UserQuestionDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\error\css\style.css" />
+    <Content Include="Content\error\img\emoji.png" />
     <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -2297,7 +2299,6 @@
     <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Error\Page404.cshtml" />
     <Content Include="Areas\Admin\Views\ManageDonate\Create.cshtml" />
     <Content Include="Areas\Admin\Views\ManageDonate\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TypeProgram\Create.cshtml" />
@@ -2445,6 +2446,7 @@
     <Content Include="Views\Home\Partner.cshtml" />
     <Content Include="Views\Home\PersonalInfo.cshtml" />
     <Content Include="Views\Login\ForgotPwd.cshtml" />
+    <Content Include="Views\ErrorClient\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

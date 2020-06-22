@@ -50,7 +50,7 @@
                         <label>Your Birthday: </label>
                         <input type="date" name="UserDOB" id="birthInput" value="@Model.UserDOB.ToString("yyyy-MM-dd")" class="contact-input" required />
                     </div>
-                    <input type="submit" value="Update" class="btn btn-primary btn-full-width">
+                    <input type="submit" value="Update" class="btn btn-primary btn-full-width" id="btnSave">
                 </form>
             </div>
         </div>
@@ -114,6 +114,14 @@
                 $('#gender>div>input').prop("checked", false);
                 $(this).prop("checked", true);
                 $('#genderValue').val(value);
+            });
+            $('#btnSave').click(function (e) {
+                var dobYear = new Date($('#birthInput').val()).getFullYear();
+                var curYear = new Date().getFullYear();
+                if (curYear - dobYear < 18) {
+                    alertify.error("Date of birth invalid! It must be greater than 18 years old.");
+                    e.preventDefault();
+                }
             });
         });
     </script>

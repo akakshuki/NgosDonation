@@ -61,7 +61,7 @@
                 </div>
                 <div id="gender">
                     <label>Gender:</label>
-                    <input type="hidden" value="True" id="genderValue" />
+                    <input type="hidden" value="True" id="genderValue" name="UserGender"/>
                     <div class="custom-control custom-radio custom-control-inline" style="margin-left:15px;">
                         <input type="radio" class="custom-control-input" id="customRadio1" name="example1" value="True" checked>
                         <label class="custom-control-label" for="customRadio1">Male</label>
@@ -131,8 +131,8 @@
                 $('#genderValue').val(value);
             });
             $('#btnRegis').click(function (e) {
-                var dobYear = new Date($('#dob').val()).getFullYear;
-                var curYear = new Date().getFullYear;
+                var dobYear = new Date($('#dob').val()).getFullYear();
+                var curYear = new Date().getFullYear();
                 if (curYear - dobYear < 18) {
                     alertify.error("Date of birth invalid! It must be greater than 18 years old.");
                     e.preventDefault();
