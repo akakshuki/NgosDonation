@@ -12,12 +12,34 @@ namespace Domain.EF
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Represents a partner entity.
+    /// </summary>
     public partial class Partner
     {
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the partner.
+        /// </summary>
         public string PartnerName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the image of the partner.
+        /// </summary>
         public string PartnerImage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the link of the partner.
+        /// </summary>
         public string PartnerLink { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the partner is active.
+        /// </summary>
         public bool PartnerActive { get; set; }
     }
 }

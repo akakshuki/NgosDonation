@@ -12,22 +12,58 @@ namespace Domain.EF
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Represents a program entity.
+    /// </summary>
     public partial class Program
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Program"/> class.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Program()
         {
             this.ProgramImages = new HashSet<ProgramImage>();
         }
-    
+
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the program.
+        /// </summary>
         public string ProName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the content of the program.
+        /// </summary>
         public string ProContent { get; set; }
+
+        /// <summary>
+        /// Gets or sets the creation date of the program.
+        /// </summary>
         public System.DateTime ProDateCreate { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the program is hidden.
+        /// </summary>
         public bool ProHide { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type identifier.
+        /// </summary>
         public int TypeID { get; set; }
-    
+
+        /// <summary>
+        /// Gets or sets the type of the program.
+        /// </summary>
         public virtual TypeProgram TypeProgram { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of program images associated with this program.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProgramImage> ProgramImages { get; set; }
     }

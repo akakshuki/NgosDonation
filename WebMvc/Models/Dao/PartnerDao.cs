@@ -9,23 +9,39 @@ using WebMvc.Models.ModelView;
 
 namespace WebMvc.Models.Dao
 {
+    /// <summary>
+    /// Data Access Object for Partner.
+    /// </summary>
     public class PartnerDao
     {
-        private IUnitOfWork _unitOfWork;
-        private string baseUrl = "";
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly string baseUrl = "";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PartnerDao"/> class.
+        /// </summary>
+        /// <param name="unitOfWork">The unit of work.</param>
         public PartnerDao(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             baseUrl = "https://localhost:44315/FileImage/";
         }
 
+        /// <summary>
+        /// Gets all partners.
+        /// </summary>
+        /// <returns>A list of partners.</returns>
         public List<PartnerDTO> GetAll()
         {
             return MapperProfile.MapperConfig()
                 .Map<List<Partner>, List<PartnerDTO>>(_unitOfWork.PartnerRepository.Get().ToList());
         }
 
+        /// <summary>
+        /// Gets a partner by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the partner.</param>
+        /// <returns>The partner.</returns>
         public PartnerDTO GetByid(int id)
         {
             var data = MapperProfile.MapperConfig().Map<Partner, PartnerDTO>(_unitOfWork.PartnerRepository.GetById(id));
@@ -33,6 +49,11 @@ namespace WebMvc.Models.Dao
             return data;
         }
 
+        /// <summary>
+        /// Creates a new partner.
+        /// </summary>
+        /// <param name="partner">The partner to create.</param>
+        /// <returns>True if the creation was successful, otherwise false.</returns>
         public bool Create(PartnerDTO partner)
         {
             try
@@ -48,6 +69,11 @@ namespace WebMvc.Models.Dao
             }
         }
 
+        /// <summary>
+        /// Edits an existing partner.
+        /// </summary>
+        /// <param name="partner">The partner to edit.</param>
+        /// <returns>True if the edit was successful, otherwise false.</returns>
         public bool Edit(PartnerDTO partner)
         {
             try

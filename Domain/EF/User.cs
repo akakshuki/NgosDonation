@@ -12,27 +12,83 @@ namespace Domain.EF
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Represents a user entity.
+    /// </summary>
     public partial class User
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="User"/> class.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
             this.UserDonates = new HashSet<UserDonate>();
         }
-    
+
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the user.
+        /// </summary>
         public string UserName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the gender of the user.
+        /// </summary>
         public bool UserGender { get; set; }
+
+        /// <summary>
+        /// Gets or sets the email of the user.
+        /// </summary>
         public string UserMail { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date of birth of the user.
+        /// </summary>
         public System.DateTime UserDOB { get; set; }
+
+        /// <summary>
+        /// Gets or sets the password of the user.
+        /// </summary>
         public string UserPwd { get; set; }
+
+        /// <summary>
+        /// Gets or sets the creation date of the user.
+        /// </summary>
         public System.DateTime UserDateCreate { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the user is active.
+        /// </summary>
         public bool UserActive { get; set; }
+
+        /// <summary>
+        /// Gets or sets the role identifier.
+        /// </summary>
         public int RoleID { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the user is a volunteer.
+        /// </summary>
         public bool UserVolunteer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the amount of money donated by the user.
+        /// </summary>
         public decimal MoneyDonate { get; set; }
-    
+
+        /// <summary>
+        /// Gets or sets the role associated with this user.
+        /// </summary>
         public virtual Role Role { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of user donates associated with this user.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserDonate> UserDonates { get; set; }
     }

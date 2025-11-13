@@ -20,45 +20,71 @@ using WebMvc.Models.ModelView;
 
 namespace WebMvc.Controllers
 {
+    /// <summary>
+    /// Controller for handling home page and general user interactions.
+    /// </summary>
     public class HomeController : Controller
     {
         private readonly IUnitOfWork _provider;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HomeController"/> class.
+        /// </summary>
+        /// <param name="provider">The unit of work provider.</param>
         public HomeController(IUnitOfWork provider)
         {
             _provider = provider;
         }
-        //Index Page
+
+        /// <summary>
+        /// Displays the index page.
+        /// </summary>
+        /// <returns>The index view.</returns>
         public ActionResult Index()
         {
             Session["menu"] = 1;
             ViewBag.money = new DonateDao(_provider).GetAll().Sum(s => s.TotalMoney);
-            ViewBag.user = new UserDao(_provider).GetAllUser().Count(c => c.UserActive == true && c.RoleID==2);
+            ViewBag.user = new UserDao(_provider).GetAllUser().Count(c => c.UserActive == true && c.RoleID == 2);
             ViewBag.volunteer = new UserDao(_provider).GetAllUser().Count(c => c.UserActive && c.UserVolunteer && c.RoleID == 2);
             return View();
         }
 
         #region Donate
-        //Donate Page
+        /// <summary>
+        /// Displays the donate page.
+        /// </summary>
+        /// <returns>The donate view.</returns>
         public ActionResult Donate()
         {
             Session["menu"] = 2;
             ViewBag.ListDonate = new DonateDao(_provider).GetAllDonateNoHide();
             return View();
         }
-        //Donate Infomation Page
+
+        /// <summary>
+        /// Displays the donate information page.
+        /// </summary>
+        /// <param name="id">The donate identifier.</param>
+        /// <returns>The donate information view.</returns>
         public ActionResult DonateInformation(int id)
         {
             var data = new DonateDao(_provider).GetById(id);
             ViewBag.DonateInfo = data;
             return View();
         }
-        //User Donate with PayPal Payment
+
+        /// <summary>
+        /// Handles user donation with PayPal payment.
+        /// </summary>
+        /// <param name="donateId">The donate identifier.</param>
+        /// <param name="money">The amount of money.</param>
+        /// <returns>A redirect to the PayPal payment page or the donate page.</returns>
         [HttpPost]
         public ActionResult UserDonate(int donateId, int money)
         {
             var user = Request.Cookies[MessageConst.USER_LOGIN];
-            if (user == null) {
+            if (user == null)
+            {
                 TempData[MessageConst.ERROR] = "Please login to donate!";
                 return RedirectToAction("Index", "Login");
             }
@@ -80,14 +106,22 @@ namespace WebMvc.Controllers
         #endregion
 
         #region Program
-        //Our Programmes Page
+        /// <summary>
+        /// Displays the our programmes page.
+        /// </summary>
+        /// <returns>The program view.</returns>
         public ActionResult Program()
         {
             Session["menu"] = 5;
             var ls = new ProgramImageDao(_provider).GetAll().Where(w => w.Program.ProHide == false && w.ImgMain == true).ToList();
             return View(ls);
         }
-        //Program Infomation Page
+
+        /// <summary>
+        /// Displays the program information page.
+        /// </summary>
+        /// <param name="id">The program identifier.</param>
+        /// <returns>The program information view.</returns>
         public ActionResult ProgramInformation(int id)
         {
             var model = new ProgramDao(_provider).GetByid(id);
@@ -97,15 +131,22 @@ namespace WebMvc.Controllers
         }
         #endregion
 
-        //About Us Page
+        /// <summary>
+        /// Displays the about us page.
+        /// </summary>
+        /// <returns>The about view.</returns>
         public ActionResult About()
         {
             Session["menu"] = 3;
             var ls = new AboutUsDao(_provider).GetAll().Where(w => w.AboutHide == false).ToList();
             return View(ls);
         }
+
         #region Contact
-        //Contact Us Page
+        /// <summary>
+        /// Displays the contact us page.
+        /// </summary>
+        /// <returns>The contact view.</returns>
         public ActionResult Contact()
         {
             Session["menu"] = 4;
@@ -121,7 +162,12 @@ namespace WebMvc.Controllers
             }
             return View(dataContact);
         }
-        //CREATE QUESTION
+
+        /// <summary>
+        /// Creates a new user question.
+        /// </summary>
+        /// <param name="userQuestion">The user question data.</param>
+        /// <returns>A redirect to the contact page or the home page.</returns>
         [HttpPost]
         public ActionResult CreateQuestion(UserQuestionDTO userQuestion)
         {
@@ -137,15 +183,22 @@ namespace WebMvc.Controllers
         }
         #endregion
 
-        //Our Partners
+        /// <summary>
+        /// Displays the our partners page.
+        /// </summary>
+        /// <returns>The partner view.</returns>
         public ActionResult Partner()
         {
             Session["menu"] = 6;
             ViewBag.lsPartner = new PartnerDao(_provider).GetAll();
-            ViewBag.volunteer = new UserDao(_provider).GetAllUser().Where(w => w.UserVolunteer && w.UserActive && w.RoleID == 2).OrderByDescending(o=>o.MoneyDonate).ToList();
+            ViewBag.volunteer = new UserDao(_provider).GetAllUser().Where(w => w.UserVolunteer && w.UserActive && w.RoleID == 2).OrderByDescending(o => o.MoneyDonate).ToList();
             return View();
         }
-        //Personal Infomation Page
+
+        /// <summary>
+        /// Displays the personal information page.
+        /// </summary>
+        /// <returns>The personal info view.</returns>
         public ActionResult PersonalInfo()
         {
             var cookie = Request.Cookies[MessageConst.USER_LOGIN];
@@ -154,18 +207,21 @@ namespace WebMvc.Controllers
                 TempData[MessageConst.ERROR] = "Please Login";
                 return RedirectToAction("Index", "Login");
             }
-            var userData= new UserDao(_provider).GetUserByEmail(JsonConvert.DeserializeObject<UserLogin>(cookie.Value).UserMail);
+            var userData = new UserDao(_provider).GetUserByEmail(JsonConvert.DeserializeObject<UserLogin>(cookie.Value).UserMail);
             if (userData == null)
             {
                 TempData[MessageConst.ERROR] = "Email incorrect!";
-                return RedirectToAction("SignOut","Login");
+                return RedirectToAction("SignOut", "Login");
             }
 
             return View(userData);
         }
 
         #region PayPal Payment
-        //create method
+        /// <summary>
+        /// Handles the payment with PayPal.
+        /// </summary>
+        /// <returns>A redirect to the PayPal payment page or the donate page.</returns>
         public ActionResult PaymentWithPaypal()
         {
             var apiContext = PaypalConfiguration.GetAPIContext();
@@ -201,7 +257,6 @@ namespace WebMvc.Controllers
                     {
                         TempData[MessageConst.ERROR] = "Donate Failed !";
                         return RedirectToAction("Donate");
-
                     }
                 }
             }
@@ -210,23 +265,19 @@ namespace WebMvc.Controllers
                 PaypalLogger.Log("Error: " + ex.Message);
                 TempData[MessageConst.ERROR] = "Donate Failed !";
                 return RedirectToAction("Donate");
-
             }
             //save donate
             new DonateDao(_provider).AddUserDonate(order);
             TempData[MessageConst.SUCCESS] = "Donate Successfully!";
-          return RedirectToAction("Donate");
+            return RedirectToAction("Donate");
         }
 
-        //work with paypal payment
         private Payment payment;
 
-        //create a payment using an APIContext
         private Payment CreatePayment(APIContext apiContext, string redirectUrl, OrderData order)
         {
             var lsItem = new ItemList() { items = new List<Item>() };
             lsItem.items.Add(new Item { name = order.DonateName, currency = "USD", price = order.Money.ToString(), quantity = "1", sku = "sku" });
-
 
             var payer = new Payer()
             {
@@ -251,7 +302,6 @@ namespace WebMvc.Controllers
                 invoice_number = Convert.ToString((new Random()).Next(100000)),
                 amount = amount,
                 item_list = lsItem,
-
             });
             this.payment = new Payment()
             {
@@ -262,7 +312,7 @@ namespace WebMvc.Controllers
             };
             return this.payment.Create(apiContext);
         }
-        //create execute payment method
+
         private Payment ExecutePayment(APIContext apiContext, string payerID, string paymentID)
         {
             var paymentExecute = new PaymentExecution() { payer_id = payerID };
@@ -271,9 +321,13 @@ namespace WebMvc.Controllers
         }
         #endregion
 
-        //Invite someone
+        /// <summary>
+        /// Sends an email invitation to a friend.
+        /// </summary>
+        /// <param name="email">The email address of the friend.</param>
+        /// <returns>A redirect to the home page.</returns>
         [HttpPost]
-        public async Task<ActionResult> SendMailInvite( string email)
+        public async Task<ActionResult> SendMailInvite(string email)
         {
             var user = new UserDao(_provider).GetUserByEmail(email);
             if (user != null && user.UserActive)
@@ -328,6 +382,5 @@ namespace WebMvc.Controllers
                 return View("Index");
             }
         }
-       
     }
 }

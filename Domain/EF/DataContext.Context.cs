@@ -13,28 +13,82 @@ namespace Domain.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
+    /// <summary>
+    /// Represents the database context for the project.
+    /// </summary>
     public partial class ProjectSem3Entities : DbContext
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProjectSem3Entities"/> class.
+        /// </summary>
         public ProjectSem3Entities()
             : base("name=ProjectSem3Entities")
         {
         }
-    
+
+        /// <summary>
+        /// This method is called when the model for a derived context has been initialized, but
+        /// before the model has been locked down and used to initialize the context.
+        /// </summary>
+        /// <param name="modelBuilder">The builder that defines the model for the context being created.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
+        /// <summary>
+        /// Gets or sets the DbSet for AboutU entities.
+        /// </summary>
         public virtual DbSet<AboutU> AboutUs { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for Category entities.
+        /// </summary>
         public virtual DbSet<Category> Categories { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for Donate entities.
+        /// </summary>
         public virtual DbSet<Donate> Donates { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for Partner entities.
+        /// </summary>
         public virtual DbSet<Partner> Partners { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for Program entities.
+        /// </summary>
         public virtual DbSet<Program> Programs { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for ProgramImage entities.
+        /// </summary>
         public virtual DbSet<ProgramImage> ProgramImages { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for Role entities.
+        /// </summary>
         public virtual DbSet<Role> Roles { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for TypeProgram entities.
+        /// </summary>
         public virtual DbSet<TypeProgram> TypePrograms { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for User entities.
+        /// </summary>
         public virtual DbSet<User> Users { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for UserDonate entities.
+        /// </summary>
         public virtual DbSet<UserDonate> UserDonates { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DbSet for UserQuestion entities.
+        /// </summary>
         public virtual DbSet<UserQuestion> UserQuestions { get; set; }
     }
 }

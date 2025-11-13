@@ -12,26 +12,78 @@ namespace Domain.EF
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Represents a donate entity.
+    /// </summary>
     public partial class Donate
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Donate"/> class.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Donate()
         {
             this.UserDonates = new HashSet<UserDonate>();
         }
-    
+
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the donation.
+        /// </summary>
         public string DonateName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the content of the donation.
+        /// </summary>
         public string DonateContent { get; set; }
+
+        /// <summary>
+        /// Gets or sets the start day of the donation.
+        /// </summary>
         public System.DateTime StartDay { get; set; }
+
+        /// <summary>
+        /// Gets or sets the end day of the donation.
+        /// </summary>
         public System.DateTime EndDay { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status of the donation.
+        /// </summary>
         public int DonateStatus { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the donation is hidden.
+        /// </summary>
         public bool DonateHide { get; set; }
+
+        /// <summary>
+        /// Gets or sets the creation date of the donation.
+        /// </summary>
         public System.DateTime DonateDateCreate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category identifier.
+        /// </summary>
         public int CateID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total money of the donation.
+        /// </summary>
         public decimal TotalMoney { get; set; }
-    
+
+        /// <summary>
+        /// Gets or sets the category associated with this donation.
+        /// </summary>
         public virtual Category Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of user donates associated with this donation.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserDonate> UserDonates { get; set; }
     }

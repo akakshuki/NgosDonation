@@ -10,42 +10,58 @@ using WebMvc.Models.ModelView;
 
 namespace WebMvc.Models.Dao
 {
+    /// <summary>
+    /// Data Access Object for Donate.
+    /// </summary>
     public class DonateDao
     {
-
-        private int STATUS_ENDED = 3;
-        private int ON_GOING = 2;
-        private int UP_COMMING = 1;
+        private const int STATUS_ENDED = 3;
+        private const int ON_GOING = 2;
+        private const int UP_COMING = 1;
 
         private readonly IUnitOfWork _unitOfWork;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DonateDao"/> class.
+        /// </summary>
+        /// <param name="unit">The unit of work.</param>
         public DonateDao(IUnitOfWork unit)
         {
             _unitOfWork = unit;
         }
 
+        /// <summary>
+        /// Checks and updates the status of all donations.
+        /// </summary>
         public void CheckStatusForDonate()
         {
             var data = _unitOfWork.DonateRepository.Get().Where(x => x.DonateStatus != STATUS_ENDED).ToList();
             foreach (var donate in data)
             {
-                if (donate.StartDay > DateTime.Now) donate.DonateStatus = UP_COMMING;
-                if(donate.StartDay<= DateTime.Now && donate.EndDay >= DateTime.Now) donate.DonateStatus = ON_GOING;
+                if (donate.StartDay > DateTime.Now) donate.DonateStatus = UP_COMING;
+                if (donate.StartDay <= DateTime.Now && donate.EndDay >= DateTime.Now) donate.DonateStatus = ON_GOING;
                 if (donate.EndDay < DateTime.Now) donate.DonateStatus = STATUS_ENDED;
                 _unitOfWork.DonateRepository.Edit(donate);
                 _unitOfWork.Commit();
             }
-                
         }
 
-        //get all list donate  
+        /// <summary>
+        /// Gets all donations.
+        /// </summary>
+        /// <returns>A list of donations.</returns>
         public List<DonateDTO> GetAll()
         {
             var data = _unitOfWork.DonateRepository.Get();
             CheckStatusForDonate();
             return MapperProfile.MapperConfig().Map<List<Donate>, List<DonateDTO>>(data.ToList());
         }
-        //
+
+        /// <summary>
+        /// Creates a new donation.
+        /// </summary>
+        /// <param name="donate">The donation to create.</param>
+        /// <returns>True if the creation was successful, otherwise false.</returns>
         public bool Create(DonateDTO donate)
         {
             try
@@ -65,19 +81,34 @@ namespace WebMvc.Models.Dao
             }
         }
 
+        /// <summary>
+        /// Gets a donation by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the donation.</param>
+        /// <returns>The donation.</returns>
         public DonateDTO GetById(int id)
         {
             var data = MapperProfile.MapperConfig().Map<DonateDTO>(_unitOfWork.DonateRepository.GetById(id));
             data.UserDonates = MapperProfile.MapperConfig()
-                .Map<List<UserDonate>,List<UserDonateDTO>>(_unitOfWork.UserDonateRepository.Get().Where(x => x.DonateID == data.ID).ToList());
+                .Map<List<UserDonate>, List<UserDonateDTO>>(_unitOfWork.UserDonateRepository.Get().Where(x => x.DonateID == data.ID).ToList());
             return data;
         }
 
+        /// <summary>
+        /// Gets a donation by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the donation.</param>
+        /// <returns>The donation.</returns>
         public object GetByid(int id)
         {
             return MapperProfile.MapperConfig().Map<Donate, DonateDTO>(_unitOfWork.DonateRepository.GetById(id));
         }
 
+        /// <summary>
+        /// Edits an existing donation.
+        /// </summary>
+        /// <param name="donate">The donation to edit.</param>
+        /// <returns>True if the edit was successful, otherwise false.</returns>
         public bool Edit(DonateDTO donate)
         {
             try
@@ -86,8 +117,8 @@ namespace WebMvc.Models.Dao
                 donate.DonateStatus = donate.StartDay > DateTime.Now ? DonateStatus.Upcoming : DonateStatus.Ongoing;
                 donate.DonateDateCreate = dataDonate.DonateDateCreate;
                 donate.TotalMoney = dataDonate.TotalMoney;
-               var data = MapperProfile.MapperConfig().Map<DonateDTO, Donate>(donate);
-                
+                var data = MapperProfile.MapperConfig().Map<DonateDTO, Donate>(donate);
+
                 _unitOfWork.DonateRepository.Edit(data);
                 return _unitOfWork.Commit();
             }
@@ -98,6 +129,11 @@ namespace WebMvc.Models.Dao
             }
         }
 
+        /// <summary>
+        /// Hides or unhides a donation.
+        /// </summary>
+        /// <param name="id">The ID of the donation.</param>
+        /// <returns>True if the operation was successful, otherwise false.</returns>
         public bool HideDonate(int id)
         {
             var data = _unitOfWork.DonateRepository.GetById(id);
@@ -107,25 +143,33 @@ namespace WebMvc.Models.Dao
             return _unitOfWork.Commit();
         }
 
+        /// <summary>
+        /// Gets all non-hidden donations.
+        /// </summary>
+        /// <returns>A list of non-hidden donations.</returns>
         public List<DonateDTO> GetAllDonateNoHide()
         {
-            var data = _unitOfWork.DonateRepository.Get().Where(x=>!x.DonateHide);
+            var data = _unitOfWork.DonateRepository.Get().Where(x => !x.DonateHide);
             CheckStatusForDonate();
             return MapperProfile.MapperConfig().Map<List<Donate>, List<DonateDTO>>(data.ToList());
         }
 
+        /// <summary>
+        /// Adds a user donation.
+        /// </summary>
+        /// <param name="order">The order data.</param>
         public void AddUserDonate(OrderData order)
         {
             _unitOfWork.UserDonateRepository.Create(new UserDonate()
             {
                 DonateID = order.DonateId,
-                UserID = _unitOfWork.UserRepository.Get().SingleOrDefault(x=>x.UserMail == order.UserMail).ID,
+                UserID = _unitOfWork.UserRepository.Get().SingleOrDefault(x => x.UserMail == order.UserMail).ID,
                 Money = order.Money,
                 TypeCard = "VISA",
                 DateCreate = DateTime.Now
             });
 
-            var donateInfo= _unitOfWork.DonateRepository.GetById(order.DonateId);
+            var donateInfo = _unitOfWork.DonateRepository.GetById(order.DonateId);
             donateInfo.TotalMoney += order.Money;
             _unitOfWork.DonateRepository.Edit(donateInfo);
             var user = _unitOfWork.UserRepository.Get().SingleOrDefault(x => x.UserMail == order.UserMail);

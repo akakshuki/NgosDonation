@@ -14,22 +14,37 @@ using WebMvc.Models.ModelView;
 
 namespace WebMvc.Controllers
 {
+    /// <summary>
+    /// Controller for handling user login, registration, and authentication.
+    /// </summary>
     public class LoginController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginController"/> class.
+        /// </summary>
+        /// <param name="unitOfWork">The unit of work.</param>
         public LoginController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        // GET: Login
-        //form Sign in, sign up, forgot password
+        /// <summary>
+        /// Displays the login page.
+        /// </summary>
+        /// <returns>The login view.</returns>
         public ActionResult Index()
         {
             return View();
         }
-        //method sign in
+
+        /// <summary>
+        /// Handles user sign-in.
+        /// </summary>
+        /// <param name="email">The user's email.</param>
+        /// <param name="password">The user's password.</param>
+        /// <returns>A redirect to the appropriate dashboard or home page.</returns>
         [HttpPost]
         public ActionResult SignIn(string email, string password)
         {
@@ -42,19 +57,18 @@ namespace WebMvc.Controllers
             {
                 if (user.UserPwd == Encrypt.EncryptPasswordMD5(password))
                 {
-                    //use cookie to store user's info
                     var cookie = new HttpCookie(MessageConst.USER_LOGIN);
                     var userData = JsonConvert.SerializeObject(new UserLogin()
                     {
                         UserName = user.UserName,
                         UserMail = user.UserMail,
-                        UserVolunteer=user.UserVolunteer,
-                        RoleId=user.RoleID
+                        UserVolunteer = user.UserVolunteer,
+                        RoleId = user.RoleID
                     });
                     cookie.Value = userData;
                     Response.Cookies.Add(cookie);
-                    TempData[MessageConst.SUCCESS] = "Welcome " + user.UserName+"!";
-                    if (user.RoleID == 1) return RedirectToAction("Index", "Dashboard",new { Area = "Admin" });
+                    TempData[MessageConst.SUCCESS] = "Welcome " + user.UserName + "!";
+                    if (user.RoleID == 1) return RedirectToAction("Index", "Dashboard", new { Area = "Admin" });
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -64,17 +78,25 @@ namespace WebMvc.Controllers
             }
             return RedirectToAction("Index");
         }
-        //method log out account
+
+        /// <summary>
+        /// Handles user sign-out.
+        /// </summary>
+        /// <returns>A redirect to the login page.</returns>
         public ActionResult SignOut()
         {
-            //remove session
             var cookie = Request.Cookies[MessageConst.USER_LOGIN];
             var user = JsonConvert.DeserializeObject<UserLogin>(cookie.Value);
             Session[user.UserMail] = null;
             Response.Cookies[MessageConst.USER_LOGIN].Expires = DateTime.Now.AddDays(-1);
             return RedirectToAction("Index");
         }
-        //method sign up
+
+        /// <summary>
+        /// Handles user registration.
+        /// </summary>
+        /// <param name="user">The user data.</param>
+        /// <returns>A redirect to the login page.</returns>
         [HttpPost]
         public ActionResult Register(UserDTO user)
         {
@@ -105,8 +127,14 @@ namespace WebMvc.Controllers
                 return RedirectToAction("Index");
             }
         }
-        //form Create password
-        public async Task<ActionResult> ForgotPwd(string email,int stt=0)
+
+        /// <summary>
+        /// Displays the forgot password page and sends a password reset email.
+        /// </summary>
+        /// <param name="email">The user's email.</param>
+        /// <param name="stt">The status.</param>
+        /// <returns>The forgot password view.</returns>
+        public async Task<ActionResult> ForgotPwd(string email, int stt = 0)
         {
             ViewBag.mail = email;
             if (stt == 0)
@@ -124,7 +152,7 @@ namespace WebMvc.Controllers
                         var randomCode = new Random().Next(1000, 9999).ToString();
                         var MyMailMessage = new MailMessage
                         {
-                            From = new MailAddress("giangbaccai1207@gmail.com","NGO")
+                            From = new MailAddress("giangbaccai1207@gmail.com", "NGO")
                         };
                         MyMailMessage.To.Add(email);// Mail would be sent to this address
                         MyMailMessage.Subject = "NGO Support";
@@ -159,8 +187,15 @@ namespace WebMvc.Controllers
             }
             return View();
         }
-        //method reset passowrd
-        public ActionResult ResetPassword(string secretCode, string newPassword,string email)
+
+        /// <summary>
+        /// Resets the user's password.
+        /// </summary>
+        /// <param name="secretCode">The secret code.</param>
+        /// <param name="newPassword">The new password.</param>
+        /// <param name="email">The user's email.</param>
+        /// <returns>A redirect to the login page.</returns>
+        public ActionResult ResetPassword(string secretCode, string newPassword, string email)
         {
             var emailCheck = Session[secretCode] as string;
             if (email != emailCheck)
@@ -176,7 +211,13 @@ namespace WebMvc.Controllers
 
             return RedirectToAction("Index");
         }
-        //Change passowrd in Personal Infomation
+
+        /// <summary>
+        /// Changes the user's password.
+        /// </summary>
+        /// <param name="oldpass">The old password.</param>
+        /// <param name="newpass">The new password.</param>
+        /// <returns>A redirect to the personal info page.</returns>
         [HttpPost]
         public ActionResult ChangePassword(string oldpass, string newpass)
         {
@@ -186,7 +227,7 @@ namespace WebMvc.Controllers
                 TempData[MessageConst.ERROR] = " Please Login!";
                 return RedirectToAction("Index");
             }
-            var email= JsonConvert.DeserializeObject<UserLogin>(cookie.Value).UserMail;
+            var email = JsonConvert.DeserializeObject<UserLogin>(cookie.Value).UserMail;
             var user = new UserDao(_unitOfWork).GetUserByEmail(email);
             if (user == null)
             {
@@ -196,14 +237,19 @@ namespace WebMvc.Controllers
             if (user.UserPwd != Encrypt.EncryptPasswordMD5(oldpass))
             {
                 TempData[MessageConst.ERROR] = "Password incorrect!";
-                return RedirectToAction("PersonalInfo","Home");
+                return RedirectToAction("PersonalInfo", "Home");
             }
             if (!new UserDao(_unitOfWork).ChangePassword(newpass, email)) TempData[MessageConst.ERROR] = "Change password failed";
             else TempData[MessageConst.ERROR] = "Change password successfully !";
 
             return RedirectToAction("PersonalInfo", "Home");
         }
-        //Edit info user in Personal INformation
+
+        /// <summary>
+        /// Edits the user's information.
+        /// </summary>
+        /// <param name="user">The user data.</param>
+        /// <returns>A redirect to the personal info page.</returns>
         [HttpPost]
         public ActionResult EditUser(UserDTO user)
         {
@@ -215,7 +261,8 @@ namespace WebMvc.Controllers
                 {
                     Value = JsonConvert.SerializeObject(new UserLogin()
                     {
-                        UserMail = user.UserMail, UserName = user.UserName
+                        UserMail = user.UserMail,
+                        UserName = user.UserName
                     })
                 };
                 Response.Cookies.Add(cookie);
@@ -224,7 +271,7 @@ namespace WebMvc.Controllers
             {
                 TempData[MessageConst.ERROR] = "Change info failed!";
             }
-           
+
             return RedirectToAction("PersonalInfo", "Home");
         }
     }

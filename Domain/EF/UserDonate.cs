@@ -12,16 +12,49 @@ namespace Domain.EF
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Represents a user donate entity.
+    /// </summary>
     public partial class UserDonate
     {
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the donate identifier.
+        /// </summary>
         public int DonateID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the card.
+        /// </summary>
         public string TypeCard { get; set; }
+
+        /// <summary>
+        /// Gets or sets the amount of money.
+        /// </summary>
         public decimal Money { get; set; }
+
+        /// <summary>
+        /// Gets or sets the creation date.
+        /// </summary>
         public System.DateTime DateCreate { get; set; }
-    
+
+        /// <summary>
+        /// Gets or sets the donate associated with this user donate.
+        /// </summary>
         public virtual Donate Donate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user associated with this user donate.
+        /// </summary>
         public virtual User User { get; set; }
     }
 }

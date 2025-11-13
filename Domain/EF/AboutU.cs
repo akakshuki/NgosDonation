@@ -12,12 +12,34 @@ namespace Domain.EF
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Represents the AboutU entity.
+    /// </summary>
     public partial class AboutU
     {
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the about section.
+        /// </summary>
         public string AboutName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the content of the about section.
+        /// </summary>
         public string AboutContent { get; set; }
+
+        /// <summary>
+        /// Gets or sets the image of the about section.
+        /// </summary>
         public string AboutImage { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the about section is hidden.
+        /// </summary>
         public bool AboutHide { get; set; }
     }
 }

@@ -12,17 +12,33 @@ namespace Domain.EF
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Represents a type of program entity.
+    /// </summary>
     public partial class TypeProgram
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TypeProgram"/> class.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TypeProgram()
         {
             this.Programs = new HashSet<Program>();
         }
-    
+
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the type.
+        /// </summary>
         public string TypeName { get; set; }
-    
+
+        /// <summary>
+        /// Gets or sets the collection of programs associated with this type.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Program> Programs { get; set; }
     }

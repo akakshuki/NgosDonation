@@ -12,13 +12,34 @@ namespace Domain.EF
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Represents a program image entity.
+    /// </summary>
     public partial class ProgramImage
     {
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the program identifier.
+        /// </summary>
         public int ProID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the image file name.
+        /// </summary>
         public string ImgFileName { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this is the main image.
+        /// </summary>
         public bool ImgMain { get; set; }
-    
+
+        /// <summary>
+        /// Gets or sets the program associated with this image.
+        /// </summary>
         public virtual Program Program { get; set; }
     }
 }

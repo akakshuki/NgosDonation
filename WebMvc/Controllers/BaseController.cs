@@ -7,9 +7,15 @@ using WebMvc.Models.ModelView;
 
 namespace WebMvc.Controllers
 {
+    /// <summary>
+    /// Base controller for handling user authentication and authorization.
+    /// </summary>
     public class BaseController : Controller
     {
-        //check cookie when start controller with implent this controller
+        /// <summary>
+        /// Called after an action method executes.
+        /// </summary>
+        /// <param name="filterContext">The filter context.</param>
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             var cookie = Request.Cookies[MessageConst.USER_LOGIN];
@@ -21,7 +27,7 @@ namespace WebMvc.Controllers
             else
             {
                 var user = JsonConvert.DeserializeObject<UserLogin>(cookie.Value);
-                if (user.RoleId != 1 || user==null)
+                if (user.RoleId != 1 || user == null)
                 {
                     filterContext.Result = new RedirectToRouteResult(new
                         RouteValueDictionary(new { controller = "home", action = "Index", area = "" }));
